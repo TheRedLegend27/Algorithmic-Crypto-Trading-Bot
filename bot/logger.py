@@ -1,13 +1,26 @@
 """
 Comprehensive logging system for the crypto trading bot.
-Provides rich terminal display and file-based logging.
+Provides rich terminal display and file-based logging with configurable verbosity levels.
+
+This module implements a flexible logging system that supports:
+- Colored console output using the rich library
+- File-based logging for trades, signals, and errors
+- Configurable verbosity levels
+- Real-time dashboard display
+
+Classes:
+    TradeRecord: Data structure for trade information
+    SignalRecord: Data structure for trading signals
+    PositionRecord: Data structure for position information
+    TradingLogger: Main logging orchestrator
 """
 import os
 import logging
 import datetime
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Union
 from dataclasses import dataclass, asdict
 from pathlib import Path
+from enum import Enum
 
 from rich.console import Console
 from rich.table import Table
@@ -16,6 +29,40 @@ from rich.layout import Layout
 from rich.live import Live
 from rich.text import Text
 from rich.logging import RichHandler
+
+
+class LogLevel(Enum):
+    """Enum for log levels with descriptive names"""
+    DEBUG = logging.DEBUG
+    INFO = logging.INFO
+    WARNING = logging.WARNING
+    ERROR = logging.ERROR
+    CRITICAL = logging.CRITICAL
+    
+    @classmethod
+    def from_string(cls, level_name: str) -> int:
+        """Convert string log level to numeric value"""
+        try:
+            return cls[level_name].value
+        except KeyError:
+            valid_levels = [level.name for level in cls]
+            raise ValueError(f"Invalid log level: {level_name}. Valid levels are: {', '.join(valid_levels)}")
+            
+    @classmethod
+    def get_description(cls, level: Union[int, str]) -> str:
+        """Get description for a log level"""
+        if isinstance(level, str):
+            level = cls.from_string(level)
+            
+        descriptions = {
+            logging.DEBUG: "Detailed debugging information",
+            logging.INFO: "Confirmation that things are working as expected",
+            logging.WARNING: "Indication that something unexpected happened",
+            logging.ERROR: "Due to a more serious problem, the software has not been able to perform some function",
+            logging.CRITICAL: "A serious error, indicating that the program itself may be unable to continue running"
+        }
+        
+        return descriptions.get(level, "Unknown log level")
 
 # Define data structures for logging
 @dataclass
@@ -69,17 +116,38 @@ class TradingLogger:
     Provides rich terminal display and file-based logging.
     """
     
-    def __init__(self, log_dir: str = "logs", use_rich: bool = True):
+    def __init__(self, log_dir: str = "logs", use_rich: bool = True, 
+                 log_level: Union[str, int] = logging.INFO, log_file: str = "bot.log",
+                 max_trades_history: int = 50, max_signals_history: int = 50,
+                 max_errors_history: int = 20, console_width: int = None):
         """
         Initialize the trading logger.
         
         Args:
             log_dir: Directory for log files
             use_rich: Whether to use rich for terminal display
+            log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+            log_file: Path to main log file
+            max_trades_history: Maximum number of trades to keep in history
+            max_signals_history: Maximum number of signals to keep in history
+            max_errors_history: Maximum number of errors to keep in history
+            console_width: Width of the console display (None for auto-detect)
         """
         self.use_rich = use_rich
         self.log_dir = log_dir
-        self.console = Console()
+        self.log_file = log_file
+        self.max_trades_history = max_trades_history
+        self.max_signals_history = max_signals_history
+        self.max_errors_history = max_errors_history
+        
+        # Convert string log level to numeric if needed
+        if isinstance(log_level, str):
+            self.log_level = LogLevel.from_string(log_level)
+        else:
+            self.log_level = log_level
+            
+        # Initialize console with optional width
+        self.console = Console(width=console_width)
         
         # Create log directory if it doesn't exist
         os.makedirs(log_dir, exist_ok=True)
@@ -101,38 +169,79 @@ class TradingLogger:
         # Live display
         self.layout = self._create_layout()
         self.live = None
+        
+        # Log initialization
+        self.log_info(f"Logger initialized with level: {logging.getLevelName(self.log_level)} "
+                     f"({LogLevel.get_description(self.log_level)})")
     
     def _setup_file_loggers(self) -> None:
-        """Set up file-based loggers for different types of logs"""
+        """
+        Set up file-based loggers for different types of logs with configurable log levels.
+        
+        This method configures multiple loggers:
+        - Main logger: General application logs
+        - Trade logger: Records of executed trades
+        - Signal logger: Records of generated trading signals
+        - Error logger: Detailed error logs
+        """
+        # Create formatter with more detailed format for file logs
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        
         # Main logger
         self.logger = logging.getLogger("crypto_bot")
-        self.logger.setLevel(logging.INFO)
+        self.logger.setLevel(self.log_level)
         
-        # Trade logger
+        # Add file handler to main logger if log_file is specified
+        if self.log_file:
+            main_handler = logging.FileHandler(self.log_file)
+            main_handler.setFormatter(formatter)
+            main_handler.setLevel(self.log_level)
+            
+            # Remove existing handlers
+            for handler in self.logger.handlers[:]:
+                if isinstance(handler, logging.FileHandler):
+                    self.logger.removeHandler(handler)
+                    
+            self.logger.addHandler(main_handler)
+        
+        # Trade logger - always at INFO level or lower
         self.trade_logger = logging.getLogger("crypto_bot.trades")
-        self.trade_logger.setLevel(logging.INFO)
+        trade_level = min(self.log_level, logging.INFO)  # Don't hide trades even at higher log levels
+        self.trade_logger.setLevel(trade_level)
+        
+        # Remove existing handlers
+        for handler in self.trade_logger.handlers[:]:
+            self.trade_logger.removeHandler(handler)
+            
         trade_handler = logging.FileHandler(f"{self.log_dir}/trades.log")
-        trade_handler.setFormatter(logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        ))
+        trade_handler.setFormatter(formatter)
         self.trade_logger.addHandler(trade_handler)
         
-        # Signal logger
+        # Signal logger - configurable level
         self.signal_logger = logging.getLogger("crypto_bot.signals")
-        self.signal_logger.setLevel(logging.INFO)
+        self.signal_logger.setLevel(self.log_level)
+        
+        # Remove existing handlers
+        for handler in self.signal_logger.handlers[:]:
+            self.signal_logger.removeHandler(handler)
+            
         signal_handler = logging.FileHandler(f"{self.log_dir}/signals.log")
-        signal_handler.setFormatter(logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        ))
+        signal_handler.setFormatter(formatter)
         self.signal_logger.addHandler(signal_handler)
         
-        # Error logger
+        # Error logger - always at ERROR level or lower
         self.error_logger = logging.getLogger("crypto_bot.errors")
-        self.error_logger.setLevel(logging.ERROR)
+        error_level = min(self.log_level, logging.ERROR)  # Don't hide errors even at higher log levels
+        self.error_logger.setLevel(error_level)
+        
+        # Remove existing handlers
+        for handler in self.error_logger.handlers[:]:
+            self.error_logger.removeHandler(handler)
+            
         error_handler = logging.FileHandler(f"{self.log_dir}/errors.log")
-        error_handler.setFormatter(logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        ))
+        error_handler.setFormatter(formatter)
         self.error_logger.addHandler(error_handler)
     
     def _setup_rich_logger(self) -> None:
@@ -317,7 +426,7 @@ class TradingLogger:
         
         # Add to recent trades
         self.recent_trades.append(trade)
-        if len(self.recent_trades) > 50:  # Keep only last 50 trades
+        if len(self.recent_trades) > self.max_trades_history:
             self.recent_trades.pop(0)
         
         # Update terminal display
@@ -338,7 +447,7 @@ class TradingLogger:
         
         # Add to recent signals
         self.recent_signals.append(signal)
-        if len(self.recent_signals) > 50:  # Keep only last 50 signals
+        if len(self.recent_signals) > self.max_signals_history:
             self.recent_signals.pop(0)
         
         # Update terminal display
@@ -362,7 +471,7 @@ class TradingLogger:
         
         # Add to recent errors
         self.errors.append(error_msg)
-        if len(self.errors) > 20:  # Keep only last 20 errors
+        if len(self.errors) > self.max_errors_history:
             self.errors.pop(0)
         
         # Update terminal display

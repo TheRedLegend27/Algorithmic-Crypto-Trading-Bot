@@ -160,21 +160,107 @@ def validate_numeric(value: Any, min_value: Optional[float] = None,
         return False
 
 
-def safe_execute(func: Callable, *args, default_return: Any = None, **kwargs) -> Any:
+def safe_execute(func: Callable, *args, default_return: Any = None, 
+               log_exception: bool = True, raise_critical: bool = False,
+               critical_exceptions: tuple = (KeyboardInterrupt, SystemExit),
+               **kwargs) -> Any:
     """
     Safely execute a function and return a default value on exception.
+    
+    This function provides a way to execute potentially risky operations
+    with proper error handling and logging.
     
     Args:
         func: The function to execute
         *args: Arguments to pass to the function
         default_return: Value to return if an exception occurs
+        log_exception: Whether to log the exception (default: True)
+        raise_critical: Whether to re-raise critical exceptions (default: False)
+        critical_exceptions: Tuple of exception types considered critical
         **kwargs: Keyword arguments to pass to the function
         
     Returns:
         The function result or default_return on exception
+        
+    Raises:
+        Exception: Re-raises critical exceptions if raise_critical is True
     """
     try:
         return func(*args, **kwargs)
-    except Exception as e:
-        log_error(f"Error executing {func.__name__}", e)
+    except critical_exceptions as e:
+        # Always log critical exceptions
+        log_error(f"Critical error executing {func.__name__}", e)
+        if raise_critical:
+            raise
         return default_return
+    except Exception as e:
+        if log_exception:
+            log_error(f"Error executing {func.__name__}", e)
+        return default_return
+
+
+def validate_api_response(response: Any, required_fields: list = None) -> bool:
+    """
+    Validate that an API response contains the required fields and is not empty.
+    
+    Args:
+        response: The API response to validate
+        required_fields: List of fields that must be present in the response
+        
+    Returns:
+        bool: True if the response is valid, False otherwise
+    """
+    # Check if response is None or empty
+    if response is None:
+        return False
+        
+    if isinstance(response, dict):
+        if not response:
+            return False
+            
+        # Check for required fields
+        if required_fields:
+            return all(field in response for field in required_fields)
+            
+        return True
+    elif isinstance(response, list):
+        if not response:
+            return False
+            
+        # If required_fields is specified, check the first item
+        if required_fields and isinstance(response[0], dict):
+            return all(field in response[0] for field in required_fields)
+            
+        return True
+    else:
+        # For primitive types, just check if it's truthy
+        return bool(response)
+
+
+def format_error_for_user(exception: Exception) -> str:
+    """
+    Format an exception into a user-friendly error message.
+    
+    Args:
+        exception: The exception to format
+        
+    Returns:
+        str: User-friendly error message
+    """
+    error_type = type(exception).__name__
+    error_msg = str(exception)
+    
+    # Handle common API errors
+    if "rate limit" in error_msg.lower():
+        return "API rate limit exceeded. The bot will automatically retry with backoff."
+    elif "unauthorized" in error_msg.lower():
+        return "API authentication failed. Please check your API credentials."
+    elif "not found" in error_msg.lower():
+        return "Requested resource not found. Please check your configuration."
+    elif "timeout" in error_msg.lower():
+        return "API request timed out. The bot will automatically retry."
+    elif "connection" in error_msg.lower():
+        return "Network connection error. Please check your internet connection."
+    else:
+        # Generic error message
+        return f"An error occurred: {error_type} - {error_msg}"
