@@ -27,7 +27,7 @@ A modular cryptocurrency trading bot that uses technical analysis strategies to 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/crypto-trading-bot.git
+   git clone https://github.com/TheRedLegend27/Algorithmic-Crypto-Trading-Bot
    cd crypto-trading-bot
    ```
 
