@@ -63,58 +63,101 @@ class DataFetcher:
         """
         self._respect_rate_limit()
         
-        # For testing purposes, generate mock data
-        log_info(f"Generating mock data for {symbol} with timeframe {timeframe}")
+        # Parse timeframe string to TimeFrame enum
+        tf_mapping = {
+            "1Min": TimeFrame.Minute,
+            "5Min": TimeFrame.Minute,
+            "15Min": TimeFrame.Minute,
+            "1H": TimeFrame.Hour,
+            "1D": TimeFrame.Day
+        }
         
-        # Create mock data
+        if timeframe not in tf_mapping:
+            raise ValueError(f"Invalid timeframe: {timeframe}. Must be one of {list(tf_mapping.keys())}")
+        
+        # Calculate start and end times
         end_time = datetime.now()
-        timestamps = [end_time - timedelta(minutes=i*5) for i in range(limit)]
-        timestamps.reverse()  # Oldest first
+        start_time = self._calculate_start_time(end_time, timeframe, limit * 2)
         
-        # Generate some realistic price data
-        base_price = 30000.0  # Base price for BTC
-        if "ETH" in symbol:
-            base_price = 2000.0
-        elif "SOL" in symbol:
-            base_price = 100.0
-            
-        # Generate random price movements
-        import random
-        random.seed(42)  # For reproducibility
+        log_info(f"Fetching {symbol} data from {start_time} to {end_time}")
         
-        prices = []
-        price = base_price
-        for _ in range(limit):
-            # Random price movement between -1% and +1%
-            price_change = price * (random.random() * 0.02 - 0.01)
-            price += price_change
-            prices.append(price)
-            
-        # Create DataFrame
-        data = []
-        for i, ts in enumerate(timestamps):
-            price = prices[i]
-            # Generate OHLC with some variation
-            open_price = price * (1 + (random.random() * 0.005 - 0.0025))
-            high_price = price * (1 + random.random() * 0.005)
-            low_price = price * (1 - random.random() * 0.005)
-            close_price = price
-            volume = random.random() * 10 + 1  # Random volume between 1 and 11
-            
-            data.append({
-                'timestamp': ts,
-                'open': open_price,
-                'high': high_price,
-                'low': low_price,
-                'close': close_price,
-                'volume': volume
-            })
-            
-        df = pd.DataFrame(data)
-        df.set_index('timestamp', inplace=True)
+        # Create the request with appropriate timeframe
+        tf = tf_mapping[timeframe]
         
-        log_info(f"Generated mock data with {len(df)} rows")
-        return df
+        # Handle special cases for 5Min and 15Min by using 1Min data and resampling
+        if timeframe in ["5Min", "15Min"]:
+            request_params = CryptoBarsRequest(
+                symbol_or_symbols=symbol,
+                timeframe=TimeFrame.Minute,
+                start=start_time,
+                end=end_time
+            )
+        else:
+            request_params = CryptoBarsRequest(
+                symbol_or_symbols=symbol,
+                timeframe=tf,
+                start=start_time,
+                end=end_time
+            )
+        
+        # Make the request
+        try:
+            log_info(f"Requesting data for symbol: {symbol}, timeframe: {timeframe}")
+            bars = self.client.get_crypto_bars(request_params)
+            
+            # Debug: Log the response type and content
+            log_info(f"Response type: {type(bars)}")
+            log_info(f"Response content: {bars}")
+            
+            # Convert to DataFrame
+            # Handle BarSet response format from Alpaca API
+            if hasattr(bars, 'data') and isinstance(bars.data, dict):
+                # BarSet format: bars.data is a dictionary with symbol keys
+                available_symbols = list(bars.data.keys()) if bars.data else []
+                log_info(f"Available symbols in response: {available_symbols}")
+                if not bars.data or symbol not in bars.data:
+                    log_error(f"No data returned for {symbol}. Available symbols: {available_symbols}")
+                    raise ValueError(f"No data returned for {symbol}")
+                df = self._bars_to_dataframe(bars.data[symbol])
+            elif hasattr(bars, 'keys'):
+                # Dictionary-like response
+                available_symbols = list(bars.keys()) if bars else []
+                log_info(f"Available symbols in response: {available_symbols}")
+                if not bars or symbol not in bars:
+                    log_error(f"No data returned for {symbol}. Available symbols: {available_symbols}")
+                    raise ValueError(f"No data returned for {symbol}")
+                df = self._bars_to_dataframe(bars[symbol])
+            else:
+                # Other formats
+                log_info(f"Response attributes: {dir(bars)}")
+                if hasattr(bars, 'df'):
+                    # Some versions return a dataframe directly
+                    df = bars.df
+                    if df.empty:
+                        raise ValueError(f"No data returned for {symbol}")
+                else:
+                    log_error(f"No data returned for {symbol}. Response type: {type(bars)}")
+                    raise ValueError(f"No data returned for {symbol}")
+            
+            # Resample data if needed
+            if timeframe == "5Min":
+                df = self._resample_dataframe(df, '5T')
+            elif timeframe == "15Min":
+                df = self._resample_dataframe(df, '15T')
+            
+            # Validate the data
+            if not self.validate_data(df):
+                raise ValueError("Data validation failed")
+                
+            # Trim to requested limit
+            if len(df) > limit:
+                df = df.tail(limit)
+                
+            return df
+            
+        except Exception as e:
+            log_error(f"Error fetching data for {symbol}: {str(e)}")
+            raise
     
     def _calculate_start_time(self, end_time: datetime, timeframe: str, 
                              num_bars: int) -> datetime:
@@ -155,13 +198,22 @@ class DataFetcher:
         """
         data = []
         for bar in bars:
+            # Handle different timestamp formats
+            timestamp = bar.timestamp
+            if hasattr(timestamp, 'to_pydatetime'):
+                timestamp = timestamp.to_pydatetime()
+            elif isinstance(timestamp, tuple):
+                # Handle tuple format - convert to datetime
+                from datetime import datetime
+                timestamp = datetime(*timestamp[:6])  # year, month, day, hour, minute, second
+            
             data.append({
-                'timestamp': bar.timestamp,
-                'open': bar.open,
-                'high': bar.high,
-                'low': bar.low,
-                'close': bar.close,
-                'volume': bar.volume
+                'timestamp': timestamp,
+                'open': float(bar.open),
+                'high': float(bar.high),
+                'low': float(bar.low),
+                'close': float(bar.close),
+                'volume': float(bar.volume) if bar.volume else 0.0
             })
         
         df = pd.DataFrame(data)
@@ -221,7 +273,7 @@ class DataFetcher:
         self._respect_rate_limit()
         
         try:
-            # Get the most recent bar from mock data
+            # Get the most recent bar
             df = self.fetch_crypto_data(symbol, timeframe="1Min", limit=1)
             
             if df.empty:
@@ -248,10 +300,13 @@ class DataFetcher:
             log_warning("Empty DataFrame received")
             return False
         
-        # Check for minimum number of rows
-        if len(data) < 2:
-            log_warning(f"Insufficient data points: {len(data)}")
+        # Check for minimum number of rows (be more lenient for health checks)
+        if len(data) < 1:
+            log_warning(f"No data points received: {len(data)}")
             return False
+        elif len(data) < 2:
+            log_warning(f"Limited data points: {len(data)} (this may be normal for recent data)")
+            # Don't fail validation for this, just warn
         
         # Check for required columns
         required_columns = ['open', 'high', 'low', 'close', 'volume']
@@ -290,14 +345,120 @@ class DataFetcher:
             return False
         
         # Check for stale data (if the latest timestamp is too old)
-        latest_timestamp = data.index.max()
-        time_diff = datetime.now() - latest_timestamp.to_pydatetime()
-        if time_diff > timedelta(hours=1):
-            log_warning(f"Data may be stale. Latest timestamp: {latest_timestamp}, "
-                       f"Time difference: {time_diff}")
-            # We don't fail validation for this, just warn
+        try:
+            latest_timestamp = data.index.max()
+            if hasattr(latest_timestamp, 'to_pydatetime'):
+                latest_dt = latest_timestamp.to_pydatetime()
+            else:
+                latest_dt = latest_timestamp
+            
+            time_diff = datetime.now() - latest_dt
+            if time_diff > timedelta(hours=1):
+                log_warning(f"Data may be stale. Latest timestamp: {latest_timestamp}, "
+                           f"Time difference: {time_diff}")
+                # We don't fail validation for this, just warn
+        except Exception as e:
+            log_warning(f"Could not check data staleness: {str(e)}")
+            # Continue without failing validation
         
         return True
+    
+    def _fetch_fallback_data(self, symbol: str, timeframe: str, limit: int) -> pd.DataFrame:
+        """
+        Fetch data from a free crypto API as fallback when Alpaca fails.
+        
+        Args:
+            symbol: The trading pair symbol (e.g., "BTC/USD")
+            timeframe: The timeframe for the data
+            limit: Number of data points to retrieve
+            
+        Returns:
+            DataFrame containing OHLCV data
+        """
+        log_info(f"Using CoinGecko API as fallback for {symbol}")
+        
+        # Convert symbol format (BTC/USD -> bitcoin)
+        symbol_mapping = {
+            "BTC/USD": "bitcoin",
+            "ETH/USD": "ethereum",
+            "SOL/USD": "solana",
+            "ADA/USD": "cardano",
+            "DOT/USD": "polkadot"
+        }
+        
+        coin_id = symbol_mapping.get(symbol, "bitcoin")
+        
+        # Calculate days needed based on timeframe and limit
+        if timeframe == "1Min":
+            days = max(1, limit // (24 * 60))
+        elif timeframe == "5Min":
+            days = max(1, limit // (24 * 12))
+        elif timeframe == "15Min":
+            days = max(1, limit // (24 * 4))
+        elif timeframe == "1H":
+            days = max(1, limit // 24)
+        else:  # 1D
+            days = limit
+            
+        days = min(days, 90)  # CoinGecko free API limit
+        
+        # Fetch data from CoinGecko
+        url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart"
+        params = {
+            "vs_currency": "usd",
+            "days": days,
+            "interval": "hourly" if timeframe in ["1H", "1D"] else "minutely"
+        }
+        
+        try:
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            # Extract price data
+            prices = data.get("prices", [])
+            volumes = data.get("total_volumes", [])
+            
+            if not prices:
+                raise ValueError("No price data received from CoinGecko")
+            
+            # Convert to DataFrame
+            df_data = []
+            for i, (timestamp_ms, price) in enumerate(prices):
+                timestamp = datetime.fromtimestamp(timestamp_ms / 1000)
+                volume = volumes[i][1] if i < len(volumes) else 1000000  # Default volume
+                
+                # Generate OHLC from price (simplified)
+                price_variation = price * 0.001  # 0.1% variation
+                df_data.append({
+                    'timestamp': timestamp,
+                    'open': price - price_variation,
+                    'high': price + price_variation,
+                    'low': price - price_variation,
+                    'close': price,
+                    'volume': volume
+                })
+            
+            df = pd.DataFrame(df_data)
+            df.set_index('timestamp', inplace=True)
+            df.sort_index(inplace=True)
+            
+            # Resample if needed
+            if timeframe == "5Min":
+                df = self._resample_dataframe(df, '5T')
+            elif timeframe == "15Min":
+                df = self._resample_dataframe(df, '15T')
+            
+            # Trim to requested limit
+            if len(df) > limit:
+                df = df.tail(limit)
+            
+            log_info(f"Successfully fetched {len(df)} data points from CoinGecko for {symbol}")
+            return df
+            
+        except Exception as e:
+            log_error(f"CoinGecko API failed: {str(e)}")
+            raise
     
     def handle_api_errors(self, error: Exception) -> bool:
         """
