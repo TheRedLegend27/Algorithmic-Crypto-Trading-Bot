@@ -19,7 +19,7 @@ from bot.trader import Trader
 from bot.logger import TradeRecord
 from bot.logger import TradingLogger, PositionRecord
 from bot.utils import log_error, log_info, log_warning, safe_execute
-from bot.error_handler import ErrorHandler, ErrorType, with_error_handling
+from bot.error_handler import ErrorHandler, ErrorCategory, handle_error
 
 
 class TradingCycle:
@@ -53,7 +53,6 @@ class TradingCycle:
         self.error_handler = error_handler or ErrorHandler()
         self.previous_data = None  # Store previous data for fallback
     
-    @with_error_handling(None, "trading_cycle_execution", max_retries=3)
     def _fetch_market_data(self):
         """
         Fetch market data with error handling.
@@ -61,19 +60,18 @@ class TradingCycle:
         Returns:
             DataFrame with market data or None if failed
         """
-        # Use the instance's error handler
-        # The decorator will use this error handler instead of the None passed above
-        with_error_handling.current_error_handler = self.error_handler
-        
-        data = self.data_fetcher.fetch_crypto_data(self.symbol, timeframe="5Min", limit=50)
-        
-        # Store successful data for fallback
-        if data is not None and not data.empty:
-            self.previous_data = data
+        try:
+            data = self.data_fetcher.fetch_crypto_data(self.symbol, timeframe="5Min", limit=50)
             
-        return data
+            # Store successful data for fallback
+            if data is not None and not data.empty:
+                self.previous_data = data
+                
+            return data
+        except Exception as e:
+            handle_error(e, "trading_cycle_execution")
+            return None
     
-    @with_error_handling(None, "strategy_evaluation", max_retries=2)
     def _evaluate_strategies(self, data):
         """
         Evaluate trading strategies with error handling.
@@ -84,12 +82,12 @@ class TradingCycle:
         Returns:
             TradingSignal object
         """
-        # Use the instance's error handler
-        with_error_handling.current_error_handler = self.error_handler
-        
-        return self.signal_generator.evaluate_all_strategies(data)
+        try:
+            return self.signal_generator.evaluate_all_strategies(data)
+        except Exception as e:
+            handle_error(e, "strategy_evaluation")
+            return None
     
-    @with_error_handling(None, "trade_execution", max_retries=1)
     def _execute_trade(self, signal):
         """
         Execute trade with error handling.
@@ -100,12 +98,13 @@ class TradingCycle:
         Returns:
             TradeResult object or None if failed
         """
-        # Use the instance's error handler
-        with_error_handling.current_error_handler = self.error_handler
-        
-        if signal.action.value != "HOLD" and signal.confidence > 0.3:
-            return self.trader.execute_trade(signal)
-        return None
+        try:
+            if signal.action.value != "HOLD" and signal.confidence > 0.3:
+                return self.trader.execute_trade(signal)
+            return None
+        except Exception as e:
+            handle_error(e, "trade_execution")
+            return None
     
     def execute(self) -> bool:
         """
@@ -192,7 +191,7 @@ class TradingCycle:
             self.logger.log_error(e, "Trading cycle execution")
             
             # Check if we should activate circuit breaker
-            if self.error_handler.should_circuit_break(ErrorType.UNKNOWN, threshold=5, time_window=600):
+            if self.error_count > 5:
                 log_error("Circuit breaker activated due to frequent errors")
                 # In a real system, we might want to pause trading for a while
                 

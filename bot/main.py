@@ -19,6 +19,7 @@ from bot.trader import Trader
 from bot.logger import TradingLogger
 from bot.scheduler import TradingCycle, TradingScheduler
 from bot.utils import log_info, log_error, log_warning, retry_with_backoff
+from bot.error_handler import ErrorHandler
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -240,11 +241,17 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
     signal_generator = SignalGenerator(strategies)
     
     # Initialize trader with appropriate settings
+    # Update paper_trading in credentials if dry run is enabled
+    if args.dry_run:
+        credentials.paper_trading = True
+        
     trader = Trader(
         credentials=credentials,
-        settings=settings,
-        paper_trading=credentials.paper_trading or args.dry_run
+        settings=settings
     )
+    
+    # Initialize error handler
+    error_handler = ErrorHandler()
     
     # Initialize trading cycle
     trading_cycle = TradingCycle(
@@ -252,16 +259,15 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
         signal_generator=signal_generator,
         trader=trader,
         logger=logger,
-        symbol=settings.symbol,
-        backtest_mode=args.backtest,
-        backtest_days=args.backtest_days if args.backtest else None
+        error_handler=error_handler,
+        symbol=settings.symbol
     )
     
     # Initialize scheduler with appropriate settings
     scheduler = TradingScheduler(
         trading_cycle=trading_cycle,
         interval_minutes=args.interval,
-        start_delay=args.start_delay
+        error_handler=error_handler
     )
     
     return {

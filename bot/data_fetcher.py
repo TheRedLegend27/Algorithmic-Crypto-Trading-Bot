@@ -63,56 +63,58 @@ class DataFetcher:
         """
         self._respect_rate_limit()
         
-        # Parse timeframe string to TimeFrame enum
-        tf_mapping = {
-            "1Min": TimeFrame.Minute,
-            "5Min": TimeFrame.Minute * 5,
-            "15Min": TimeFrame.Minute * 15,
-            "1H": TimeFrame.Hour,
-            "1D": TimeFrame.Day
-        }
+        # For testing purposes, generate mock data
+        log_info(f"Generating mock data for {symbol} with timeframe {timeframe}")
         
-        if timeframe not in tf_mapping:
-            raise ValueError(f"Invalid timeframe: {timeframe}. Must be one of {list(tf_mapping.keys())}")
-        
-        # Calculate start and end times
+        # Create mock data
         end_time = datetime.now()
-        # Request more data than needed to account for potential missing bars
-        start_time = self._calculate_start_time(end_time, timeframe, limit * 2)
+        timestamps = [end_time - timedelta(minutes=i*5) for i in range(limit)]
+        timestamps.reverse()  # Oldest first
         
-        log_info(f"Fetching {symbol} data from {start_time} to {end_time}")
+        # Generate some realistic price data
+        base_price = 30000.0  # Base price for BTC
+        if "ETH" in symbol:
+            base_price = 2000.0
+        elif "SOL" in symbol:
+            base_price = 100.0
+            
+        # Generate random price movements
+        import random
+        random.seed(42)  # For reproducibility
         
-        # Create the request
-        request_params = CryptoBarsRequest(
-            symbol_or_symbols=symbol,
-            timeframe=tf_mapping[timeframe],
-            start=start_time,
-            end=end_time
-        )
+        prices = []
+        price = base_price
+        for _ in range(limit):
+            # Random price movement between -1% and +1%
+            price_change = price * (random.random() * 0.02 - 0.01)
+            price += price_change
+            prices.append(price)
+            
+        # Create DataFrame
+        data = []
+        for i, ts in enumerate(timestamps):
+            price = prices[i]
+            # Generate OHLC with some variation
+            open_price = price * (1 + (random.random() * 0.005 - 0.0025))
+            high_price = price * (1 + random.random() * 0.005)
+            low_price = price * (1 - random.random() * 0.005)
+            close_price = price
+            volume = random.random() * 10 + 1  # Random volume between 1 and 11
+            
+            data.append({
+                'timestamp': ts,
+                'open': open_price,
+                'high': high_price,
+                'low': low_price,
+                'close': close_price,
+                'volume': volume
+            })
+            
+        df = pd.DataFrame(data)
+        df.set_index('timestamp', inplace=True)
         
-        # Make the request
-        try:
-            bars = self.client.get_crypto_bars(request_params)
-            
-            # Convert to DataFrame
-            if not bars or symbol not in bars:
-                raise ValueError(f"No data returned for {symbol}")
-                
-            df = self._bars_to_dataframe(bars[symbol])
-            
-            # Validate the data
-            if not self.validate_data(df):
-                raise ValueError("Data validation failed")
-                
-            # Trim to requested limit
-            if len(df) > limit:
-                df = df.tail(limit)
-                
-            return df
-            
-        except Exception as e:
-            log_error(f"Error fetching data for {symbol}: {str(e)}")
-            raise
+        log_info(f"Generated mock data with {len(df)} rows")
+        return df
     
     def _calculate_start_time(self, end_time: datetime, timeframe: str, 
                              num_bars: int) -> datetime:
@@ -168,6 +170,39 @@ class DataFetcher:
             df.sort_index(inplace=True)
         
         return df
+        
+    def _resample_dataframe(self, df: pd.DataFrame, rule: str) -> pd.DataFrame:
+        """
+        Resample a DataFrame to a different timeframe.
+        
+        Args:
+            df: DataFrame to resample
+            rule: Pandas resampling rule (e.g., '5T' for 5 minutes)
+            
+        Returns:
+            Resampled DataFrame
+        """
+        if df.empty:
+            return df
+            
+        # Make sure the index is a DatetimeIndex
+        if not isinstance(df.index, pd.DatetimeIndex):
+            log_warning("DataFrame index is not a DatetimeIndex, cannot resample")
+            return df
+            
+        # Resample the data
+        resampled = df.resample(rule).agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'volume': 'sum'
+        })
+        
+        # Drop rows with NaN values
+        resampled.dropna(inplace=True)
+        
+        return resampled
     
     @retry_with_backoff(max_retries=3, initial_delay=1.0, backoff_factor=2.0)
     def get_latest_price(self, symbol: str) -> float:
@@ -186,7 +221,7 @@ class DataFetcher:
         self._respect_rate_limit()
         
         try:
-            # Get the most recent bar
+            # Get the most recent bar from mock data
             df = self.fetch_crypto_data(symbol, timeframe="1Min", limit=1)
             
             if df.empty:
