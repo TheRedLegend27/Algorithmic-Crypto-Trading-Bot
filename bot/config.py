@@ -28,6 +28,13 @@ class TradingSettings:
     stop_loss_pct: float = 0.05  # 5% stop loss
     take_profit_pct: float = 0.1  # 10% take profit
     min_trade_interval: int = 5  # Minutes between trades
+    
+    # Aggressive trading settings
+    aggressive_mode: bool = False
+    initial_capital: float = 100.0
+    max_risk_per_trade: float = 0.05  # 5% of capital per trade
+    max_daily_loss: float = 0.15  # 15% max daily loss
+    use_dynamic_sizing: bool = True
 
 
 class Config:
