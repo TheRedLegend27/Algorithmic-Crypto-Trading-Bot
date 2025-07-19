@@ -94,6 +94,13 @@ Examples:
         help="Enable verbose logging"
     )
     
+    parser.add_argument(
+        "--maxtrades",
+        type=int,
+        default=25,
+        help="Maximum number of trades per day (default: 25)"
+    )
+    
     return parser.parse_args()
 
 
@@ -134,7 +141,8 @@ def setup_enhanced_bot(args):
         initial_capital=args.capital,
         max_risk_per_trade=args.max_risk_per_trade,
         max_daily_loss=args.max_daily_loss,
-        max_position_size=0.8
+        max_position_size=0.8,
+        max_trades_per_day=args.maxtrades
     )
     
     # Get trading settings
@@ -144,6 +152,7 @@ def setup_enhanced_bot(args):
     trading_settings.max_daily_loss_pct = args.max_daily_loss
     trading_settings.max_risk_per_trade_pct = args.max_risk_per_trade
     trading_settings.min_signal_confidence = args.min_confidence
+    trading_settings.max_trades_per_day = args.maxtrades
     
     return {
         'data_fetcher': data_fetcher,
@@ -291,6 +300,7 @@ def main():
     print(f"⚡ Max Risk/Trade: {args.max_risk_per_trade*100}%")
     print(f"🛡️ Max Daily Loss: {args.max_daily_loss*100}%")
     print(f"🎚️ Min Confidence: {args.min_confidence*100}%")
+    print(f"📊 Max Trades/Day: {args.maxtrades}")
     print(f"⏱️ Trading Interval: {args.interval}s")
     print(f"📡 Data Source: Yahoo Finance")
     print(f"🧠 Strategies: Enhanced Momentum, Price Action, Multi-Timeframe")

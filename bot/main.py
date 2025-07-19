@@ -175,6 +175,14 @@ def parse_arguments() -> argparse.Namespace:
         help="Skip initial health check on startup"
     )
     
+    # Trading limits
+    parser.add_argument(
+        "--maxtrades",
+        type=int,
+        default=20,
+        help="Maximum number of trades per day (default: 20)"
+    )
+    
     return parser.parse_args()
 
 
@@ -192,6 +200,12 @@ def update_trading_settings(settings: TradingSettings, args: argparse.Namespace)
     settings.stop_loss_pct = args.stop_loss
     settings.take_profit_pct = args.take_profit
     settings.min_trade_interval = args.interval
+    
+    # Add max_trades_per_day to settings if it doesn't exist
+    if not hasattr(settings, 'max_trades_per_day'):
+        settings.max_trades_per_day = args.maxtrades
+    else:
+        settings.max_trades_per_day = args.maxtrades
 
 
 def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str, Any]:
@@ -394,6 +408,7 @@ def main() -> int:
         log_info(f"Maximum position size: ${args.max_position}")
         log_info(f"Stop loss: {args.stop_loss * 100}%")
         log_info(f"Take profit: {args.take_profit * 100}%")
+        log_info(f"Max trades per day: {args.maxtrades}")
         
         # Perform initial health check
         if not args.skip_health_check:

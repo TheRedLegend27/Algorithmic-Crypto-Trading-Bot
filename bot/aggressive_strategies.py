@@ -284,7 +284,8 @@ class AggressiveRiskManager:
     """
     
     def __init__(self, initial_capital: float = 100.0, max_risk_per_trade: float = 0.05,
-                 max_daily_loss: float = 0.15, max_position_size: float = 0.8):
+                 max_daily_loss: float = 0.15, max_position_size: float = 0.8,
+                 max_trades_per_day: int = 20):
         """
         Initialize aggressive risk manager.
         
@@ -293,6 +294,7 @@ class AggressiveRiskManager:
             max_risk_per_trade: Max risk per trade (5% of capital)
             max_daily_loss: Max daily loss (15% of capital)
             max_position_size: Max position size (80% of capital for aggressive trading)
+            max_trades_per_day: Maximum number of trades per day (default: 20)
         """
         self.initial_capital = initial_capital
         self.current_capital = initial_capital
@@ -301,7 +303,7 @@ class AggressiveRiskManager:
         self.max_position_size = max_position_size
         self.daily_pnl = 0.0
         self.trades_today = 0
-        self.max_trades_per_day = 20  # Aggressive scalping limit
+        self.max_trades_per_day = max_trades_per_day
     
     def calculate_position_size(self, signal_confidence: float, current_price: float,
                               stop_loss_pct: float = 0.02) -> float:

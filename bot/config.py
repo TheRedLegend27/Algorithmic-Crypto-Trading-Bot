@@ -35,6 +35,7 @@ class TradingSettings:
     max_risk_per_trade: float = 0.05  # 5% of capital per trade
     max_daily_loss: float = 0.15  # 15% max daily loss
     use_dynamic_sizing: bool = True
+    max_trades_per_day: int = 20  # Maximum trades per day
 
 
 class Config:

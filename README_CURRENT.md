@@ -42,7 +42,7 @@ python3 run_enhanced_bot.py --paper-trading --capital 100 --interval 10 --min-co
 ### **Test Alpaca Integration (When Ready)**
 ```bash
 # With Alpaca paper trading
-python3 run_enhanced_alpaca_bot.py --capital 100 --max-trades 5
+python3 run_enhanced_alpaca_bot.py --capital 100 --maxtrades 5
 ```
 
 ## 📊 **Recent Performance**
@@ -126,7 +126,7 @@ python3 run_enhanced_bot.py --paper-trading --capital 100 --interval 10 --min-co
 python3 run_enhanced_bot.py --paper-trading --symbol ETH/USD --interval 15
 
 # Limited trades
-python3 run_enhanced_bot.py --paper-trading --max-trades 10 --capital 100
+python3 run_enhanced_bot.py --paper-trading --maxtrades 10 --capital 100
 ```
 
 ---
