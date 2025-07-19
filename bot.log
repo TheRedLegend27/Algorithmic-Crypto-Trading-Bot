@@ -1,0 +1,1139 @@
+2025-07-18 20:11:15,023 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot
+2025-07-18 20:11:15,023 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:11:15,023 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:11:15,023 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:11:15,024 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:11:15,024 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:11:30,379 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot
+2025-07-18 20:11:30,379 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:11:30,379 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:11:30,379 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:11:30,380 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:11:30,380 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:11:47,331 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot
+2025-07-18 20:11:47,331 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:11:47,331 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:11:47,331 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:11:47,331 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:11:47,331 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:11:47,332 - crypto_bot - INFO - Trader initialized with paper trading: True
+2025-07-18 20:11:47,332 - crypto_bot - INFO - 🔄 Trading Cycle #1
+2025-07-18 20:11:47,332 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:11:47,332 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:11:47,332 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:11:47,332 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:11:52,335 - crypto_bot - INFO - 🔄 Trading Cycle #2
+2025-07-18 20:11:52,335 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:11:52,335 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:11:52,336 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:11:52,336 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:11:57,336 - crypto_bot - INFO - 🔄 Trading Cycle #3
+2025-07-18 20:11:57,336 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:11:57,336 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:11:57,336 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:11:57,336 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:02,340 - crypto_bot - INFO - 🔄 Trading Cycle #4
+2025-07-18 20:12:02,340 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:02,340 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:02,341 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:02,342 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:07,347 - crypto_bot - INFO - 🔄 Trading Cycle #5
+2025-07-18 20:12:07,348 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:07,348 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:07,348 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:07,348 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:12,354 - crypto_bot - INFO - 🔄 Trading Cycle #6
+2025-07-18 20:12:12,354 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:12,354 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:12,354 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:12,354 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:17,359 - crypto_bot - INFO - 🔄 Trading Cycle #7
+2025-07-18 20:12:17,360 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:17,361 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:17,361 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:17,361 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:22,367 - crypto_bot - INFO - 🔄 Trading Cycle #8
+2025-07-18 20:12:22,367 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:22,367 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:22,367 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:22,368 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:27,373 - crypto_bot - INFO - 🔄 Trading Cycle #9
+2025-07-18 20:12:27,373 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:27,373 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:27,373 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:27,373 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:32,377 - crypto_bot - INFO - 🔄 Trading Cycle #10
+2025-07-18 20:12:32,378 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:32,378 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:32,378 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:32,379 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:37,384 - crypto_bot - INFO - 🔄 Trading Cycle #11
+2025-07-18 20:12:37,384 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:37,384 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:37,384 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:37,384 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:42,389 - crypto_bot - INFO - 🔄 Trading Cycle #12
+2025-07-18 20:12:42,389 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:42,389 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:42,390 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:42,390 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:47,392 - crypto_bot - INFO - 🔄 Trading Cycle #13
+2025-07-18 20:12:47,392 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:47,392 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:47,392 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:47,392 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:52,397 - crypto_bot - INFO - 🔄 Trading Cycle #14
+2025-07-18 20:12:52,398 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:52,399 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:52,399 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:52,399 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:12:57,404 - crypto_bot - INFO - 🔄 Trading Cycle #15
+2025-07-18 20:12:57,404 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:12:57,404 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:12:57,404 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:12:57,404 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:13:02,409 - crypto_bot - INFO - 🔄 Trading Cycle #16
+2025-07-18 20:13:02,410 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:13:02,410 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:13:02,410 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:13:02,410 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:13:07,416 - crypto_bot - INFO - 🔄 Trading Cycle #17
+2025-07-18 20:13:07,416 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:13:07,416 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:13:07,416 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:13:07,416 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:13:12,421 - crypto_bot - INFO - 🔄 Trading Cycle #18
+2025-07-18 20:13:12,422 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:13:12,423 - crypto_bot - ERROR - Error in trading cycle: 'DataFetcher' object has no attribute 'fetch_data'
+2025-07-18 20:13:12,423 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:13:12,423 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:13:17,386 - crypto_bot - INFO - 
+🛑 Bot stopped by user
+2025-07-18 20:14:00,427 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot
+2025-07-18 20:14:00,428 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:14:00,428 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:14:00,428 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:14:00,429 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:14:00,429 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:14:00,429 - crypto_bot - INFO - Trader initialized with paper trading: True
+2025-07-18 20:14:00,429 - crypto_bot - INFO - 🔄 Trading Cycle #1
+2025-07-18 20:14:00,429 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:14:00,429 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:34:00.429598 to 2025-07-18 20:14:00.429598
+2025-07-18 20:14:00,430 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:14:00,610 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:00,610 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:00,611 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:14:00,611 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:14:10,616 - crypto_bot - INFO - 🔄 Trading Cycle #2
+2025-07-18 20:14:10,616 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:14:10,616 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:34:10.616590 to 2025-07-18 20:14:10.616590
+2025-07-18 20:14:10,616 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:14:10,653 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:10,653 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:10,653 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:14:10,653 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:14:20,658 - crypto_bot - INFO - 🔄 Trading Cycle #3
+2025-07-18 20:14:20,658 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:14:20,659 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:34:20.658994 to 2025-07-18 20:14:20.658994
+2025-07-18 20:14:20,659 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:14:20,696 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:20,696 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:14:20,696 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:14:20,696 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:16:03,499 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,501 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,503 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,504 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:03,504 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:03,814 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,819 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,822 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:03,822 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:03,822 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:04,130 - crypto_bot - INFO - Strategy Scalping Momentum generated BUY signal with 0.90 confidence
+2025-07-18 20:16:04,133 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,135 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated SELL signal with 0.76 confidence
+2025-07-18 20:16:04,135 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:04,135 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:04,444 - crypto_bot - INFO - Strategy Scalping Momentum generated BUY signal with 0.90 confidence
+2025-07-18 20:16:04,452 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,457 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,457 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:04,457 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:04,766 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,770 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,774 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:04,774 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:04,774 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:05,082 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,085 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,088 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,088 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:05,088 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:05,397 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,400 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,403 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,403 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:05,403 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:05,714 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,720 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,724 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:05,724 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:05,724 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:06,033 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,039 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,043 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,043 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:06,043 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:06,353 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,360 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,365 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,366 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:06,366 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:06,674 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,682 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,686 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:06,686 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:06,686 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:06,996 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,002 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,006 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated BUY signal with 0.90 confidence
+2025-07-18 20:16:07,006 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:07,006 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:07,317 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,323 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,327 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,327 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:07,328 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:07,633 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,638 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,642 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,643 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:07,643 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:07,951 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,957 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,961 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:07,961 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:07,962 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:27,247 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,248 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,250 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,250 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:27,254 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:27,763 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,766 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,767 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:27,767 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:27,774 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:28,279 - crypto_bot - INFO - Strategy Scalping Momentum generated BUY signal with 0.90 confidence
+2025-07-18 20:16:28,286 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:28,291 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated SELL signal with 0.76 confidence
+2025-07-18 20:16:28,291 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:28,302 - crypto_bot - INFO - Capital updated: $100.40, Daily P&L: $0.40
+2025-07-18 20:16:28,812 - crypto_bot - INFO - Strategy Scalping Momentum generated BUY signal with 0.90 confidence
+2025-07-18 20:16:28,818 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:28,822 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:28,823 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:28,835 - crypto_bot - INFO - Capital updated: $100.04, Daily P&L: $0.04
+2025-07-18 20:16:29,345 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,351 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,356 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,356 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:29,367 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:29,876 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,883 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,887 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:29,887 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:29,899 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:30,407 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,415 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,419 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,419 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:30,427 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:30,936 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,941 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,948 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:30,948 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:30,957 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:31,466 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:31,473 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:31,477 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:31,477 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:31,488 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:16:31,998 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:32,005 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:32,009 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:16:32,009 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:16:32,020 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:17:11,543 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot
+2025-07-18 20:17:11,544 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:17:11,544 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:17:11,544 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:17:11,544 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:17:11,544 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:17:11,544 - crypto_bot - INFO - Trader initialized with paper trading: True
+2025-07-18 20:17:11,545 - crypto_bot - INFO - 🔄 Trading Cycle #1
+2025-07-18 20:17:11,545 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:17:11,545 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:37:11.545241 to 2025-07-18 20:17:11.545241
+2025-07-18 20:17:11,547 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:17:11,840 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:11,840 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:11,841 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:17:11,841 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:17:16,841 - crypto_bot - INFO - 🔄 Trading Cycle #2
+2025-07-18 20:17:16,842 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:17:16,842 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:37:16.842356 to 2025-07-18 20:17:16.842356
+2025-07-18 20:17:16,842 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:17:16,880 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:16,881 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:16,881 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:17:16,881 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:17:21,886 - crypto_bot - INFO - 🔄 Trading Cycle #3
+2025-07-18 20:17:21,886 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:17:21,887 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:37:21.887230 to 2025-07-18 20:17:21.887230
+2025-07-18 20:17:21,887 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:17:21,927 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:21,927 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:21,927 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:17:21,927 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:17:26,932 - crypto_bot - INFO - 🔄 Trading Cycle #4
+2025-07-18 20:17:26,933 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:17:26,933 - crypto_bot - INFO - Fetching BTC/USD data from 2025-07-18 03:37:26.933277 to 2025-07-18 20:17:26.933277
+2025-07-18 20:17:26,933 - crypto_bot - INFO - Requesting data for symbol: BTC/USD, timeframe: 5Min
+2025-07-18 20:17:26,971 - crypto_bot - ERROR - Error fetching data for BTC/USD: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:26,972 - crypto_bot - ERROR - Error in trading cycle: <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+2025-07-18 20:17:26,972 - crypto_bot - WARNING - Trading cycle failed, continuing...
+2025-07-18 20:17:26,972 - crypto_bot - INFO - ⏳ Waiting 5 seconds for next cycle...
+2025-07-18 20:17:28,757 - crypto_bot - INFO - 
+🛑 Bot stopped by user
+2025-07-18 20:21:44,238 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:21:46,290 - crypto_bot - INFO - Successfully fetched 50 data points for BTC/USD
+2025-07-18 20:21:46,775 - crypto_bot - INFO - Fetching ETH/USD (ETH-USD) data with 5Min timeframe
+2025-07-18 20:21:47,146 - crypto_bot - INFO - Successfully fetched 50 data points for ETH/USD
+2025-07-18 20:21:47,780 - crypto_bot - INFO - Fetching SOL/USD (SOL-USD) data with 5Min timeframe
+2025-07-18 20:21:48,200 - crypto_bot - INFO - Successfully fetched 50 data points for SOL/USD
+2025-07-18 20:23:29,315 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot with Yahoo Finance
+2025-07-18 20:23:29,316 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:23:29,316 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:23:29,316 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:23:29,316 - crypto_bot - INFO - 🔍 Testing data connection...
+2025-07-18 20:23:29,316 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:23:29,604 - crypto_bot - INFO - Successfully fetched 10 data points for BTC/USD
+2025-07-18 20:23:29,604 - crypto_bot - INFO - ✅ Data connection successful - 10 data points
+2025-07-18 20:23:29,605 - crypto_bot - INFO - 📈 Current price: $117303.97
+2025-07-18 20:23:29,605 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:23:29,605 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:23:29,605 - crypto_bot - INFO - 🔄 Trading Cycle #1
+2025-07-18 20:23:29,605 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:23:30,321 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:23:30,387 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:23:30,387 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117303.97
+2025-07-18 20:23:30,387 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:23:30,390 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:30,393 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:30,396 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:30,396 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:23:30,403 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:23:30,403 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:23:40,408 - crypto_bot - INFO - 🔄 Trading Cycle #2
+2025-07-18 20:23:40,409 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:23:40,409 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:23:40,570 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:23:40,571 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117303.97
+2025-07-18 20:23:40,571 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:23:40,572 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:40,575 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:40,579 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:40,579 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:23:40,589 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:23:40,589 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:23:50,594 - crypto_bot - INFO - 🔄 Trading Cycle #3
+2025-07-18 20:23:50,595 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:23:50,595 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:23:50,875 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:23:50,875 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117303.97
+2025-07-18 20:23:50,875 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:23:50,877 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:50,880 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:50,885 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:23:50,886 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:23:50,893 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:23:50,893 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:24:00,896 - crypto_bot - INFO - 🔄 Trading Cycle #4
+2025-07-18 20:24:00,897 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:24:00,897 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:24:01,036 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:24:01,036 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117156.80
+2025-07-18 20:24:01,037 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:24:01,038 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:24:01,040 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:24:01,042 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:24:01,042 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:24:01,051 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:24:01,051 - crypto_bot - INFO - ⏳ Waiting 10 seconds for next cycle...
+2025-07-18 20:24:05,321 - crypto_bot - INFO - 
+🛑 Bot stopped by user
+2025-07-18 20:27:25,941 - crypto_bot - INFO - 🔥 Starting Aggressive Crypto Trading Bot with Yahoo Finance
+2025-07-18 20:27:25,942 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:27:25,942 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:27:25,942 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:27:25,942 - crypto_bot - INFO - 🔍 Testing data connection...
+2025-07-18 20:27:25,942 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:27:26,252 - crypto_bot - INFO - Successfully fetched 10 data points for BTC/USD
+2025-07-18 20:27:26,252 - crypto_bot - INFO - ✅ Data connection successful - 10 data points
+2025-07-18 20:27:26,253 - crypto_bot - INFO - 📈 Current price: $117156.80
+2025-07-18 20:27:26,253 - crypto_bot - INFO - ⚡ Creating aggressive trading strategies...
+2025-07-18 20:27:26,253 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:27:26,253 - crypto_bot - INFO - 🔄 Trading Cycle #1
+2025-07-18 20:27:26,253 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:27:26,944 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:27:27,085 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:27:27,085 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117156.80
+2025-07-18 20:27:27,085 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:27:27,087 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:27,090 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:27,093 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:27,093 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:27:27,102 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:27:27,103 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:27:57,108 - crypto_bot - INFO - 🔄 Trading Cycle #2
+2025-07-18 20:27:57,108 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:27:57,108 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:27:57,287 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:27:57,287 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117156.80
+2025-07-18 20:27:57,287 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:27:57,288 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:57,290 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:57,291 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:27:57,291 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:27:57,294 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:27:57,295 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:28:27,299 - crypto_bot - INFO - 🔄 Trading Cycle #3
+2025-07-18 20:28:27,300 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:28:27,300 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:28:27,409 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:28:27,409 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117156.80
+2025-07-18 20:28:27,409 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:28:27,411 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:27,413 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:27,418 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:27,418 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:28:27,424 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:28:27,424 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:28:57,428 - crypto_bot - INFO - 🔄 Trading Cycle #4
+2025-07-18 20:28:57,429 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:28:57,429 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:28:57,902 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:28:57,902 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117156.80
+2025-07-18 20:28:57,902 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:28:57,904 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:57,907 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:57,911 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:28:57,911 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:28:57,920 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:28:57,920 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:29:27,925 - crypto_bot - INFO - 🔄 Trading Cycle #5
+2025-07-18 20:29:27,926 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:29:27,926 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:29:28,072 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:29:28,073 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:29:28,073 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:29:28,074 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:28,076 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:28,078 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:28,078 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:29:28,086 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:29:28,086 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:29:58,091 - crypto_bot - INFO - 🔄 Trading Cycle #6
+2025-07-18 20:29:58,092 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:29:58,092 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:29:58,208 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:29:58,208 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:29:58,208 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:29:58,209 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:58,211 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:58,213 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:29:58,213 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:29:58,220 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:29:58,220 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:30:28,225 - crypto_bot - INFO - 🔄 Trading Cycle #7
+2025-07-18 20:30:28,227 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:30:28,227 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:30:28,372 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:30:28,372 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:30:28,372 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:30:28,374 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:28,377 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:28,381 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:28,381 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:30:28,389 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:30:28,389 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:30:58,394 - crypto_bot - INFO - 🔄 Trading Cycle #8
+2025-07-18 20:30:58,394 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:30:58,394 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:30:58,511 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:30:58,511 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:30:58,511 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:30:58,513 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:58,515 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:58,518 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:30:58,518 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:30:58,524 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:30:58,524 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:31:28,529 - crypto_bot - INFO - 🔄 Trading Cycle #9
+2025-07-18 20:31:28,529 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:31:28,529 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:31:28,738 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:31:28,738 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:31:28,738 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:31:28,740 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:28,742 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:28,746 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:28,746 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:31:28,753 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:31:28,753 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:31:58,758 - crypto_bot - INFO - 🔄 Trading Cycle #10
+2025-07-18 20:31:58,759 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:31:58,759 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:31:58,826 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:31:58,826 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:31:58,826 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:31:58,828 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:58,830 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:58,834 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:31:58,834 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:31:58,842 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:31:58,842 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:32:28,847 - crypto_bot - INFO - 🔄 Trading Cycle #11
+2025-07-18 20:32:28,848 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:32:28,848 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:32:28,938 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:32:28,938 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:32:28,938 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:32:28,940 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:28,942 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:28,944 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:28,944 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:32:28,950 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:32:28,951 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:32:58,956 - crypto_bot - INFO - 🔄 Trading Cycle #12
+2025-07-18 20:32:58,957 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:32:58,957 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:32:59,097 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:32:59,098 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:32:59,098 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:32:59,099 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:59,102 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:59,105 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:32:59,105 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:32:59,111 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:32:59,111 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:33:29,116 - crypto_bot - INFO - 🔄 Trading Cycle #13
+2025-07-18 20:33:29,118 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:33:29,118 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:33:29,221 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:33:29,221 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:33:29,221 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:33:29,223 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:29,225 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:29,227 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:29,227 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:33:29,233 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:33:29,233 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:33:59,262 - crypto_bot - INFO - 🔄 Trading Cycle #14
+2025-07-18 20:33:59,262 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:33:59,262 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:33:59,372 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:33:59,372 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117094.68
+2025-07-18 20:33:59,372 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:33:59,373 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:59,375 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:59,377 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:33:59,377 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:33:59,382 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:33:59,382 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:34:29,387 - crypto_bot - INFO - 🔄 Trading Cycle #15
+2025-07-18 20:34:29,387 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:34:29,388 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:34:29,506 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:34:29,506 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117041.28
+2025-07-18 20:34:29,506 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:34:29,509 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:29,512 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:29,515 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:29,516 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:34:29,524 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:34:29,524 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:34:59,529 - crypto_bot - INFO - 🔄 Trading Cycle #16
+2025-07-18 20:34:59,529 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:34:59,529 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:34:59,609 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:34:59,609 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117041.28
+2025-07-18 20:34:59,609 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:34:59,611 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:59,614 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:59,617 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:34:59,617 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:34:59,624 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:34:59,624 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:35:29,629 - crypto_bot - INFO - 🔄 Trading Cycle #17
+2025-07-18 20:35:29,630 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:35:29,630 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:35:29,731 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:35:29,731 - crypto_bot - INFO - ✅ Fetched 100 data points, latest price: $117041.28
+2025-07-18 20:35:29,731 - crypto_bot - INFO - 🎯 Analyzing market conditions...
+2025-07-18 20:35:29,734 - crypto_bot - INFO - Strategy Scalping Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:35:29,738 - crypto_bot - INFO - Strategy Volatility Breakout generated HOLD signal with 0.00 confidence
+2025-07-18 20:35:29,741 - crypto_bot - INFO - Strategy Mean Reversion Scalp generated HOLD signal with 0.00 confidence
+2025-07-18 20:35:29,741 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:35:29,748 - crypto_bot - INFO - Signal too weak: HOLD with 0.00 confidence
+2025-07-18 20:35:29,748 - crypto_bot - INFO - ⏳ Waiting 30 seconds for next cycle...
+2025-07-18 20:35:34,695 - crypto_bot - INFO - 
+🛑 Bot stopped by user
+2025-07-18 20:38:11,689 - crypto_bot - INFO - 🚀 Starting Enhanced Aggressive Trading Bot
+2025-07-18 20:38:11,690 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:38:11,690 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:38:11,690 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:38:11,690 - crypto_bot - INFO - 🎚️ Min Confidence: 0.3
+2025-07-18 20:38:11,690 - crypto_bot - INFO - 🔍 Testing data connection...
+2025-07-18 20:38:11,690 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:38:12,066 - crypto_bot - INFO - Successfully fetched 10 data points for BTC/USD
+2025-07-18 20:38:12,066 - crypto_bot - INFO - ✅ Data connection successful - 10 data points
+2025-07-18 20:38:12,066 - crypto_bot - INFO - 📈 Current price: $117041.28
+2025-07-18 20:38:12,067 - crypto_bot - INFO - ⚡ Creating enhanced trading strategies...
+2025-07-18 20:38:12,067 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:38:12,067 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:38:12,695 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:38:12,762 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:38:12,762 - crypto_bot - INFO - ✅ Current price: $117041.28
+2025-07-18 20:38:12,775 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:38:12,777 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:38:12,779 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:38:12,779 - crypto_bot - ERROR - Error in trading cycle: can't compare offset-naive and offset-aware datetimes
+2025-07-18 20:38:12,779 - crypto_bot - WARNING - Cycle failed, continuing...
+2025-07-18 20:38:32,784 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:38:32,785 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:38:32,858 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:38:32,858 - crypto_bot - INFO - ✅ Current price: $117041.28
+2025-07-18 20:38:32,866 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:38:32,870 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:38:32,872 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:38:32,872 - crypto_bot - ERROR - Error in trading cycle: can't compare offset-naive and offset-aware datetimes
+2025-07-18 20:38:32,872 - crypto_bot - WARNING - Cycle failed, continuing...
+2025-07-18 20:40:49,391 - crypto_bot - INFO - 🚀 Starting Enhanced Aggressive Trading Bot
+2025-07-18 20:40:49,392 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:40:49,392 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:40:49,392 - crypto_bot - INFO - 🎯 Paper Trading: True
+2025-07-18 20:40:49,392 - crypto_bot - INFO - 🎚️ Min Confidence: 0.3
+2025-07-18 20:40:49,392 - crypto_bot - INFO - 🔍 Testing data connection...
+2025-07-18 20:40:49,392 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:40:49,762 - crypto_bot - INFO - Successfully fetched 10 data points for BTC/USD
+2025-07-18 20:40:49,763 - crypto_bot - INFO - ✅ Data connection successful - 10 data points
+2025-07-18 20:40:49,763 - crypto_bot - INFO - 📈 Current price: $116982.15
+2025-07-18 20:40:49,763 - crypto_bot - INFO - ⚡ Creating enhanced trading strategies...
+2025-07-18 20:40:49,763 - crypto_bot - INFO - 🛡️ Setting up risk management...
+2025-07-18 20:40:49,763 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:40:50,398 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:40:50,464 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:40:50,464 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:40:50,476 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:40:50,479 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:40:50,481 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:40:50,481 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:40:50,482 - crypto_bot - INFO - Capital updated: $101.82, Daily P&L: $1.82
+2025-07-18 20:41:05,487 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:41:05,487 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:41:05,550 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:41:05,550 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:41:05,559 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:05,561 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:05,562 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:41:05,562 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:41:05,563 - crypto_bot - INFO - Capital updated: $100.99, Daily P&L: $0.99
+2025-07-18 20:41:20,568 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:41:20,568 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:41:20,667 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:41:20,667 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:41:20,677 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:20,679 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:20,681 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:41:20,681 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:41:20,682 - crypto_bot - INFO - Capital updated: $103.07, Daily P&L: $3.07
+2025-07-18 20:41:35,687 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:41:35,687 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:41:36,212 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:41:36,212 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:41:36,222 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:36,226 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:36,227 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:41:36,227 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:41:36,228 - crypto_bot - INFO - Capital updated: $104.54, Daily P&L: $4.54
+2025-07-18 20:41:51,232 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:41:51,234 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:41:51,384 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:41:51,385 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:41:51,394 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:51,397 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:41:51,399 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:41:51,399 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:41:51,399 - crypto_bot - INFO - Capital updated: $106.94, Daily P&L: $6.94
+2025-07-18 20:42:06,405 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:42:06,405 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:42:06,516 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:42:06,516 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:42:06,526 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:06,529 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:06,530 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:42:06,530 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:42:06,530 - crypto_bot - INFO - Capital updated: $109.55, Daily P&L: $9.55
+2025-07-18 20:42:21,536 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:42:21,536 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:42:21,648 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:42:21,649 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:42:21,656 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:21,658 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:21,659 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:42:21,659 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:42:21,660 - crypto_bot - INFO - Capital updated: $111.23, Daily P&L: $11.23
+2025-07-18 20:42:36,665 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:42:36,666 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:42:36,806 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:42:36,806 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:42:36,816 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:36,818 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:36,821 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:42:36,821 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:42:36,822 - crypto_bot - INFO - Capital updated: $113.16, Daily P&L: $13.16
+2025-07-18 20:42:51,827 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:42:51,828 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:42:51,993 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:42:51,994 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:42:52,004 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:52,007 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:42:52,008 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:42:52,008 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:42:52,009 - crypto_bot - INFO - Capital updated: $111.50, Daily P&L: $11.50
+2025-07-18 20:43:07,014 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:43:07,014 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:43:07,154 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:43:07,155 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:43:07,165 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:07,168 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:07,171 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:43:07,171 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:43:07,172 - crypto_bot - INFO - Capital updated: $114.24, Daily P&L: $14.24
+2025-07-18 20:43:22,177 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:43:22,178 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:43:22,245 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:43:22,246 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:43:22,256 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:22,259 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:22,260 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:43:22,260 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:43:22,261 - crypto_bot - INFO - Capital updated: $115.31, Daily P&L: $15.31
+2025-07-18 20:43:37,266 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:43:37,266 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:43:37,387 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:43:37,387 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:43:37,397 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:37,399 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:37,401 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:43:37,401 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:43:37,402 - crypto_bot - INFO - Capital updated: $116.45, Daily P&L: $16.45
+2025-07-18 20:43:52,407 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:43:52,408 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:43:52,494 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:43:52,495 - crypto_bot - INFO - ✅ Current price: $116982.15
+2025-07-18 20:43:52,504 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:52,507 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:43:52,508 - crypto_bot - INFO - Strategy Multi-Timeframe generated SELL signal with 0.70 confidence
+2025-07-18 20:43:52,508 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:43:52,508 - crypto_bot - INFO - Capital updated: $119.01, Daily P&L: $19.01
+2025-07-18 20:44:07,514 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:44:07,515 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:44:07,661 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:44:07,661 - crypto_bot - INFO - ✅ Current price: $117115.78
+2025-07-18 20:44:07,671 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:07,673 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:07,675 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:07,675 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:44:22,680 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:44:22,681 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:44:22,778 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:44:22,779 - crypto_bot - INFO - ✅ Current price: $117115.78
+2025-07-18 20:44:22,788 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:22,790 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:22,792 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:22,792 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:44:37,794 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:44:37,795 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:44:37,885 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:44:37,885 - crypto_bot - INFO - ✅ Current price: $117115.78
+2025-07-18 20:44:37,894 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:37,896 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:37,897 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:37,897 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:44:52,902 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:44:52,904 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:44:52,982 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:44:52,982 - crypto_bot - INFO - ✅ Current price: $117115.78
+2025-07-18 20:44:52,996 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:52,998 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:53,000 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:44:53,000 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:45:08,005 - crypto_bot - INFO - 📊 Fetching market data for BTC/USD...
+2025-07-18 20:45:08,006 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:45:08,154 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:45:08,154 - crypto_bot - INFO - ✅ Current price: $117115.78
+2025-07-18 20:45:08,164 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:45:08,167 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:45:08,168 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:45:08,168 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:55:46,817 - crypto_bot - INFO - 🚀 Starting Enhanced Aggressive Trading Bot with Alpaca
+2025-07-18 20:55:46,818 - crypto_bot - INFO - 💰 Starting Capital: $100.0
+2025-07-18 20:55:46,818 - crypto_bot - INFO - 📊 Trading Symbol: BTC/USD
+2025-07-18 20:55:46,818 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:55:46,818 - yfinance - DEBUG - Entering history()
+2025-07-18 20:55:46,821 - peewee - DEBUG - ('CREATE TABLE IF NOT EXISTS "_tz_kv" ("key" VARCHAR(255) NOT NULL PRIMARY KEY, "value" VARCHAR(255)) WITHOUT ROWID', [])
+2025-07-18 20:55:46,821 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:55:46,821 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:55:46,823 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 19:15:46+00:00', 'period2': '2025-07-18 20:55:46+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:55:46,824 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:55:46,824 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:55:46,824 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:55:46,824 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752866146, 'period2': 1752872146, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:55:46,824 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:55:46,824 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:55:46,824 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:55:46,824 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:55:46,824 - yfinance - DEBUG -        Entering _load_cookie_curlCffi()
+2025-07-18 20:55:46,825 - peewee - DEBUG - ('CREATE TABLE IF NOT EXISTS "_cookieschema" ("strategy" VARCHAR(255) NOT NULL PRIMARY KEY, "fetch_date" DATETIME NOT NULL, "cookie_bytes" BLOB NOT NULL) WITHOUT ROWID', [])
+2025-07-18 20:55:46,825 - peewee - DEBUG - ('SELECT "t1"."strategy", "t1"."fetch_date", "t1"."cookie_bytes" FROM "_cookieschema" AS "t1" WHERE ("t1"."strategy" = ?) LIMIT ? OFFSET ?', ['curlCffi', 1, 0])
+2025-07-18 20:55:46,826 - yfinance - DEBUG -        Exiting _load_cookie_curlCffi()
+2025-07-18 20:55:46,826 - yfinance - DEBUG - reusing persistent cookie
+2025-07-18 20:55:46,826 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:55:46,826 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:55:46,826 - yfinance - DEBUG -        Entering _get_cookie_basic()
+2025-07-18 20:55:46,826 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:55:46,826 - yfinance - DEBUG -        Exiting _get_cookie_basic()
+2025-07-18 20:55:47,019 - yfinance - DEBUG - crumb = 'A2hBjuiQVHU'
+2025-07-18 20:55:47,019 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:55:47,019 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:55:47,020 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:55:47,173 - yfinance - DEBUG - response code=200
+2025-07-18 20:55:47,174 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:55:47,174 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:55:47,180 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 19:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:55:47,181 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 19:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:55:47,189 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 19:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:55:47,195 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 19:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:55:47,195 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:55:47,195 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:55:47,196 - crypto_bot - INFO - Successfully fetched 10 data points for BTC/USD
+2025-07-18 20:55:47,196 - crypto_bot - INFO - ✅ Yahoo Finance connected - Current price: $117575.02
+2025-07-18 20:55:47,198 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2025-07-18 20:55:47,333 - urllib3.connectionpool - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 403 26
+2025-07-18 20:55:47,333 - crypto_bot - ERROR - ❌ Failed to connect to Alpaca: {"message": "forbidden."}
+
+2025-07-18 20:55:47,821 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:55:47,822 - yfinance - DEBUG - Entering history()
+2025-07-18 20:55:47,823 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:55:47,824 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:55:47,824 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:15:47+00:00', 'period2': '2025-07-18 20:55:47+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:55:47,824 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:55:47,824 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:55:47,824 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:55:47,824 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812147, 'period2': 1752872147, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:55:47,824 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:55:47,824 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:55:47,824 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:55:47,824 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:55:47,824 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:55:47,825 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:55:47,825 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:55:47,825 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:55:47,825 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:55:47,825 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:55:47,825 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:55:47,945 - yfinance - DEBUG - response code=200
+2025-07-18 20:55:47,945 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:55:47,945 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:55:47,946 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:55:47,947 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:55:47,948 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:55:47,953 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:55:47,953 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:55:47,953 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:55:47,954 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:55:47,965 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:55:47,968 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:55:47,969 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:55:47,969 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:56:07,970 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:56:07,972 - yfinance - DEBUG - Entering history()
+2025-07-18 20:56:07,972 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:56:07,973 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:56:07,974 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:16:07+00:00', 'period2': '2025-07-18 20:56:07+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:56:07,974 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:56:07,974 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:56:07,974 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:56:07,974 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812167, 'period2': 1752872167, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:56:07,974 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:56:07,975 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:56:07,975 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:56:07,975 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:56:07,975 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:56:07,975 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:56:08,061 - yfinance - DEBUG - response code=200
+2025-07-18 20:56:08,061 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:56:08,062 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:56:08,063 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:56:08,063 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:08,065 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:08,070 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:56:08,070 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:56:08,070 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:56:08,072 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:56:08,084 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:08,086 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:08,087 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:08,087 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:56:28,092 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:56:28,094 - yfinance - DEBUG - Entering history()
+2025-07-18 20:56:28,094 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:56:28,094 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:56:28,094 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:16:28+00:00', 'period2': '2025-07-18 20:56:28+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:56:28,094 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:56:28,094 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:56:28,094 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:56:28,094 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812188, 'period2': 1752872188, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:56:28,094 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:56:28,095 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:56:28,095 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:56:28,095 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:56:28,095 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:56:28,095 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:56:28,246 - yfinance - DEBUG - response code=200
+2025-07-18 20:56:28,246 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:56:28,246 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:56:28,248 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:56:28,248 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:28,250 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:28,254 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:56:28,254 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:56:28,254 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:56:28,255 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:56:28,266 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:28,269 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:28,270 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:28,270 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:56:48,275 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:56:48,276 - yfinance - DEBUG - Entering history()
+2025-07-18 20:56:48,277 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:56:48,277 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:56:48,277 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:16:48+00:00', 'period2': '2025-07-18 20:56:48+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:56:48,277 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:56:48,278 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:56:48,278 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:56:48,278 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812208, 'period2': 1752872208, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:56:48,278 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:56:48,278 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:56:48,278 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:56:48,278 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:56:48,278 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:56:48,278 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:56:48,425 - yfinance - DEBUG - response code=200
+2025-07-18 20:56:48,426 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:56:48,426 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:56:48,427 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:56:48,427 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:48,428 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:56:48,431 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:56:48,431 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:56:48,431 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:56:48,432 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:56:48,441 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:48,444 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:48,445 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:56:48,445 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:57:08,450 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:57:08,451 - yfinance - DEBUG - Entering history()
+2025-07-18 20:57:08,451 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:57:08,452 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:57:08,452 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:17:08+00:00', 'period2': '2025-07-18 20:57:08+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:57:08,452 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:57:08,453 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:57:08,453 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:57:08,453 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812228, 'period2': 1752872228, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:57:08,453 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:57:08,453 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:57:08,453 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:57:08,453 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:57:08,453 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:57:08,453 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:57:08,560 - yfinance - DEBUG - response code=200
+2025-07-18 20:57:08,560 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:57:08,560 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:57:08,561 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:57:08,561 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:57:08,563 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:57:08,568 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:57:08,568 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:57:08,568 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:57:08,569 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:57:08,581 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:08,584 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:08,586 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:08,586 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence
+2025-07-18 20:57:28,586 - crypto_bot - INFO - Fetching BTC/USD (BTC-USD) data with 5Min timeframe
+2025-07-18 20:57:28,587 - yfinance - DEBUG - Entering history()
+2025-07-18 20:57:28,588 - peewee - DEBUG - ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['BTC-USD', 1, 0])
+2025-07-18 20:57:28,588 - yfinance - DEBUG -  Entering history()
+2025-07-18 20:57:28,589 - yfinance - DEBUG - BTC-USD: Yahoo GET parameters: {'period1': '2025-07-18 04:17:28+00:00', 'period2': '2025-07-18 20:57:28+00:00', 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'}
+2025-07-18 20:57:28,590 - yfinance - DEBUG -   Entering get()
+2025-07-18 20:57:28,590 - yfinance - DEBUG -    Entering _make_request()
+2025-07-18 20:57:28,590 - yfinance - DEBUG - url=https://query2.finance.yahoo.com/v8/finance/chart/BTC-USD
+2025-07-18 20:57:28,590 - yfinance - DEBUG - params=frozendict.frozendict({'period1': 1752812248, 'period2': 1752872248, 'interval': '5m', 'includePrePost': True, 'events': 'div,splits,capitalGains'})
+2025-07-18 20:57:28,590 - yfinance - DEBUG -     Entering _get_cookie_and_crumb()
+2025-07-18 20:57:28,590 - yfinance - DEBUG - cookie_mode = 'basic'
+2025-07-18 20:57:28,590 - yfinance - DEBUG -      Entering _get_cookie_and_crumb_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG -       Entering _get_cookie_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG - reusing cookie
+2025-07-18 20:57:28,591 - yfinance - DEBUG -       Exiting _get_cookie_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG -       Entering _get_crumb_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG - reusing crumb
+2025-07-18 20:57:28,591 - yfinance - DEBUG -       Exiting _get_crumb_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG -      Exiting _get_cookie_and_crumb_basic()
+2025-07-18 20:57:28,591 - yfinance - DEBUG -     Exiting _get_cookie_and_crumb()
+2025-07-18 20:57:28,649 - yfinance - DEBUG - response code=200
+2025-07-18 20:57:28,650 - yfinance - DEBUG -    Exiting _make_request()
+2025-07-18 20:57:28,650 - yfinance - DEBUG -   Exiting get()
+2025-07-18 20:57:28,652 - yfinance - DEBUG - BTC-USD: yfinance received OHLC data: 2025-07-18 04:15:00 -> 2025-07-18 20:55:00
+2025-07-18 20:57:28,652 - yfinance - DEBUG - BTC-USD: OHLC after cleaning: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:57:28,654 - yfinance - DEBUG - BTC-USD: OHLC after combining events: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:55:00+00:00
+2025-07-18 20:57:28,659 - yfinance - DEBUG - BTC-USD: yfinance returning OHLC: 2025-07-18 04:15:00+00:00 -> 2025-07-18 20:50:00+00:00
+2025-07-18 20:57:28,659 - yfinance - DEBUG -  Exiting history()
+2025-07-18 20:57:28,659 - yfinance - DEBUG - Exiting history()
+2025-07-18 20:57:28,661 - crypto_bot - INFO - Successfully fetched 100 data points for BTC/USD
+2025-07-18 20:57:28,670 - crypto_bot - INFO - Strategy Enhanced Momentum generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:28,675 - crypto_bot - INFO - Strategy Price Action generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:28,676 - crypto_bot - INFO - Strategy Multi-Timeframe generated HOLD signal with 0.00 confidence
+2025-07-18 20:57:28,676 - crypto_bot - INFO - Combined signal: HOLD with 0.00 confidence

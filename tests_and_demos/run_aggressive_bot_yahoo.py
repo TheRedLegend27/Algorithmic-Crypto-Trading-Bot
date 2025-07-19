@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """
-Aggressive Trading Bot Runner
+Aggressive Trading Bot with Yahoo Finance Data
 
-This script runs the crypto trading bot with aggressive strategies
-optimized for small accounts ($100 starting capital) with higher
-risk tolerance for potentially higher returns.
-
-Usage:
-    python run_aggressive_bot.py [--paper-trading] [--capital 100]
+This version uses Yahoo Finance for market data instead of Alpaca,
+while still supporting Alpaca for paper trading execution.
 """
 import argparse
 import sys
@@ -16,41 +12,39 @@ from datetime import datetime
 from typing import List
 
 from bot.config import Config
-from bot.data_fetcher import DataFetcher
+from bot.yahoo_data_fetcher import YahooDataFetcher
 from bot.trader import Trader
 from bot.strategy import SignalGenerator
 from bot.aggressive_strategies import (
     create_aggressive_strategy_suite,
     AggressiveRiskManager
 )
-from bot.aggressive_config import get_aggressive_config
-from bot.scheduler import Scheduler
-from bot.logger import setup_logging
-from bot.utils import log_info, log_error, log_warning
+from bot.aggressive_config import get_aggressive_config, calculate_dynamic_position_size
+from bot.utils import setup_logging, log_info, log_error, log_warning
 
 
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description="Aggressive Crypto Trading Bot",
+        description="Aggressive Crypto Trading Bot with Yahoo Finance Data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
     # Run with paper trading (recommended for testing)
-    python run_aggressive_bot.py --paper-trading
+    python run_aggressive_bot_yahoo.py --paper-trading
     
     # Run with real money (be careful!)
-    python run_aggressive_bot.py --capital 100
+    python run_aggressive_bot_yahoo.py --capital 100
     
-    # Run with custom settings
-    python run_aggressive_bot.py --capital 50 --max-daily-loss 0.10
+    # Test with different crypto
+    python run_aggressive_bot_yahoo.py --paper-trading --symbol ETH/USD
         """
     )
     
     parser.add_argument(
         "--paper-trading",
         action="store_true",
-        help="Run in paper trading mode (no real money)"
+        help="Run in paper trading mode (simulated trades)"
     )
     
     parser.add_argument(
@@ -64,6 +58,7 @@ Examples:
         "--symbol",
         type=str,
         default="BTC/USD",
+        choices=["BTC/USD", "ETH/USD", "SOL/USD", "AVAX/USD", "MATIC/USD"],
         help="Trading symbol (default: BTC/USD)"
     )
     
@@ -104,20 +99,23 @@ def setup_aggressive_bot(args):
     log_level = "DEBUG" if args.verbose else "INFO"
     setup_logging(log_level)
     
-    log_info("🔥 Starting Aggressive Crypto Trading Bot")
+    log_info("🔥 Starting Aggressive Crypto Trading Bot with Yahoo Finance")
     log_info(f"💰 Starting Capital: ${args.capital}")
     log_info(f"📊 Trading Symbol: {args.symbol}")
     log_info(f"🎯 Paper Trading: {args.paper_trading}")
     
-    # Load configuration
-    config = Config()
-    if not config.load_env_variables():
-        log_error("Failed to load environment variables")
+    # Initialize Yahoo Finance data fetcher
+    data_fetcher = YahooDataFetcher()
+    
+    # Test data connection
+    log_info("🔍 Testing data connection...")
+    test_data = data_fetcher.fetch_crypto_data(args.symbol, limit=10)
+    if test_data is None or test_data.empty:
+        log_error(f"Failed to fetch data for {args.symbol}")
         return None
     
-    if not config.validate_config():
-        log_error("Configuration validation failed")
-        return None
+    log_info(f"✅ Data connection successful - {len(test_data)} data points")
+    log_info(f"📈 Current price: ${test_data['close'].iloc[-1]:.2f}")
     
     # Get aggressive trading configuration
     aggressive_config = get_aggressive_config()
@@ -142,22 +140,33 @@ def setup_aggressive_bot(args):
         max_position_size=trading_settings.max_position_size_pct
     )
     
-    # Initialize components
-    data_fetcher = DataFetcher()
-    trader = Trader()
-    
-    # Update trader settings for aggressive mode
-    trader_settings = config.get_trading_settings()
-    trader_settings.symbol = args.symbol
-    trader_settings.aggressive_mode = True
-    trader_settings.initial_capital = args.capital
-    trader_settings.use_dynamic_sizing = True
+    # Initialize trader (only if not paper trading)
+    trader = None
+    if not args.paper_trading:
+        try:
+            # Load Alpaca config for real trading
+            config = Config()
+            if config.load_env_variables() and config.validate_config():
+                credentials = config.get_alpaca_credentials()
+                trader_settings = config.get_trading_settings()
+                trader_settings.symbol = args.symbol
+                trader_settings.aggressive_mode = True
+                trader_settings.initial_capital = args.capital
+                trader_settings.use_dynamic_sizing = True
+                
+                trader = Trader(credentials, trader_settings)
+                log_info("✅ Real trading enabled with Alpaca")
+            else:
+                log_warning("⚠️ Alpaca config failed, falling back to paper trading")
+                args.paper_trading = True
+        except Exception as e:
+            log_warning(f"⚠️ Trader setup failed: {e}, using paper trading")
+            args.paper_trading = True
     
     return {
-        'config': config,
+        'data_fetcher': data_fetcher,
         'signal_generator': signal_generator,
         'risk_manager': risk_manager,
-        'data_fetcher': data_fetcher,
         'trader': trader,
         'trading_settings': trading_settings,
         'aggressive_config': aggressive_config
@@ -166,9 +175,9 @@ def setup_aggressive_bot(args):
 
 def run_trading_cycle(components, args):
     """Run a single trading cycle."""
+    data_fetcher = components['data_fetcher']
     signal_generator = components['signal_generator']
     risk_manager = components['risk_manager']
-    data_fetcher = components['data_fetcher']
     trader = components['trader']
     trading_settings = components['trading_settings']
     
@@ -181,26 +190,42 @@ def run_trading_cycle(components, args):
         
         # Fetch market data
         log_info(f"📊 Fetching market data for {args.symbol}...")
-        data = data_fetcher.fetch_data(args.symbol, limit=100)
+        data = data_fetcher.fetch_crypto_data(args.symbol, timeframe="5Min", limit=100)
         
         if data is None or data.empty:
             log_error("Failed to fetch market data")
             return False
         
+        log_info(f"✅ Fetched {len(data)} data points, latest price: ${data['close'].iloc[-1]:.2f}")
+        
         # Generate trading signals
         log_info("🎯 Analyzing market conditions...")
         signal = signal_generator.evaluate_all_strategies(data)
         
+        # Check for individual strategy signals if combined is weak
+        if signal.confidence < 0.4:
+            individual_signals = []
+            for strategy in signal_generator.strategies:
+                try:
+                    individual_signal = strategy.calculate_signals(data)
+                    if individual_signal.confidence > 0.4:
+                        individual_signals.append(individual_signal)
+                except:
+                    pass
+            
+            if individual_signals:
+                signal = max(individual_signals, key=lambda s: s.confidence)
+                log_info(f"Using individual strategy signal: {signal.strategy}")
+        
         # Check signal strength
-        if signal.confidence < trading_settings.min_signal_confidence:
-            log_info(f"Signal too weak: {signal.confidence:.2f} < {trading_settings.min_signal_confidence}")
+        if signal.confidence < 0.4:
+            log_info(f"Signal too weak: {signal.action.value} with {signal.confidence:.2f} confidence")
             return True
         
         # Calculate position size
         current_price = data['close'].iloc[-1]
         volatility = data['close'].pct_change().rolling(10).std().iloc[-1]
         
-        from bot.aggressive_config import calculate_dynamic_position_size
         position_size = calculate_dynamic_position_size(
             capital=risk_manager.current_capital,
             signal_confidence=signal.confidence,
@@ -209,53 +234,56 @@ def run_trading_cycle(components, args):
         )
         
         # Log signal details
-        log_info(f"🚨 {signal.action.value} Signal Generated!")
-        log_info(f"   Strategy: {signal.strategy}")
-        log_info(f"   Confidence: {signal.confidence:.2f}")
-        log_info(f"   Price: ${current_price:.2f}")
-        log_info(f"   Position Size: ${position_size:.2f}")
-        log_info(f"   Reasoning: {signal.reasoning}")
+        print(f"\n🚨 {signal.action.value} Signal Generated!")
+        print(f"   Strategy: {signal.strategy}")
+        print(f"   Confidence: {signal.confidence:.2f}")
+        print(f"   Price: ${current_price:.2f}")
+        print(f"   Position Size: ${position_size:.2f}")
+        print(f"   Reasoning: {signal.reasoning}")
         
         if args.paper_trading:
             # Paper trading simulation
-            log_info("📝 PAPER TRADE - No real money involved")
+            print("📝 PAPER TRADE - No real money involved")
             
-            # Simulate trade outcome (for demo purposes)
+            # Simulate trade outcome based on signal confidence
             import random
-            success_rate = 0.6 if signal.confidence > 0.7 else 0.5
+            success_rate = 0.5 + (signal.confidence * 0.2)  # 50-70% success rate
             
             if random.random() < success_rate:
-                profit_pct = random.uniform(0.01, 0.04)
+                profit_pct = random.uniform(0.01, 0.04)  # 1-4% profit
                 pnl = position_size * profit_pct
-                log_info(f"   ✅ Simulated Result: +${pnl:.2f} ({profit_pct*100:.1f}%)")
+                print(f"   ✅ Simulated Result: +${pnl:.2f} ({profit_pct*100:.1f}%)")
             else:
-                loss_pct = random.uniform(0.01, 0.025)
+                loss_pct = random.uniform(0.01, 0.025)  # 1-2.5% loss
                 pnl = -position_size * loss_pct
-                log_info(f"   ❌ Simulated Result: ${pnl:.2f} ({loss_pct*100:.1f}%)")
+                print(f"   ❌ Simulated Result: ${pnl:.2f} ({loss_pct*100:.1f}%)")
             
             # Update risk manager for tracking
             risk_manager.update_capital(pnl)
             
         else:
-            # Real trading
-            log_warning("💰 REAL MONEY TRADE - BE CAREFUL!")
+            # Real trading with Alpaca
+            print("💰 REAL MONEY TRADE")
             
-            # Execute the trade
-            success = trader.execute_trade(
-                signal=signal,
-                position_size=position_size,
-                current_price=current_price
-            )
-            
-            if success:
-                log_info("✅ Trade executed successfully")
+            if trader:
+                success = trader.execute_trade(
+                    signal=signal,
+                    position_size=position_size,
+                    current_price=current_price
+                )
+                
+                if success:
+                    print("   ✅ Trade executed successfully")
+                    # Note: Real P&L would be updated by the trader
+                else:
+                    print("   ❌ Trade execution failed")
             else:
-                log_error("❌ Trade execution failed")
+                print("   ❌ No trader available - check Alpaca configuration")
         
         # Log current status
-        log_info(f"💰 Current Capital: ${risk_manager.current_capital:.2f}")
-        log_info(f"📊 Daily P&L: ${risk_manager.daily_pnl:.2f}")
-        log_info(f"📈 Total Return: {((risk_manager.current_capital / args.capital) - 1) * 100:.1f}%")
+        print(f"   💰 Current Capital: ${risk_manager.current_capital:.2f}")
+        print(f"   📊 Daily P&L: ${risk_manager.daily_pnl:.2f}")
+        print(f"   📈 Total Return: {((risk_manager.current_capital / args.capital) - 1) * 100:.1f}%")
         
         return True
         
@@ -276,7 +304,7 @@ def main():
     
     # Display startup information
     print("\n" + "="*60)
-    print("🔥 AGGRESSIVE CRYPTO TRADING BOT")
+    print("🔥 AGGRESSIVE CRYPTO TRADING BOT - YAHOO FINANCE")
     print("="*60)
     print(f"💰 Starting Capital: ${args.capital}")
     print(f"📊 Trading Symbol: {args.symbol}")
@@ -284,6 +312,7 @@ def main():
     print(f"⚡ Max Risk/Trade: {args.max_risk_per_trade*100}%")
     print(f"🛡️ Max Daily Loss: {args.max_daily_loss*100}%")
     print(f"⏱️ Trading Interval: {args.interval}s")
+    print(f"📡 Data Source: Yahoo Finance")
     print("="*60)
     
     if not args.paper_trading:
