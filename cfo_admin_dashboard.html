@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFO Dashboard - C. W. Ballard Asset Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafbfc;
+            color: #24292f;
+        }
+        
+        .header {
+            background: white;
+            border-bottom: 1px solid #d0d7de;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0969da;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            color: #656d76;
+            font-size: 1.1rem;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .kpi-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #d0d7de;
+        }
+        
+        .kpi-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .kpi-title {
+            font-size: 0.875rem;
+            color: #656d76;
+            font-weight: 500;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kpi-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .positive { color: #1a7f37; }
+        .negative { color: #cf222e; }
+        .neutral { color: #656d76; }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #d0d7de;
+        }
+        
+        .panel-header {
+            padding: 1.5rem 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .panel-content {
+            padding: 1.5rem;
+        }
+        
+        .chart-placeholder {
+            height: 350px;
+            background: linear-gradient(135deg, #0969da 0%, #1f883d 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.125rem;
+            text-align: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d0d7de;
+            background: #f6f8fa;
+            color: #24292f;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .btn:hover {
+            background: #f3f4f6;
+        }
+        
+        .btn-primary {
+            background: #0969da;
+            color: white;
+            border-color: #0969da;
+        }
+        
+        .btn-primary:hover {
+            background: #0860ca;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #d0d7de;
+        }
+        
+        .table th {
+            background: #f6f8fa;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .table td {
+            font-size: 0.875rem;
+        }
+        
+        .investor-row {
+            cursor: pointer;
+        }
+        
+        .investor-row:hover {
+            background: #f6f8fa;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #dafbe1;
+            color: #1a7f37;
+        }
+        
+        .status-pending {
+            background: #fff8c5;
+            color: #9a6700;
+        }
+        
+        .status-inactive {
+            background: #ffebe9;
+            color: #cf222e;
+        }
+        
+        .alert {
+            background: #fff8c5;
+            border: 1px solid #d1cc00;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #9a6700;
+        }
+        
+        .alert-info {
+            background: #ddf4ff;
+            border-color: #54aeff;
+            color: #0969da;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f6f8fa;
+        }
+        
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: #656d76;
+            font-size: 0.875rem;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">C. W. Ballard Asset Management - CFO Dashboard</div>
+        <div class="user-info">
+            <span>Charlie Dingle, CFO</span>
+            <button class="btn">Export Report</button>
+            <button class="btn btn-primary">Generate Statements</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Financial Overview</h1>
+            <p class="page-subtitle">Fund performance and investor management for January 2024</p>
+        </div>
+
+        <!-- Key Performance Indicators -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Total Assets Under Management</div>
+                <div class="kpi-value">$2,847,392</div>
+                <div class="kpi-change positive">
+                    ↗ +$127,483 (+4.69%) this month
+                </div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Net Performance (YTD)</div>
+                <div class="kpi-value positive">+18.7%</div>
+                <div class="kpi-change positive">
+                    vs S&P 500: +3.2% outperformance
+                </div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Management Fees (Monthly)</div>
+                <div class="kpi-value">$23,579</div>
+                <div class="kpi-change neutral">
+                    2% annual fee on AUM
+                </div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Performance Fees (YTD)</div>
+                <div class="kpi-value">$89,234</div>
+                <div class="kpi-change positive">
+                    20% of profits above 8% hurdle
+                </div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Active Investors</div>
+                <div class="kpi-value">47</div>
+                <div class="kpi-change positive">
+                    +3 new investors this month
+                </div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Cash Available</div>
+                <div class="kpi-value">$184,392</div>
+                <div class="kpi-change neutral">
+                    6.5% of total AUM
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Performance Chart -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Fund Performance vs Benchmarks</h3>
+                    <div>
+                        <button class="btn">1M</button>
+                        <button class="btn">3M</button>
+                        <button class="btn btn-primary">YTD</button>
+                        <button class="btn">1Y</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="chart-placeholder">
+                        📊 Performance Chart<br>
+                        <small style="opacity: 0.8;">Fund: +18.7% | S&P 500: +15.5% | Nasdaq: +12.3%</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Summary -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Financial Summary</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Gross Profit (YTD)</span>
+                        <span class="metric-value positive">$532,583</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Operating Expenses</span>
+                        <span class="metric-value">$47,200</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Net Profit (YTD)</span>
+                        <span class="metric-value positive">$485,383</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Profit Margin</span>
+                        <span class="metric-value">17.0%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Sharpe Ratio</span>
+                        <span class="metric-value">1.84</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Max Drawdown</span>
+                        <span class="metric-value negative">-3.2%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Win Rate</span>
+                        <span class="metric-value">68.4%</span>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    💡 Q4 investor statements ready for review. 3 withdrawal requests pending approval.
+                </div>
+            </div>
+        </div>
+
+        <!-- Investor Management -->
+        <div class="panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Investor Portfolio</h3>
+                <div>
+                    <button class="btn">Add Investor</button>
+                    <button class="btn">Export List</button>
+                </div>
+            </div>
+            <div class="panel-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Investor</th>
+                            <th>Investment</th>
+                            <th>Current Value</th>
+                            <th>Return</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="investor-row">
+                            <td><strong>Sarah Martinez</strong><br><small>sarah.m@email.com</small></td>
+                            <td>$12,500</td>
+                            <td>$16,089</td>
+                            <td class="positive">+28.7%</td>
+                            <td>Jan 15, 2024</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                        <tr class="investor-row">
+                            <td><strong>Michael Chen</strong><br><small>m.chen@email.com</small></td>
+                            <td>$25,000</td>
+                            <td>$29,650</td>
+                            <td class="positive">+18.6%</td>
+                            <td>Nov 8, 2023</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                        <tr class="investor-row">
+                            <td><strong>Jennifer Walsh</strong><br><small>jen.walsh@email.com</small></td>
+                            <td>$50,000</td>
+                            <td>$47,200</td>
+                            <td class="negative">-5.6%</td>
+                            <td>Dec 1, 2023</td>
+                            <td><span class="status-badge status-pending">Withdrawal Req</span></td>
+                            <td><button class="btn">Review</button></td>
+                        </tr>
+                        <tr class="investor-row">
+                            <td><strong>David Kim</strong><br><small>d.kim@email.com</small></td>
+                            <td>$15,000</td>
+                            <td>$18,945</td>
+                            <td class="positive">+26.3%</td>
+                            <td>Sep 22, 2023</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                        <tr class="investor-row">
+                            <td><strong>Lisa Thompson</strong><br><small>lisa.t@email.com</small></td>
+                            <td>$8,000</td>
+                            <td>$9,520</td>
+                            <td class="positive">+19.0%</td>
+                            <td>Jan 3, 2024</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pending Actions -->
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Pending Financial Actions</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="alert">
+                        <strong>3 Withdrawal Requests</strong> - Total: $47,200 - Requires approval
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Monthly Statements</strong> - Ready for distribution to 47 investors
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Tax Documents</strong> - 1099 forms need review before Feb 15th deadline
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Risk Metrics</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Portfolio Beta</span>
+                        <span class="metric-value">0.87</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Value at Risk (95%)</span>
+                        <span class="metric-value">$142,370</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Correlation to S&P</span>
+                        <span class="metric-value">0.73</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Volatility (30d)</span>
+                        <span class="metric-value">12.4%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

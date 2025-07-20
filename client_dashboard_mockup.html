@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoTrade Dashboard - Sarah M.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+        }
+        
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .welcome {
+            margin-bottom: 2rem;
+        }
+        
+        .welcome h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome p {
+            color: #64748b;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .positive { color: #059669; }
+        .negative { color: #dc2626; }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .chart-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.125rem;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .action-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .activity-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-text {
+            font-size: 0.875rem;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-active { background: #059669; }
+        .status-warning { background: #d97706; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">AlgoTrade Pro</div>
+        <div class="user-info">
+            <span>Sarah Martinez</span>
+            <button class="btn btn-secondary" style="width: auto; margin: 0; padding: 0.5rem 1rem;">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome">
+            <h1>Welcome back, Sarah!</h1>
+            <p>Here's how your investment is performing today</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Portfolio Value</div>
+                <div class="stat-value">$12,847.32</div>
+                <div class="stat-change positive">
+                    ↗ +$247.83 (+1.97%) today
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Total Return</div>
+                <div class="stat-value positive">+28.47%</div>
+                <div class="stat-change positive">
+                    Since Jan 15, 2024
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Initial Investment</div>
+                <div class="stat-value">$10,000.00</div>
+                <div class="stat-change">
+                    + $2,500 added in March
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">This Month</div>
+                <div class="stat-value positive">+4.23%</div>
+                <div class="stat-change positive">
+                    vs S&P 500: +2.1%
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chart-section">
+                <h3 style="margin-bottom: 1rem;">Portfolio Performance</h3>
+                <div class="chart-placeholder">
+                    📈 Interactive Chart Would Go Here<br>
+                    <small style="opacity: 0.8;">Showing 6-month performance vs benchmarks</small>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="action-card">
+                    <h4 style="margin-bottom: 1rem;">Quick Actions</h4>
+                    <button class="btn btn-primary">Add Funds</button>
+                    <button class="btn btn-secondary">Request Withdrawal</button>
+                    <button class="btn btn-secondary">Download Statement</button>
+                </div>
+
+                <div class="action-card">
+                    <h4 style="margin-bottom: 1rem;">Bot Status</h4>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <span class="status-indicator status-active"></span>
+                        <span>Active & Trading</span>
+                    </div>
+                    <div style="font-size: 0.875rem; color: #64748b;">
+                        Last trade: 2 hours ago<br>
+                        Strategy: Enhanced Momentum<br>
+                        Risk Level: Moderate
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <h4 style="margin-bottom: 1rem;">Recent Activity</h4>
+                    <div class="activity-item">
+                        <div>
+                            <div class="activity-text">Bought AAPL shares</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                        <div class="positive">+$127</div>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <div class="activity-text">Sold TSLA position</div>
+                            <div class="activity-time">Yesterday</div>
+                        </div>
+                        <div class="positive">+$89</div>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <div class="activity-text">Dividend received</div>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                        <div class="positive">+$23</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
