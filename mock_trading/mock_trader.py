@@ -7,7 +7,7 @@ and MockAlpacaAPI class to simulate Alpaca API responses and data structures.
 """
 import time
 from datetime import datetime
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, Optional, List, Tuple, Callable
 from dataclasses import dataclass
 
 try:
@@ -57,6 +57,8 @@ from .mock_config import MockTradingConfig, load_mock_config
 from .execution_engine import ExecutionEngine, MarketData
 from .order_manager import OrderManager, Portfolio
 from .position_manager import PositionManager
+from .market_data_integration import MarketDataIntegration, MarketDataPoint
+from .error_handler import MockTradingErrorHandler
 from bot.config import AlpacaCredentials, TradingSettings
 from bot.strategy import TradingSignal, SignalType
 from bot.trader import TradeResult
@@ -458,6 +460,12 @@ class MockTrader:
         self.order_manager_impl = OrderManager(self.config)
         self.position_manager_impl = PositionManager(self.config, self.config.starting_capital)
         
+        # Initialize error handler for comprehensive error simulation
+        self.error_handler = MockTradingErrorHandler(self.config)
+        
+        # Initialize market data integration
+        self.market_data_integration = MarketDataIntegration(self.config, credentials)
+        
         # Create interface-compatible managers
         self.position_manager = MockPositionManager(self.mock_api, self.position_manager_impl, self)
         self.order_manager = MockOrderManager(self.mock_api, self.order_manager_impl)
@@ -468,7 +476,16 @@ class MockTrader:
         # Market data cache for execution
         self.market_data_cache: Dict[str, MarketData] = {}
         
+        # Start real-time market data updates
+        self.market_data_integration.start_real_time_updates()
+        
         log_info(f"MockTrader initialized with ${self.config.starting_capital:,.2f} starting capital")
+    
+    def cleanup(self):
+        """Clean up resources and stop background processes."""
+        if hasattr(self, 'market_data_integration'):
+            self.market_data_integration.cleanup()
+        log_info("MockTrader cleaned up")
     
     def execute_trade(self, signal: TradingSignal) -> Optional[TradeResult]:
         """
@@ -500,6 +517,11 @@ class MockTrader:
         
         if signal.confidence < 0.5:
             log_info(f"Signal confidence too low: {signal.confidence:.2f}")
+            return False
+        
+        # Check market hours
+        if not self.market_data_integration.validate_market_hours(self.settings.symbol):
+            log_info(f"Trading not allowed during current market hours")
             return False
         
         current_time = time.time()
@@ -683,19 +705,35 @@ class MockTrader:
     
     def _create_market_data(self, symbol: str, price: float) -> MarketData:
         """Create market data for execution simulation."""
-        spread = price * 0.001  # 0.1% spread
-        bid = price - spread / 2
-        ask = price + spread / 2
+        # Try to get real market data first
+        market_data_point = self.market_data_integration.get_current_price(symbol, use_cache=True)
         
-        return MarketData(
-            symbol=symbol.replace("/", ""),
-            price=price,
-            bid=bid,
-            ask=ask,
-            volume=1000000,  # Mock volume
-            volatility=0.02,  # Mock volatility
-            timestamp=datetime.now()
-        )
+        if market_data_point and market_data_point.quality_score > 0.5:
+            # Use real market data
+            return MarketData(
+                symbol=symbol.replace("/", ""),
+                price=market_data_point.price,
+                bid=market_data_point.bid,
+                ask=market_data_point.ask,
+                volume=market_data_point.volume,
+                volatility=market_data_point.volatility,
+                timestamp=market_data_point.timestamp
+            )
+        else:
+            # Fallback to synthetic market data
+            spread = price * 0.001  # 0.1% spread
+            bid = price - spread / 2
+            ask = price + spread / 2
+            
+            return MarketData(
+                symbol=symbol.replace("/", ""),
+                price=price,
+                bid=bid,
+                ask=ask,
+                volume=1000000,  # Mock volume
+                volatility=0.02,  # Mock volatility
+                timestamp=datetime.now()
+            )
     
     def get_account_info(self) -> Dict[str, Any]:
         """Get account information."""
@@ -752,6 +790,62 @@ class MockTrader:
             
         except Exception as e:
             log_error(f"Error setting up mock risk management for {symbol}", e)
+    
+    def get_current_market_price(self, symbol: str) -> Optional[float]:
+        """
+        Get current market price for a symbol.
+        
+        Args:
+            symbol: Trading symbol
+            
+        Returns:
+            Current price if available, None otherwise
+        """
+        try:
+            market_data_point = self.market_data_integration.get_current_price(symbol, use_cache=True)
+            if market_data_point:
+                return market_data_point.price
+            return None
+        except Exception as e:
+            log_error(f"Error getting current market price for {symbol}: {e}")
+            return None
+    
+    def subscribe_to_price_updates(self, symbol: str, callback: Callable[[float], None]) -> None:
+        """
+        Subscribe to real-time price updates for a symbol.
+        
+        Args:
+            symbol: Trading symbol
+            callback: Function to call with new prices
+        """
+        def market_data_callback(data_point: MarketDataPoint):
+            try:
+                callback(data_point.price)
+            except Exception as e:
+                log_error(f"Error in price update callback for {symbol}: {e}")
+        
+        self.market_data_integration.subscribe_to_symbol(symbol, market_data_callback)
+        log_info(f"Subscribed to price updates for {symbol}")
+    
+    def get_market_data_stats(self) -> Dict[str, Any]:
+        """Get market data integration statistics."""
+        return self.market_data_integration.get_integration_stats()
+    
+    def get_multiple_current_prices(self, symbols: List[str]) -> Dict[str, Optional[float]]:
+        """
+        Get current prices for multiple symbols efficiently.
+        
+        Args:
+            symbols: List of trading symbols
+            
+        Returns:
+            Dictionary mapping symbols to their current prices
+        """
+        data_points = self.market_data_integration.get_multiple_prices(symbols, use_cache=True)
+        return {
+            symbol: data_point.price if data_point else None
+            for symbol, data_point in data_points.items()
+        }
     
     def check_risk_management_triggers(self, symbol: str, current_price: float) -> bool:
         """Check if current price has triggered any stop loss or take profit levels."""
