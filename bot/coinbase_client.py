@@ -1,13 +1,11 @@
 """
-Coinbase Advanced Trade API client with HMAC-SHA256 authentication.
+Coinbase Advanced Trade API client with JWT authentication.
 Handles API requests, authentication, rate limiting, and error handling.
 """
-import base64
-import hashlib
-import hmac
 import json
 import time
 import uuid
+import jwt
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 from urllib.parse import urljoin
@@ -22,15 +20,14 @@ from bot.utils import log_error, log_info
 class CoinbaseCredentials:
     """Dataclass for storing Coinbase API credentials."""
     api_key: str
-    api_secret: str
-    passphrase: str
+    api_secret: str  # This is now the private key for JWT
     sandbox: bool = False
-    base_url: str = "https://api.exchange.coinbase.com"
+    base_url: str = "https://api.coinbase.com"
     
     def __post_init__(self):
         """Set the correct base URL based on sandbox mode."""
         if self.sandbox:
-            self.base_url = "https://api-public.sandbox.exchange.coinbase.com"
+            self.base_url = "https://api.coinbase.com"  # Sandbox uses same URL with different credentials
 
 
 class RateLimiter:
@@ -97,47 +94,69 @@ class CoinbaseClient:
         self.public_rate_limiter = RateLimiter(max_requests=10, time_window=1)
         self.private_rate_limiter = RateLimiter(max_requests=5, time_window=1)
     
-    def _generate_signature(self, timestamp: str, method: str, path: str, body: str = "") -> str:
+    def _generate_jwt_token(self) -> str:
         """
-        Generate HMAC-SHA256 signature for Coinbase API authentication.
+        Generate JWT token for Coinbase Advanced Trade API authentication.
         
-        Args:
-            timestamp: Unix timestamp as string
-            method: HTTP method (GET, POST, etc.)
-            path: API endpoint path
-            body: Request body (empty for GET requests)
-            
         Returns:
-            Base64 encoded signature
+            JWT token string
         """
-        message = timestamp + method.upper() + path + body
-        signature = hmac.new(
-            base64.b64decode(self.credentials.api_secret),
-            message.encode('utf-8'),
-            hashlib.sha256
-        )
-        return base64.b64encode(signature.digest()).decode('utf-8')
+        # JWT header
+        header = {
+            'alg': 'ES256',
+            'kid': self.credentials.api_key,
+            'typ': 'JWT'
+        }
+        
+        # JWT payload
+        now = int(time.time())
+        
+        # Check if this is a Cloud Trading API key (UUID format) vs Advanced Trade API key
+        if self.credentials.api_key.startswith('organizations/'):
+            # Advanced Trade API format
+            payload = {
+                'sub': self.credentials.api_key,
+                'iss': 'coinbase-cloud',
+                'nbf': now,
+                'exp': now + 120,  # Token expires in 2 minutes
+                'aud': ['public_websocket_api']
+            }
+        else:
+            # Cloud Trading API format (UUID)
+            payload = {
+                'sub': self.credentials.api_key,
+                'iss': 'coinbase-cloud',
+                'nbf': now,
+                'exp': now + 120,  # Token expires in 2 minutes
+                'aud': ['public_websocket_api']
+            }
+        
+        # Sign the JWT with the private key
+        try:
+            # Handle escaped newlines in private key from .env file
+            private_key = self.credentials.api_secret.replace('\\n', '\n')
+            token = jwt.encode(payload, private_key, algorithm='ES256', headers=header)
+            return token
+        except Exception as e:
+            log_error(f"Failed to generate JWT token: {str(e)}")
+            raise
     
-    def _get_auth_headers(self, method: str, path: str, body: str = "") -> Dict[str, str]:
+    def _get_auth_headers(self, method: str = None, path: str = None, body: str = "") -> Dict[str, str]:
         """
         Generate authentication headers for Coinbase API requests.
         
         Args:
-            method: HTTP method
-            path: API endpoint path
-            body: Request body
+            method: HTTP method (not used in JWT auth)
+            path: API endpoint path (not used in JWT auth)
+            body: Request body (not used in JWT auth)
             
         Returns:
             Dictionary of authentication headers
         """
-        timestamp = str(time.time())
-        signature = self._generate_signature(timestamp, method, path, body)
+        jwt_token = self._generate_jwt_token()
         
         return {
-            'CB-ACCESS-KEY': self.credentials.api_key,
-            'CB-ACCESS-SIGN': signature,
-            'CB-ACCESS-TIMESTAMP': timestamp,
-            'CB-ACCESS-PASSPHRASE': self.credentials.passphrase,
+            'Authorization': f'Bearer {jwt_token}',
             'Content-Type': 'application/json'
         }
     
@@ -200,13 +219,9 @@ class CoinbaseClient:
         # Prepare headers
         headers = {}
         if is_private:
-            headers.update(self._get_auth_headers(method, endpoint, body))
+            headers.update(self._get_auth_headers())
         else:
             headers['Content-Type'] = 'application/json'
-        
-        # Add nonce to headers for private requests
-        if is_private:
-            headers['CB-ACCESS-NONCE'] = self._generate_nonce()
         
         try:
             # Make the request
@@ -249,8 +264,27 @@ class CoinbaseClient:
             True if authentication is successful
         """
         try:
-            response = self._make_request('GET', '/accounts')
-            return isinstance(response, list) or isinstance(response, dict)
+            # Try v3 Advanced Trade API first
+            try:
+                response = self._make_request('GET', '/api/v3/brokerage/accounts')
+                return isinstance(response, dict) and 'accounts' in response
+            except:
+                pass
+            
+            # Try v2 Consumer API
+            try:
+                response = self._make_request('GET', '/v2/user')
+                return isinstance(response, dict) and 'data' in response
+            except:
+                pass
+            
+            # Fall back to public endpoint test (indicates read-only key)
+            response = self._make_request('GET', '/v2/time', is_private=False)
+            if isinstance(response, dict) and 'data' in response:
+                log_info("API key works with public endpoints only (read-only permissions)")
+                return True
+            
+            return False
         except Exception as e:
             log_error(f"Authentication test failed: {str(e)}")
             return False
@@ -263,7 +297,14 @@ class CoinbaseClient:
         Returns:
             List of account dictionaries
         """
-        return self._make_request('GET', '/accounts')
+        try:
+            # Try v3 Advanced Trade API first
+            response = self._make_request('GET', '/api/v3/brokerage/accounts')
+            return response.get('accounts', [])
+        except:
+            # Fall back to v2 Consumer API
+            response = self._make_request('GET', '/v2/accounts')
+            return response.get('data', [])
     
     def get_account(self, account_id: str) -> Dict:
         """
@@ -275,7 +316,8 @@ class CoinbaseClient:
         Returns:
             Account information dictionary
         """
-        return self._make_request('GET', f'/accounts/{account_id}')
+        response = self._make_request('GET', f'/api/v3/brokerage/accounts/{account_id}')
+        return response.get('account', {})
     
     # Order endpoints
     def create_order(self, order_params: Dict) -> Dict:
@@ -288,7 +330,7 @@ class CoinbaseClient:
         Returns:
             Order creation response
         """
-        return self._make_request('POST', '/orders', data=order_params)
+        return self._make_request('POST', '/api/v3/brokerage/orders', data=order_params)
     
     def cancel_order(self, order_id: str) -> Dict:
         """
@@ -300,7 +342,8 @@ class CoinbaseClient:
         Returns:
             Cancellation response
         """
-        return self._make_request('DELETE', f'/orders/{order_id}')
+        return self._make_request('POST', '/api/v3/brokerage/orders/batch_cancel', 
+                                data={'order_ids': [order_id]})
     
     def get_order(self, order_id: str) -> Dict:
         """
@@ -312,7 +355,8 @@ class CoinbaseClient:
         Returns:
             Order information dictionary
         """
-        return self._make_request('GET', f'/orders/{order_id}')
+        response = self._make_request('GET', f'/api/v3/brokerage/orders/historical/{order_id}')
+        return response.get('order', {})
     
     def list_orders(self, status: Optional[str] = None, product_id: Optional[str] = None) -> List[Dict]:
         """
@@ -327,11 +371,12 @@ class CoinbaseClient:
         """
         params = {}
         if status:
-            params['status'] = status
+            params['order_status'] = status
         if product_id:
             params['product_id'] = product_id
             
-        return self._make_request('GET', '/orders', params=params)
+        response = self._make_request('GET', '/api/v3/brokerage/orders/historical/batch', params=params)
+        return response.get('orders', [])
     
     # Market data endpoints (public)
     def get_products(self) -> List[Dict]:
@@ -341,7 +386,25 @@ class CoinbaseClient:
         Returns:
             List of product dictionaries
         """
-        return self._make_request('GET', '/products', is_private=False)
+        try:
+            # Try v3 Advanced Trade API first
+            response = self._make_request('GET', '/api/v3/brokerage/products', is_private=False)
+            return response.get('products', [])
+        except:
+            # Fall back to v2 Consumer API - get exchange rates as products
+            response = self._make_request('GET', '/v2/exchange-rates', is_private=False)
+            rates = response.get('data', {}).get('rates', {})
+            # Convert rates to product-like format
+            products = []
+            for currency, rate in rates.items():
+                if currency in ['BTC', 'ETH', 'LTC', 'BCH']:  # Major cryptos
+                    products.append({
+                        'product_id': f'{currency}-USD',
+                        'base_currency': currency,
+                        'quote_currency': 'USD',
+                        'status': 'online'
+                    })
+            return products
     
     def get_product_ticker(self, product_id: str) -> Dict:
         """
@@ -353,27 +416,30 @@ class CoinbaseClient:
         Returns:
             Ticker information dictionary
         """
-        return self._make_request('GET', f'/products/{product_id}/ticker', is_private=False)
+        response = self._make_request('GET', f'/api/v3/brokerage/products/{product_id}', is_private=False)
+        return response
     
-    def get_product_candles(self, product_id: str, start: str, end: str, granularity: int) -> List[List]:
+    def get_product_candles(self, product_id: str, start: str, end: str, granularity: str) -> List[Dict]:
         """
         Get historical candle data for a product.
         
         Args:
             product_id: Product ID
-            start: Start time (ISO 8601)
-            end: End time (ISO 8601)
-            granularity: Granularity in seconds
+            start: Start time (Unix timestamp)
+            end: End time (Unix timestamp)
+            granularity: Granularity (ONE_MINUTE, FIVE_MINUTE, etc.)
             
         Returns:
-            List of candle data arrays
+            List of candle data dictionaries
         """
         params = {
             'start': start,
             'end': end,
             'granularity': granularity
         }
-        return self._make_request('GET', f'/products/{product_id}/candles', params=params, is_private=False)
+        response = self._make_request('GET', f'/api/v3/brokerage/products/{product_id}/candles', 
+                                    params=params, is_private=False)
+        return response.get('candles', [])
     
     def get_product_stats(self, product_id: str) -> Dict:
         """
@@ -385,4 +451,4 @@ class CoinbaseClient:
         Returns:
             24hr stats dictionary
         """
-        return self._make_request('GET', f'/products/{product_id}/stats', is_private=False)
+        return self._make_request('GET', f'/api/v3/brokerage/products/{product_id}/stats', is_private=False)

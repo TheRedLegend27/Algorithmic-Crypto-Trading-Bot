@@ -14,10 +14,9 @@ from bot.utils import log_error, log_info
 class CoinbaseCredentials:
     """Dataclass for storing Coinbase API credentials."""
     api_key: str
-    api_secret: str
-    passphrase: str
+    api_secret: str  # This is now the private key for JWT authentication
     sandbox: bool = False
-    base_url: str = "https://api.exchange.coinbase.com"
+    base_url: str = "https://api.coinbase.com"
     
     def __post_init__(self):
         """Set the correct base URL based on sandbox mode."""
@@ -25,10 +24,8 @@ class CoinbaseCredentials:
     
     def update_base_url(self):
         """Update the base URL based on sandbox mode."""
-        if self.sandbox:
-            self.base_url = "https://api-public.sandbox.exchange.coinbase.com"
-        else:
-            self.base_url = "https://api.exchange.coinbase.com"
+        # Both sandbox and production use the same base URL for Advanced Trade API
+        self.base_url = "https://api.coinbase.com"
 
 
 @dataclass
@@ -146,13 +143,11 @@ class Config:
             # Load Coinbase credentials if available
             coinbase_key = os.getenv("COINBASE_API_KEY")
             coinbase_secret = os.getenv("COINBASE_API_SECRET")
-            coinbase_passphrase = os.getenv("COINBASE_PASSPHRASE")
             
-            if coinbase_key and coinbase_secret and coinbase_passphrase:
+            if coinbase_key and coinbase_secret:
                 self._coinbase_credentials = CoinbaseCredentials(
                     api_key=coinbase_key,
                     api_secret=coinbase_secret,
-                    passphrase=coinbase_passphrase,
                     sandbox=os.getenv("COINBASE_SANDBOX", "True").lower() in ("true", "1", "t")
                 )
             
@@ -239,10 +234,6 @@ class Config:
             
         if not self._coinbase_credentials.api_secret:
             log_error("Coinbase API secret cannot be empty")
-            return False
-            
-        if not self._coinbase_credentials.passphrase:
-            log_error("Coinbase passphrase cannot be empty")
             return False
             
         # Validate base URL

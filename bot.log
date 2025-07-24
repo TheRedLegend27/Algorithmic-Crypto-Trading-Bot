@@ -1,0 +1,24 @@
+2025-07-24 00:52:02,444 - crypto_bot - ERROR - Failed to generate JWT token: ('Could not deserialize key data. The data may be in an incorrect format, it may be encrypted with an unsupported algorithm, or it may be an unsupported key type (e.g. EC curves with explicit parameters).', [<OpenSSLError(code=503841036, lib=60, reason=524556, reason_text=unsupported)>])
+2025-07-24 00:52:02,445 - crypto_bot - ERROR - Authentication test failed: ('Could not deserialize key data. The data may be in an incorrect format, it may be encrypted with an unsupported algorithm, or it may be an unsupported key type (e.g. EC curves with explicit parameters).', [<OpenSSLError(code=503841036, lib=60, reason=524556, reason_text=unsupported)>])
+2025-07-24 00:54:11,926 - crypto_bot - ERROR - Failed to generate JWT token: ('Could not deserialize key data. The data may be in an incorrect format, it may be encrypted with an unsupported algorithm, or it may be an unsupported key type (e.g. EC curves with explicit parameters).', [<OpenSSLError(code=503841036, lib=60, reason=524556, reason_text=unsupported)>])
+2025-07-24 00:54:11,926 - crypto_bot - ERROR - Authentication test failed: ('Could not deserialize key data. The data may be in an incorrect format, it may be encrypted with an unsupported algorithm, or it may be an unsupported key type (e.g. EC curves with explicit parameters).', [<OpenSSLError(code=503841036, lib=60, reason=524556, reason_text=unsupported)>])
+2025-07-24 00:59:33,134 - dotenv.main - WARNING - python-dotenv could not parse statement starting at line 15
+2025-07-24 00:59:33,136 - crypto_bot - ERROR - Failed to generate JWT token: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+2025-07-24 00:59:33,136 - crypto_bot - ERROR - Authentication test failed: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+2025-07-24 00:59:57,349 - crypto_bot - ERROR - Failed to generate JWT token: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidLength(185))
+2025-07-24 00:59:57,349 - crypto_bot - ERROR - Authentication test failed: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidLength(185))
+2025-07-24 01:00:43,821 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:00:43,822 - crypto_bot - ERROR - Authentication test failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:02:59,721 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:02:59,770 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/user
+2025-07-24 01:02:59,770 - crypto_bot - ERROR - Authentication test failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/user
+2025-07-24 01:04:27,600 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:04:27,646 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/user
+2025-07-24 01:04:27,690 - crypto_bot - INFO - API key works with public endpoints only (read-only permissions)
+2025-07-24 01:04:27,738 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:04:27,779 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/accounts
+2025-07-24 01:07:32,299 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:07:32,344 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/user
+2025-07-24 01:07:32,424 - crypto_bot - INFO - API key works with public endpoints only (read-only permissions)
+2025-07-24 01:07:32,467 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/api/v3/brokerage/accounts
+2025-07-24 01:07:32,523 - crypto_bot - ERROR - API request failed: 401 Client Error: Unauthorized for url: https://api.coinbase.com/v2/accounts
