@@ -158,8 +158,13 @@ class TestConfigValidation(unittest.TestCase):
     
     def test_missing_env_file(self):
         """Test behavior when .env file is missing."""
-        # Patch load_dotenv to return False (file not found)
+        # Mock os.getenv to return None for required variables
+        def mock_getenv(key, default=None):
+            return None  # No environment variables set
+        
+        # Patch load_dotenv to return False (file not found) and os.getenv
         with patch('bot.config.load_dotenv', return_value=False), \
+             patch('os.getenv', side_effect=mock_getenv), \
              patch('bot.config.log_error') as mock_log_error:
             
             # Load environment variables

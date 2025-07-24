@@ -12,14 +12,18 @@ import os
 import atexit
 from typing import Dict, Any, Optional, List, Tuple
 
-from bot.config import Config, TradingSettings, AlpacaCredentials
+from bot.config import Config, TradingSettings, AlpacaCredentials, CoinbaseCredentials, CryptoTradingSettings
 from bot.data_fetcher import DataFetcher
+from bot.coinbase_data_fetcher import CoinbaseDataFetcher
 from bot.strategy import MovingAverageCrossover, RSIStrategy, SignalGenerator, BaseStrategy
+from bot.crypto_strategies import CryptoMovingAverageCrossover, CryptoRSIStrategy
 from bot.trader import Trader
+from bot.coinbase_trader import CoinbaseTrader
 from bot.logger import TradingLogger
 from bot.scheduler import TradingCycle, TradingScheduler
 from bot.utils import log_info, log_error, log_warning, retry_with_backoff
 from bot.error_handler import ErrorHandler
+from bot.coinbase_error_handler import CoinbaseErrorHandler
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -31,12 +35,21 @@ def parse_arguments() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description="Crypto Trading Bot")
     
+    # Trading platform selection
+    parser.add_argument(
+        "--platform",
+        type=str,
+        choices=["alpaca", "coinbase"],
+        default="coinbase",
+        help="Trading platform to use (default: coinbase)"
+    )
+    
     # Trading symbol configuration
     parser.add_argument(
         "--symbol", 
         type=str, 
-        default="BTC/USD",
-        help="Trading symbol (default: BTC/USD)"
+        default="BTC-USD",
+        help="Trading symbol (default: BTC-USD for Coinbase, BTC/USD for Alpaca)"
     )
     
     # Scheduling configuration
@@ -183,6 +196,34 @@ def parse_arguments() -> argparse.Namespace:
         help="Maximum number of trades per day (default: 20)"
     )
     
+    # Coinbase-specific parameters
+    parser.add_argument(
+        "--sandbox",
+        action="store_true",
+        help="Use Coinbase sandbox environment (default: False)"
+    )
+    
+    parser.add_argument(
+        "--base-currency",
+        type=str,
+        default="BTC",
+        help="Base currency for trading pair (default: BTC)"
+    )
+    
+    parser.add_argument(
+        "--quote-currency",
+        type=str,
+        default="USD",
+        help="Quote currency for trading pair (default: USD)"
+    )
+    
+    parser.add_argument(
+        "--min-order-size",
+        type=float,
+        default=0.001,
+        help="Minimum order size in base currency (default: 0.001)"
+    )
+    
     return parser.parse_args()
 
 
@@ -208,6 +249,24 @@ def update_trading_settings(settings: TradingSettings, args: argparse.Namespace)
         settings.max_trades_per_day = args.maxtrades
 
 
+def update_crypto_trading_settings(settings: CryptoTradingSettings, args: argparse.Namespace) -> None:
+    """
+    Update crypto trading settings from command line arguments.
+    
+    Args:
+        settings: CryptoTradingSettings object to update
+        args: Parsed command line arguments
+    """
+    settings.trading_pair = args.symbol
+    settings.base_currency = args.base_currency
+    settings.quote_currency = args.quote_currency
+    settings.trade_amount_usd = args.amount
+    settings.max_position_usd = args.max_position
+    settings.min_order_size = args.min_order_size
+    settings.stop_loss_pct = args.stop_loss
+    settings.take_profit_pct = args.take_profit
+
+
 def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str, Any]:
     """
     Initialize all components needed for the trading bot.
@@ -215,6 +274,113 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
     Args:
         config: Config object containing credentials and settings
         args: Parsed command line arguments
+        
+    Returns:
+        Dictionary containing initialized components
+    """
+    # Initialize logger with specified options
+    logger = TradingLogger(
+        use_rich=not args.no_dashboard,
+        log_file=args.log_file
+    )
+    
+    # Initialize components based on selected platform
+    if args.platform == "coinbase":
+        return initialize_coinbase_components(config, args, logger)
+    else:
+        return initialize_alpaca_components(config, args, logger)
+
+
+def initialize_coinbase_components(config: Config, args: argparse.Namespace, logger: TradingLogger) -> Dict[str, Any]:
+    """
+    Initialize Coinbase-specific components.
+    
+    Args:
+        config: Config object containing credentials and settings
+        args: Parsed command line arguments
+        logger: Initialized TradingLogger
+        
+    Returns:
+        Dictionary containing initialized components
+    """
+    # Get credentials and settings
+    credentials = config.get_coinbase_credentials()
+    
+    # Update sandbox mode from command line
+    if credentials:
+        credentials.sandbox = args.sandbox
+        credentials.update_base_url()
+    else:
+        log_error("Coinbase credentials not found. Please set COINBASE_API_KEY, COINBASE_API_SECRET, and COINBASE_PASSPHRASE environment variables.")
+        return {}
+    
+    # Get crypto trading settings
+    crypto_settings = config.get_crypto_trading_settings()
+    
+    # Update settings from command line arguments
+    update_crypto_trading_settings(crypto_settings, args)
+    
+    # Initialize data fetcher
+    data_fetcher = CoinbaseDataFetcher(credentials)
+    
+    # Initialize strategies with command-line parameters
+    strategies: List[BaseStrategy] = [
+        CryptoMovingAverageCrossover(
+            fast_period=args.ma_fast,
+            slow_period=args.ma_slow
+        ),
+        CryptoRSIStrategy(
+            period=args.rsi_period,
+            base_oversold=args.rsi_oversold,
+            base_overbought=args.rsi_overbought
+        )
+    ]
+    signal_generator = SignalGenerator(strategies)
+    
+    # Initialize trader with appropriate settings
+    trader = CoinbaseTrader(
+        credentials=credentials,
+        settings=crypto_settings
+    )
+    
+    # Initialize error handler
+    error_handler = CoinbaseErrorHandler()
+    
+    # Initialize trading cycle
+    trading_cycle = TradingCycle(
+        data_fetcher=data_fetcher,
+        signal_generator=signal_generator,
+        trader=trader,
+        logger=logger,
+        error_handler=error_handler,
+        symbol=crypto_settings.trading_pair
+    )
+    
+    # Initialize scheduler with appropriate settings
+    scheduler = TradingScheduler(
+        trading_cycle=trading_cycle,
+        interval_minutes=args.interval,
+        error_handler=error_handler
+    )
+    
+    return {
+        "logger": logger,
+        "data_fetcher": data_fetcher,
+        "signal_generator": signal_generator,
+        "trader": trader,
+        "trading_cycle": trading_cycle,
+        "scheduler": scheduler
+    }
+
+
+def initialize_alpaca_components(config: Config, args: argparse.Namespace, logger: TradingLogger) -> Dict[str, Any]:
+    """
+    Initialize Alpaca-specific components.
+    
+    Args:
+        config: Config object containing credentials and settings
+        args: Parsed command line arguments
+        logger: Initialized TradingLogger
         
     Returns:
         Dictionary containing initialized components
@@ -230,12 +396,7 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
     if args.dry_run:
         log_info("Running in dry-run mode - no actual trades will be executed")
         settings.dry_run = True
-    
-    # Initialize logger with specified options
-    logger = TradingLogger(
-        use_rich=not args.no_dashboard,
-        log_file=args.log_file
-    )
+        credentials.paper_trading = True
     
     # Initialize data fetcher
     data_fetcher = DataFetcher(credentials)
@@ -255,10 +416,6 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
     signal_generator = SignalGenerator(strategies)
     
     # Initialize trader with appropriate settings
-    # Update paper_trading in credentials if dry run is enabled
-    if args.dry_run:
-        credentials.paper_trading = True
-        
     trader = Trader(
         credentials=credentials,
         settings=settings
@@ -294,12 +451,13 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
     }
 
 
-def perform_health_check(components: Dict[str, Any]) -> bool:
+def perform_health_check(components: Dict[str, Any], platform: str) -> bool:
     """
     Perform a health check on all components.
     
     Args:
         components: Dictionary containing all components
+        platform: Trading platform being used ("alpaca" or "coinbase")
         
     Returns:
         bool: True if all components are healthy, False otherwise
@@ -325,7 +483,10 @@ def perform_health_check(components: Dict[str, Any]) -> bool:
             # Try to get account info
             account_info = trader.get_account_info()
             if account_info:
-                log_info(f"Trader check: OK (Account equity: ${account_info.get('equity', 'N/A')})")
+                if platform == "coinbase":
+                    log_info(f"Trader check: OK (Portfolio value: ${account_info.get('portfolio_value', 'N/A')})")
+                else:
+                    log_info(f"Trader check: OK (Account equity: ${account_info.get('equity', 'N/A')})")
             else:
                 log_warning("Trader check: WARNING (Could not get account info)")
         except Exception as e:
@@ -334,11 +495,19 @@ def perform_health_check(components: Dict[str, Any]) -> bool:
             
         # Check position manager
         try:
-            # Try to reconcile positions
-            if trader.position_manager.reconcile_positions():
-                log_info("Position manager check: OK")
+            if platform == "coinbase":
+                # For Coinbase, check portfolio summary
+                portfolio = trader.get_portfolio_summary()
+                if portfolio:
+                    log_info("Position manager check: OK")
+                else:
+                    log_warning("Position manager check: WARNING (Could not get portfolio summary)")
             else:
-                log_warning("Position manager check: WARNING (Could not reconcile positions)")
+                # For Alpaca, reconcile positions
+                if trader.position_manager.reconcile_positions():
+                    log_info("Position manager check: OK")
+                else:
+                    log_warning("Position manager check: WARNING (Could not reconcile positions)")
         except Exception as e:
             log_error("Position manager check: FAILED", e)
             return False
@@ -388,13 +557,23 @@ def main() -> int:
         if not config.load_env_variables():
             log_error("Failed to load environment variables")
             return 1
-            
-        if not config.validate_config():
-            log_error("Invalid configuration")
-            return 1
+        
+        # Validate configuration based on selected platform
+        if args.platform == "coinbase":
+            if not config.validate_coinbase_config():
+                log_error("Invalid Coinbase configuration")
+                return 1
+        else:
+            if not config.validate_config():
+                log_error("Invalid Alpaca configuration")
+                return 1
             
         # Initialize components
         components = initialize_components(config, args)
+        if not components:
+            log_error("Failed to initialize components")
+            return 1
+            
         logger = components["logger"]
         scheduler = components["scheduler"]
         
@@ -402,7 +581,8 @@ def main() -> int:
         logger.start_live_display()
         
         # Log startup information
-        log_info(f"Starting crypto trading bot with symbol {args.symbol}")
+        log_info(f"Starting crypto trading bot with platform {args.platform}")
+        log_info(f"Trading symbol: {args.symbol}")
         log_info(f"Trading interval: {args.interval} minutes")
         log_info(f"Trade amount: ${args.amount}")
         log_info(f"Maximum position size: ${args.max_position}")
@@ -410,9 +590,12 @@ def main() -> int:
         log_info(f"Take profit: {args.take_profit * 100}%")
         log_info(f"Max trades per day: {args.maxtrades}")
         
+        if args.platform == "coinbase":
+            log_info(f"Using Coinbase {'sandbox' if args.sandbox else 'live'} environment")
+        
         # Perform initial health check
         if not args.skip_health_check:
-            if not perform_health_check(components):
+            if not perform_health_check(components, args.platform):
                 log_error("Initial health check failed, aborting startup")
                 logger.stop_live_display()
                 return 1
@@ -452,7 +635,7 @@ def main() -> int:
                 # Perform periodic health check
                 current_time = time.time()
                 if current_time - last_health_check > health_check_interval:
-                    perform_health_check(components)
+                    perform_health_check(components, args.platform)
                     last_health_check = current_time
                     
         except KeyboardInterrupt:
