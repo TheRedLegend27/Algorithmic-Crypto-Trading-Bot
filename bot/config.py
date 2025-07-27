@@ -11,30 +11,11 @@ from bot.utils import log_error, log_info
 
 
 @dataclass
-class CoinbaseCredentials:
-    """Dataclass for storing Coinbase API credentials."""
+class KrakenCredentials:
+    """Dataclass for storing Kraken API credentials."""
     api_key: str
-    api_secret: str  # This is now the private key for JWT authentication
-    sandbox: bool = False
-    base_url: str = "https://api.coinbase.com"
-    
-    def __post_init__(self):
-        """Set the correct base URL based on sandbox mode."""
-        self.update_base_url()
-    
-    def update_base_url(self):
-        """Update the base URL based on sandbox mode."""
-        # Both sandbox and production use the same base URL for Advanced Trade API
-        self.base_url = "https://api.coinbase.com"
-
-
-@dataclass
-class AlpacaCredentials:
-    """Dataclass for storing Alpaca API credentials."""
-    api_key: str
-    secret_key: str
-    base_url: str
-    paper_trading: bool
+    api_secret: str
+    base_url: str = "https://api.kraken.com"
 
 
 @dataclass
@@ -103,8 +84,7 @@ class Config:
         if self._initialized:
             return
             
-        self._alpaca_credentials = None
-        self._coinbase_credentials = None
+        self._kraken_credentials = None
         self._trading_settings = TradingSettings()
         self._crypto_trading_settings = CryptoTradingSettings()
         self._available_trading_pairs = []
@@ -122,7 +102,7 @@ class Config:
             dotenv_loaded = load_dotenv()
             
             # Check if required environment variables exist (not None)
-            required_vars = ["ALPACA_API_KEY", "ALPACA_SECRET_KEY", "ALPACA_BASE_URL"]
+            required_vars = ["KRAKEN_API_KEY", "KRAKEN_API_SECRET"]
             missing_vars = [var for var in required_vars if os.getenv(var) is None]
             
             if missing_vars:
@@ -132,24 +112,11 @@ class Config:
                     log_error(f"Missing required environment variables: {', '.join(missing_vars)}")
                 return False
                 
-            # Load Alpaca credentials
-            self._alpaca_credentials = AlpacaCredentials(
-                api_key=os.getenv("ALPACA_API_KEY"),
-                secret_key=os.getenv("ALPACA_SECRET_KEY"),
-                base_url=os.getenv("ALPACA_BASE_URL"),
-                paper_trading=os.getenv("IS_PAPER_TRADING", "True").lower() in ("true", "1", "t")
+            # Load Kraken credentials
+            self._kraken_credentials = KrakenCredentials(
+                api_key=os.getenv("KRAKEN_API_KEY"),
+                api_secret=os.getenv("KRAKEN_API_SECRET")
             )
-            
-            # Load Coinbase credentials if available
-            coinbase_key = os.getenv("COINBASE_API_KEY")
-            coinbase_secret = os.getenv("COINBASE_API_SECRET")
-            
-            if coinbase_key and coinbase_secret:
-                self._coinbase_credentials = CoinbaseCredentials(
-                    api_key=coinbase_key,
-                    api_secret=coinbase_secret,
-                    sandbox=os.getenv("COINBASE_SANDBOX", "True").lower() in ("true", "1", "t")
-                )
             
             return True
             
@@ -157,23 +124,14 @@ class Config:
             log_error(f"Error loading environment variables: {str(e)}")
             return False
     
-    def get_alpaca_credentials(self) -> Optional[AlpacaCredentials]:
+    def get_kraken_credentials(self) -> Optional[KrakenCredentials]:
         """
-        Get Alpaca API credentials.
+        Get Kraken API credentials.
         
         Returns:
-            AlpacaCredentials: Object containing API credentials.
+            KrakenCredentials: Object containing API credentials.
         """
-        return self._alpaca_credentials
-    
-    def get_coinbase_credentials(self) -> Optional[CoinbaseCredentials]:
-        """
-        Get Coinbase API credentials.
-        
-        Returns:
-            CoinbaseCredentials: Object containing API credentials.
-        """
-        return self._coinbase_credentials
+        return self._kraken_credentials
     
     def get_trading_settings(self) -> TradingSettings:
         """
@@ -200,55 +158,28 @@ class Config:
         Returns:
             bool: True if configuration is valid, False otherwise.
         """
-        if not self._alpaca_credentials:
-            log_error("Alpaca credentials not loaded")
+        if not self._kraken_credentials:
+            log_error("Kraken credentials not loaded")
             return False
             
         # Validate API keys are not empty
-        if not self._alpaca_credentials.api_key or not self._alpaca_credentials.secret_key:
+        if not self._kraken_credentials.api_key or not self._kraken_credentials.api_secret:
             log_error("API keys cannot be empty")
             return False
             
         # Validate base URL
-        if not self._alpaca_credentials.base_url:
+        if not self._kraken_credentials.base_url:
             log_error("Base URL cannot be empty")
-            return False
-            
-        return True
-    
-    def validate_coinbase_config(self) -> bool:
-        """
-        Validate the Coinbase configuration.
-        
-        Returns:
-            bool: True if Coinbase configuration is valid, False otherwise.
-        """
-        if not self._coinbase_credentials:
-            log_error("Coinbase credentials not loaded")
-            return False
-            
-        # Validate API credentials are not empty
-        if not self._coinbase_credentials.api_key:
-            log_error("Coinbase API key cannot be empty")
-            return False
-            
-        if not self._coinbase_credentials.api_secret:
-            log_error("Coinbase API secret cannot be empty")
-            return False
-            
-        # Validate base URL
-        if not self._coinbase_credentials.base_url:
-            log_error("Coinbase base URL cannot be empty")
             return False
             
         return True
         
     def validate_trading_pair(self, trading_pair: str) -> bool:
         """
-        Validate that a trading pair exists on Coinbase.
+        Validate that a trading pair exists on Kraken.
         
         Args:
-            trading_pair: Trading pair to validate (e.g., 'BTC-USD')
+            trading_pair: Trading pair to validate (e.g., 'XBTUSD')
             
         Returns:
             bool: True if trading pair is valid, False otherwise.
@@ -259,19 +190,19 @@ class Config:
             
         return trading_pair in self._available_trading_pairs
         
-    def load_available_trading_pairs(self, coinbase_client) -> bool:
+    def load_available_trading_pairs(self, kraken_client) -> bool:
         """
-        Load available trading pairs from Coinbase.
+        Load available trading pairs from Kraken.
         
         Args:
-            coinbase_client: Initialized CoinbaseClient instance
+            kraken_client: Initialized KrakenClient instance
             
         Returns:
             bool: True if loading was successful, False otherwise.
         """
         try:
-            products = coinbase_client.get_products()
-            self._available_trading_pairs = [product['id'] for product in products]
+            asset_pairs = kraken_client.get_asset_pairs()
+            self._available_trading_pairs = list(asset_pairs.keys())
             return True
         except Exception as e:
             log_error(f"Error loading available trading pairs: {str(e)}")
@@ -299,25 +230,3 @@ class Config:
             log_error(f"Error updating crypto trading settings: {str(e)}")
             return False
             
-    def toggle_sandbox_mode(self, enable_sandbox: bool) -> bool:
-        """
-        Toggle between sandbox and live environment.
-        
-        Args:
-            enable_sandbox: True to enable sandbox mode, False for live
-            
-        Returns:
-            bool: True if toggle was successful, False otherwise.
-        """
-        if not self._coinbase_credentials:
-            log_error("Cannot toggle sandbox mode: Coinbase credentials not loaded")
-            return False
-            
-        try:
-            self._coinbase_credentials.sandbox = enable_sandbox
-            self._coinbase_credentials.update_base_url()  # Update base URL
-            log_info(f"Switched to {'sandbox' if enable_sandbox else 'live'} environment")
-            return True
-        except Exception as e:
-            log_error(f"Error toggling sandbox mode: {str(e)}")
-            return False

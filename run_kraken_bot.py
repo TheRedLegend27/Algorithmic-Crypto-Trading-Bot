@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Example bot using the new Coinbase Advanced Trade API implementation.
-This shows how to integrate the new trader with your existing bot logic.
+Example bot using Kraken API - much simpler than Coinbase!
 """
 import os
 import sys
@@ -11,49 +10,49 @@ from dotenv import load_dotenv
 # Add bot directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'bot'))
 
-from bot.coinbase_advanced_client import AdvancedTradeCredentials
-from bot.coinbase_advanced_trader import CoinbaseAdvancedTrader, TradingConfig
+from bot.kraken_client import KrakenCredentials
+from bot.kraken_trader import KrakenTrader, KrakenTradingConfig
 from bot.strategy import TradingSignal, SignalType
 from bot.utils import log_info, log_error
 
 
-def create_trader():
-    """Create and initialize the Coinbase Advanced trader."""
+def create_kraken_trader():
+    """Create and initialize the Kraken trader."""
     # Load environment variables
     load_dotenv()
     
     # Get credentials
-    api_key = os.getenv("COINBASE_ADVANCED_API_KEY")
-    private_key = os.getenv("COINBASE_ADVANCED_PRIVATE_KEY")
+    api_key = os.getenv("KRAKEN_API_KEY")
+    api_secret = os.getenv("KRAKEN_API_SECRET")
     
-    if not api_key or not private_key:
-        log_error("Missing Coinbase Advanced Trade API credentials!")
-        log_error("Please set COINBASE_ADVANCED_API_KEY and COINBASE_ADVANCED_PRIVATE_KEY in your .env file")
+    if not api_key or not api_secret:
+        log_error("Missing Kraken API credentials!")
+        log_error("Please set KRAKEN_API_KEY and KRAKEN_API_SECRET in your .env file")
         return None
     
     # Create credentials
-    credentials = AdvancedTradeCredentials(
+    credentials = KrakenCredentials(
         api_key=api_key,
-        private_key=private_key
+        api_secret=api_secret
     )
     
     # Create trading configuration
-    config = TradingConfig(
-        product_id="BTC-USD",
+    config = KrakenTradingConfig(
+        trading_pair="XBTUSD",  # BTC/USD on Kraken
         trade_amount_usd=10.0,  # Start small for testing
         max_position_usd=50.0,
         min_trade_interval=300  # 5 minutes between trades
     )
     
     # Initialize trader
-    trader = CoinbaseAdvancedTrader(credentials, config)
+    trader = KrakenTrader(credentials, config)
     
     # Test connection
     if not trader.test_connection():
-        log_error("Failed to connect to Coinbase API")
+        log_error("Failed to connect to Kraken API")
         return None
     
-    log_info("Coinbase Advanced trader initialized successfully!")
+    log_info("Kraken trader initialized successfully!")
     return trader
 
 
@@ -65,10 +64,9 @@ def generate_sample_signal(price: float) -> TradingSignal:
     import random
     
     # Simple random signal for demonstration
-    # In practice, this would be your actual trading strategy
     actions = [SignalType.BUY, SignalType.SELL, SignalType.HOLD]
     action = random.choice(actions)
-    confidence = random.uniform(0.5, 0.9)
+    confidence = random.uniform(0.6, 0.9)
     
     return TradingSignal(
         action=action,
@@ -78,12 +76,9 @@ def generate_sample_signal(price: float) -> TradingSignal:
     )
 
 
-def run_trading_loop(trader: CoinbaseAdvancedTrader, max_iterations: int = 10):
-    """
-    Run a simple trading loop for demonstration.
-    In a real bot, this would be your main trading logic.
-    """
-    log_info(f"Starting trading loop for {max_iterations} iterations...")
+def run_trading_loop(trader: KrakenTrader, max_iterations: int = 5):
+    """Run a simple trading loop for demonstration."""
+    log_info(f"Starting Kraken trading loop for {max_iterations} iterations...")
     
     for i in range(max_iterations):
         try:
@@ -92,13 +87,13 @@ def run_trading_loop(trader: CoinbaseAdvancedTrader, max_iterations: int = 10):
             # Get current portfolio status
             portfolio = trader.get_portfolio_summary()
             if portfolio:
-                log_info(f"Portfolio Value: ${portfolio.get('total_portfolio_value', 0):.2f}")
-                log_info(f"BTC Balance: {portfolio.get('base_available', 0):.6f}")
-                log_info(f"USD Balance: ${portfolio.get('quote_available', 0):.2f}")
-                log_info(f"Current BTC Price: ${portfolio.get('current_price', 0):.2f}")
+                log_info(f"Portfolio Value: ${portfolio.get('total_portfolio_value', 0):,.2f}")
+                log_info(f"BTC Balance: {portfolio.get('btc_balance', 0):.6f}")
+                log_info(f"USD Balance: ${portfolio.get('usd_balance', 0):,.2f}")
+                log_info(f"Current BTC Price: ${portfolio.get('current_price', 0):,.2f}")
             
             # Get current price for signal generation
-            current_price = trader.get_current_price(trader.config.product_id)
+            current_price = trader.get_current_price(trader.config.trading_pair)
             if not current_price:
                 log_error("Could not get current price, skipping iteration")
                 continue
@@ -115,7 +110,7 @@ def run_trading_loop(trader: CoinbaseAdvancedTrader, max_iterations: int = 10):
                     log_info(f"✅ Trade executed successfully!")
                     log_info(f"   Order ID: {result.order_id}")
                     log_info(f"   Side: {result.side}")
-                    log_info(f"   Size: {result.size}")
+                    log_info(f"   Volume: {result.volume}")
                     log_info(f"   Price: ~${result.price}")
                 else:
                     log_error(f"❌ Trade failed: {result.error}")
@@ -128,12 +123,12 @@ def run_trading_loop(trader: CoinbaseAdvancedTrader, max_iterations: int = 10):
                 log_info(f"Recent orders ({len(recent_orders)}):")
                 for order in recent_orders:
                     status = order.get('status', 'Unknown')
-                    side = order.get('side', 'Unknown')
-                    size = order.get('order_configuration', {}).get('market_market_ioc', {}).get('base_size', 'N/A')
-                    log_info(f"   - {side} {size} BTC ({status})")
+                    order_type = order.get('descr', {}).get('type', 'Unknown')
+                    volume = order.get('vol', 'N/A')
+                    log_info(f"   - {order_type.upper()} {volume} BTC ({status})")
             
-            # Wait before next iteration (in real bot, this would be your strategy interval)
-            if i < max_iterations - 1:  # Don't wait on last iteration
+            # Wait before next iteration
+            if i < max_iterations - 1:
                 log_info("Waiting 30 seconds before next iteration...")
                 time.sleep(30)
                 
@@ -142,18 +137,18 @@ def run_trading_loop(trader: CoinbaseAdvancedTrader, max_iterations: int = 10):
             break
         except Exception as e:
             log_error(f"Error in trading loop: {str(e)}")
-            time.sleep(10)  # Wait before retrying
+            time.sleep(10)
     
     log_info("Trading loop completed!")
 
 
 def main():
     """Main function."""
-    print("🚀 Coinbase Advanced Trade API Bot")
-    print("=" * 40)
+    print("🐙 Kraken Crypto Trading Bot")
+    print("=" * 30)
     
     # Create trader
-    trader = create_trader()
+    trader = create_kraken_trader()
     if not trader:
         print("❌ Failed to initialize trader")
         return 1
@@ -162,10 +157,10 @@ def main():
     print("\n📊 Initial Portfolio Status:")
     portfolio = trader.get_portfolio_summary()
     if portfolio:
-        print(f"   Total Value: ${portfolio.get('total_portfolio_value', 0):.2f}")
-        print(f"   BTC Balance: {portfolio.get('base_available', 0):.6f}")
-        print(f"   USD Balance: ${portfolio.get('quote_available', 0):.2f}")
-        print(f"   Current BTC Price: ${portfolio.get('current_price', 0):.2f}")
+        print(f"   Total Value: ${portfolio.get('total_portfolio_value', 0):,.2f}")
+        print(f"   BTC Balance: {portfolio.get('btc_balance', 0):.6f}")
+        print(f"   USD Balance: ${portfolio.get('usd_balance', 0):,.2f}")
+        print(f"   Current BTC Price: ${portfolio.get('current_price', 0):,.2f}")
     
     # Ask user if they want to proceed
     print(f"\n⚠️  WARNING: This bot will make REAL trades with REAL money!")
@@ -179,7 +174,7 @@ def main():
     
     try:
         # Run trading loop
-        run_trading_loop(trader, max_iterations=5)  # Run 5 iterations for demo
+        run_trading_loop(trader, max_iterations=5)
         
     except KeyboardInterrupt:
         print("\n\n🛑 Bot stopped by user")
@@ -191,11 +186,11 @@ def main():
     print("\n📊 Final Portfolio Status:")
     portfolio = trader.get_portfolio_summary()
     if portfolio:
-        print(f"   Total Value: ${portfolio.get('total_portfolio_value', 0):.2f}")
-        print(f"   BTC Balance: {portfolio.get('base_available', 0):.6f}")
-        print(f"   USD Balance: ${portfolio.get('quote_available', 0):.2f}")
+        print(f"   Total Value: ${portfolio.get('total_portfolio_value', 0):,.2f}")
+        print(f"   BTC Balance: {portfolio.get('btc_balance', 0):.6f}")
+        print(f"   USD Balance: ${portfolio.get('usd_balance', 0):,.2f}")
     
-    print("\n✅ Bot completed successfully!")
+    print("\n✅ Kraken bot completed successfully!")
     return 0
 
 

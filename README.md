@@ -1,6 +1,6 @@
 # Crypto Trading Bot
 
-A modular cryptocurrency trading bot that uses technical analysis strategies to automate trading on the Alpaca API. The bot implements multiple trading strategies, provides real-time monitoring through a rich terminal interface, and includes comprehensive error handling and recovery mechanisms.
+A modular cryptocurrency trading bot that uses technical analysis strategies to automate trading on the Kraken API. The bot implements multiple trading strategies, provides real-time monitoring through a rich terminal interface, and includes comprehensive error handling and recovery mechanisms.
 
 ## Features
 
@@ -21,7 +21,7 @@ A modular cryptocurrency trading bot that uses technical analysis strategies to 
 
 - Python 3.8 or higher
 - Internet connection for API access
-- Alpaca API account with crypto trading enabled
+- Kraken API account with crypto trading enabled
 
 ## Installation
 
@@ -51,11 +51,10 @@ A modular cryptocurrency trading bot that uses technical analysis strategies to 
    ```bash
    cp .env.template .env
    ```
-   Edit the `.env` file with your Alpaca API credentials:
+   Edit the `.env` file with your Kraken API credentials:
    ```
-   ALPACA_API_KEY=your_api_key_here
-   ALPACA_SECRET_KEY=your_secret_key_here
-   ALPACA_BASE_URL=https://paper-api.alpaca.markets
+   KRAKEN_API_KEY=your_kraken_api_key_here
+   KRAKEN_API_SECRET=your_kraken_api_secret_here
    IS_PAPER_TRADING=True
    ```
 
@@ -65,11 +64,11 @@ A modular cryptocurrency trading bot that uses technical analysis strategies to 
 
 Run the bot with default settings:
 ```bash
-python run_bot.py
+python run_kraken_bot.py
 ```
 
 This will start the bot with the following default configuration:
-- Trading symbol: BTC/USD
+- Trading symbol: XBTUSD
 - Trading interval: 5 minutes
 - Trade amount: $10.0
 - Maximum position size: $100.0
@@ -81,7 +80,7 @@ This will start the bot with the following default configuration:
 The bot supports numerous command-line options to customize its behavior:
 
 #### Trading Configuration
-- `--symbol`: Trading symbol (default: BTC/USD)
+- `--symbol`: Trading symbol (default: XBTUSD)
 - `--amount`: Amount to trade in USD (default: 10.0)
 - `--max-position`: Maximum position size in USD (default: 100.0)
 - `--stop-loss`: Stop loss percentage (default: 0.05)
@@ -112,24 +111,24 @@ The bot supports numerous command-line options to customize its behavior:
 
 ### Examples
 
-Trade ETH/USD with a 15-minute interval and $20 per trade:
+Trade ETHUSD with a 15-minute interval and $20 per trade:
 ```bash
-python run_bot.py --symbol ETH/USD --interval 15 --amount 20.0
+python run_kraken_bot.py --symbol ETHUSD --interval 15 --amount 20.0
 ```
 
 Run in dry-run mode with custom strategy parameters:
 ```bash
-python run_bot.py --dry-run --ma-fast 5 --ma-slow 20 --rsi-period 10
+python run_kraken_bot.py --dry-run --ma-fast 5 --ma-slow 20 --rsi-period 10
 ```
 
 Run a backtest for the last 60 days:
 ```bash
-python run_bot.py --backtest --backtest-days 60
+python run_kraken_bot.py --backtest --backtest-days 60
 ```
 
 Increase logging verbosity:
 ```bash
-python run_bot.py --log-level DEBUG
+python run_kraken_bot.py --log-level DEBUG
 ```
 
 ## Trading Strategies

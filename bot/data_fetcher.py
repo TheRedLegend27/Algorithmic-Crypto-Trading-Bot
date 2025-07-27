@@ -1,37 +1,30 @@
 """
-Data fetching module for retrieving market data from Alpaca API.
+Data fetching module for retrieving market data from Kraken API.
 """
 import time
 import pandas as pd
 from typing import Dict, Any, Optional, List, Tuple
 from datetime import datetime, timedelta
 import requests
-from alpaca.data import CryptoHistoricalDataClient
-from alpaca.data.requests import CryptoBarsRequest
-from alpaca.data.timeframe import TimeFrame
-from alpaca.data.models import Bar
 
-from bot.config import AlpacaCredentials
+from bot.config import KrakenCredentials
 from bot.utils import log_error, log_info, log_warning, retry_with_backoff
 
 
 class DataFetcher:
-    """Handles data fetching from Alpaca API."""
+    """Handles data fetching from Kraken API."""
     
-    def __init__(self, credentials: AlpacaCredentials):
+    def __init__(self, credentials: Optional[KrakenCredentials] = None):
         """
-        Initialize the DataFetcher with Alpaca API credentials.
+        Initialize the DataFetcher with Kraken API credentials.
         
         Args:
-            credentials: AlpacaCredentials object containing API keys and settings
+            credentials: KrakenCredentials object containing API keys and settings
         """
         self.credentials = credentials
-        self.client = CryptoHistoricalDataClient(
-            api_key=credentials.api_key,
-            secret_key=credentials.secret_key
-        )
+        self.base_url = "https://api.kraken.com"
         self.last_request_time = 0
-        self.rate_limit_wait = 0.2  # 200ms minimum between requests
+        self.rate_limit_wait = 0.5  # 500ms minimum between requests for public API
     
     def _respect_rate_limit(self) -> None:
         """
@@ -47,10 +40,10 @@ class DataFetcher:
     def fetch_crypto_data(self, symbol: str, timeframe: str = "5Min", 
                          limit: int = 50) -> pd.DataFrame:
         """
-        Fetch historical OHLCV data for a cryptocurrency.
+        Fetch historical OHLCV data for a cryptocurrency from Kraken.
         
         Args:
-            symbol: The trading pair symbol (e.g., "BTC/USD")
+            symbol: The trading pair symbol (e.g., "XBTUSD")
             timeframe: The timeframe for the data (e.g., "5Min", "1H", "1D")
             limit: Number of data points to retrieve
             
@@ -63,47 +56,74 @@ class DataFetcher:
         """
         self._respect_rate_limit()
         
-        # Parse timeframe string to TimeFrame enum
-        tf_mapping = {
-            "1Min": TimeFrame.Minute,
-            "5Min": TimeFrame.Minute,
-            "15Min": TimeFrame.Minute,
-            "1H": TimeFrame.Hour,
-            "1D": TimeFrame.Day
+        # Map timeframe to Kraken intervals
+        interval_mapping = {
+            "1Min": 1,
+            "5Min": 5,
+            "15Min": 15,
+            "30Min": 30,
+            "1H": 60,
+            "4H": 240,
+            "1D": 1440
         }
         
-        if timeframe not in tf_mapping:
-            raise ValueError(f"Invalid timeframe: {timeframe}. Must be one of {list(tf_mapping.keys())}")
+        if timeframe not in interval_mapping:
+            raise ValueError(f"Invalid timeframe: {timeframe}. Must be one of {list(interval_mapping.keys())}")
         
-        # Calculate start and end times
-        end_time = datetime.now()
-        start_time = self._calculate_start_time(end_time, timeframe, limit * 2)
+        interval = interval_mapping[timeframe]
         
-        log_info(f"Fetching {symbol} data from {start_time} to {end_time}")
+        log_info(f"Fetching {symbol} data with {timeframe} timeframe")
         
-        # Create the request with appropriate timeframe
-        tf = tf_mapping[timeframe]
-        
-        # Handle special cases for 5Min and 15Min by using 1Min data and resampling
-        if timeframe in ["5Min", "15Min"]:
-            request_params = CryptoBarsRequest(
-                symbol_or_symbols=symbol,
-                timeframe=TimeFrame.Minute,
-                start=start_time,
-                end=end_time
-            )
-        else:
-            request_params = CryptoBarsRequest(
-                symbol_or_symbols=symbol,
-                timeframe=tf,
-                start=start_time,
-                end=end_time
-            )
-        
-        # Make the request
+        # Make the request to Kraken OHLC endpoint
         try:
-            log_info(f"Requesting data for symbol: {symbol}, timeframe: {timeframe}")
-            bars = self.client.get_crypto_bars(request_params)
+            url = f"{self.base_url}/0/public/OHLC"
+            params = {
+                'pair': symbol,
+                'interval': interval,
+                'count': limit
+            }
+            
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if data.get('error'):
+                raise ValueError(f"Kraken API error: {data['error']}")
+            
+            # Extract OHLC data
+            result = data.get('result', {})
+            pair_data = None
+            
+            # Find the pair data (key might be different from input symbol)
+            for key, value in result.items():
+                if key != 'last' and isinstance(value, list):
+                    pair_data = value
+                    break
+            
+            if not pair_data:
+                raise ValueError(f"No data found for symbol {symbol}")
+            
+            # Convert to DataFrame
+            df = pd.DataFrame(pair_data, columns=[
+                'timestamp', 'open', 'high', 'low', 'close', 'vwap', 'volume', 'count'
+            ])
+            
+            # Convert timestamp to datetime
+            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
+            
+            # Convert price columns to float
+            for col in ['open', 'high', 'low', 'close', 'vwap', 'volume']:
+                df[col] = pd.to_numeric(df[col], errors='coerce')
+            
+            # Set timestamp as index
+            df.set_index('timestamp', inplace=True)
+            
+            # Sort by timestamp
+            df.sort_index(inplace=True)
+            
+            log_info(f"Successfully fetched {len(df)} data points for {symbol}")
+            return df
             
             # Debug: Log the response type and content
             log_info(f"Response type: {type(bars)}")
@@ -186,42 +206,7 @@ class DataFetcher:
             # Default to 1 day
             return end_time - timedelta(days=1)
     
-    def _bars_to_dataframe(self, bars: List[Bar]) -> pd.DataFrame:
-        """
-        Convert a list of Bar objects to a pandas DataFrame.
-        
-        Args:
-            bars: List of Bar objects from Alpaca API
-            
-        Returns:
-            DataFrame with OHLCV data
-        """
-        data = []
-        for bar in bars:
-            # Handle different timestamp formats
-            timestamp = bar.timestamp
-            if hasattr(timestamp, 'to_pydatetime'):
-                timestamp = timestamp.to_pydatetime()
-            elif isinstance(timestamp, tuple):
-                # Handle tuple format - convert to datetime
-                from datetime import datetime
-                timestamp = datetime(*timestamp[:6])  # year, month, day, hour, minute, second
-            
-            data.append({
-                'timestamp': timestamp,
-                'open': float(bar.open),
-                'high': float(bar.high),
-                'low': float(bar.low),
-                'close': float(bar.close),
-                'volume': float(bar.volume) if bar.volume else 0.0
-            })
-        
-        df = pd.DataFrame(data)
-        if not df.empty:
-            df.set_index('timestamp', inplace=True)
-            df.sort_index(inplace=True)
-        
-        return df
+
         
     def _resample_dataframe(self, df: pd.DataFrame, rule: str) -> pd.DataFrame:
         """
@@ -365,7 +350,7 @@ class DataFetcher:
     
     def _fetch_fallback_data(self, symbol: str, timeframe: str, limit: int) -> pd.DataFrame:
         """
-        Fetch data from a free crypto API as fallback when Alpaca fails.
+        Fetch data from a free crypto API as fallback when Kraken fails.
         
         Args:
             symbol: The trading pair symbol (e.g., "BTC/USD")
@@ -480,7 +465,7 @@ class DataFetcher:
             
         # Handle authentication errors
         if "auth" in error_str or "401" in error_str or "403" in error_str:
-            log_error("Authentication error with Alpaca API", error)
+            log_error("Authentication error with Kraken API", error)
             return False  # Can't recover from auth errors
             
         # Handle network errors

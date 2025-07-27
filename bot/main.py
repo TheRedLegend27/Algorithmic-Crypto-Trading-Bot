@@ -12,18 +12,15 @@ import os
 import atexit
 from typing import Dict, Any, Optional, List, Tuple
 
-from bot.config import Config, TradingSettings, AlpacaCredentials, CoinbaseCredentials, CryptoTradingSettings
+from bot.config import Config, TradingSettings, KrakenCredentials, CryptoTradingSettings
 from bot.data_fetcher import DataFetcher
-from bot.coinbase_data_fetcher import CoinbaseDataFetcher
 from bot.strategy import MovingAverageCrossover, RSIStrategy, SignalGenerator, BaseStrategy
 from bot.crypto_strategies import CryptoMovingAverageCrossover, CryptoRSIStrategy
-from bot.trader import Trader
-from bot.coinbase_trader import CoinbaseTrader
+from bot.kraken_trader import KrakenTrader
 from bot.logger import TradingLogger
 from bot.scheduler import TradingCycle, TradingScheduler
 from bot.utils import log_info, log_error, log_warning, retry_with_backoff
 from bot.error_handler import ErrorHandler
-from bot.coinbase_error_handler import CoinbaseErrorHandler
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -33,23 +30,14 @@ def parse_arguments() -> argparse.Namespace:
     Returns:
         Namespace containing the parsed arguments
     """
-    parser = argparse.ArgumentParser(description="Crypto Trading Bot")
-    
-    # Trading platform selection
-    parser.add_argument(
-        "--platform",
-        type=str,
-        choices=["alpaca", "coinbase"],
-        default="coinbase",
-        help="Trading platform to use (default: coinbase)"
-    )
+    parser = argparse.ArgumentParser(description="Crypto Trading Bot - Kraken Edition")
     
     # Trading symbol configuration
     parser.add_argument(
         "--symbol", 
         type=str, 
-        default="BTC-USD",
-        help="Trading symbol (default: BTC-USD for Coinbase, BTC/USD for Alpaca)"
+        default="XBTUSD",
+        help="Trading symbol (default: XBTUSD for Bitcoin/USD on Kraken)"
     )
     
     # Scheduling configuration
@@ -196,12 +184,7 @@ def parse_arguments() -> argparse.Namespace:
         help="Maximum number of trades per day (default: 20)"
     )
     
-    # Coinbase-specific parameters
-    parser.add_argument(
-        "--sandbox",
-        action="store_true",
-        help="Use Coinbase sandbox environment (default: False)"
-    )
+
     
     parser.add_argument(
         "--base-currency",
@@ -284,34 +267,11 @@ def initialize_components(config: Config, args: argparse.Namespace) -> Dict[str,
         log_file=args.log_file
     )
     
-    # Initialize components based on selected platform
-    if args.platform == "coinbase":
-        return initialize_coinbase_components(config, args, logger)
-    else:
-        return initialize_alpaca_components(config, args, logger)
-
-
-def initialize_coinbase_components(config: Config, args: argparse.Namespace, logger: TradingLogger) -> Dict[str, Any]:
-    """
-    Initialize Coinbase-specific components.
-    
-    Args:
-        config: Config object containing credentials and settings
-        args: Parsed command line arguments
-        logger: Initialized TradingLogger
-        
-    Returns:
-        Dictionary containing initialized components
-    """
     # Get credentials and settings
-    credentials = config.get_coinbase_credentials()
+    credentials = config.get_kraken_credentials()
     
-    # Update sandbox mode from command line
-    if credentials:
-        credentials.sandbox = args.sandbox
-        credentials.update_base_url()
-    else:
-        log_error("Coinbase credentials not found. Please set COINBASE_API_KEY, COINBASE_API_SECRET, and COINBASE_PASSPHRASE environment variables.")
+    if not credentials:
+        log_error("Kraken credentials not found. Please set KRAKEN_API_KEY and KRAKEN_API_SECRET environment variables.")
         return {}
     
     # Get crypto trading settings
@@ -321,7 +281,7 @@ def initialize_coinbase_components(config: Config, args: argparse.Namespace, log
     update_crypto_trading_settings(crypto_settings, args)
     
     # Initialize data fetcher
-    data_fetcher = CoinbaseDataFetcher(credentials)
+    data_fetcher = DataFetcher(credentials)
     
     # Initialize strategies with command-line parameters
     strategies: List[BaseStrategy] = [
@@ -335,90 +295,15 @@ def initialize_coinbase_components(config: Config, args: argparse.Namespace, log
             base_overbought=args.rsi_overbought
         )
     ]
+    
+    # Initialize signal generator
     signal_generator = SignalGenerator(strategies)
     
     # Initialize trader with appropriate settings
-    trader = CoinbaseTrader(
+    trader = KrakenTrader(
+        logger=logger,
         credentials=credentials,
         settings=crypto_settings
-    )
-    
-    # Initialize error handler
-    error_handler = CoinbaseErrorHandler()
-    
-    # Initialize trading cycle
-    trading_cycle = TradingCycle(
-        data_fetcher=data_fetcher,
-        signal_generator=signal_generator,
-        trader=trader,
-        logger=logger,
-        error_handler=error_handler,
-        symbol=crypto_settings.trading_pair
-    )
-    
-    # Initialize scheduler with appropriate settings
-    scheduler = TradingScheduler(
-        trading_cycle=trading_cycle,
-        interval_minutes=args.interval,
-        error_handler=error_handler
-    )
-    
-    return {
-        "logger": logger,
-        "data_fetcher": data_fetcher,
-        "signal_generator": signal_generator,
-        "trader": trader,
-        "trading_cycle": trading_cycle,
-        "scheduler": scheduler
-    }
-
-
-def initialize_alpaca_components(config: Config, args: argparse.Namespace, logger: TradingLogger) -> Dict[str, Any]:
-    """
-    Initialize Alpaca-specific components.
-    
-    Args:
-        config: Config object containing credentials and settings
-        args: Parsed command line arguments
-        logger: Initialized TradingLogger
-        
-    Returns:
-        Dictionary containing initialized components
-    """
-    # Get credentials and settings
-    credentials = config.get_alpaca_credentials()
-    settings = config.get_trading_settings()
-    
-    # Update settings from command line arguments
-    update_trading_settings(settings, args)
-    
-    # Update settings for execution modes
-    if args.dry_run:
-        log_info("Running in dry-run mode - no actual trades will be executed")
-        settings.dry_run = True
-        credentials.paper_trading = True
-    
-    # Initialize data fetcher
-    data_fetcher = DataFetcher(credentials)
-    
-    # Initialize strategies with command-line parameters
-    strategies: List[BaseStrategy] = [
-        MovingAverageCrossover(
-            fast_period=args.ma_fast,
-            slow_period=args.ma_slow
-        ),
-        RSIStrategy(
-            period=args.rsi_period,
-            oversold=args.rsi_oversold,
-            overbought=args.rsi_overbought
-        )
-    ]
-    signal_generator = SignalGenerator(strategies)
-    
-    # Initialize trader with appropriate settings
-    trader = Trader(
-        credentials=credentials,
-        settings=settings
     )
     
     # Initialize error handler
@@ -431,10 +316,10 @@ def initialize_alpaca_components(config: Config, args: argparse.Namespace, logge
         trader=trader,
         logger=logger,
         error_handler=error_handler,
-        symbol=settings.symbol
+        symbol=crypto_settings.trading_pair
     )
     
-    # Initialize scheduler with appropriate settings
+    # Initialize scheduler
     scheduler = TradingScheduler(
         trading_cycle=trading_cycle,
         interval_minutes=args.interval,
@@ -446,18 +331,19 @@ def initialize_alpaca_components(config: Config, args: argparse.Namespace, logge
         "data_fetcher": data_fetcher,
         "signal_generator": signal_generator,
         "trader": trader,
+        "error_handler": error_handler,
         "trading_cycle": trading_cycle,
         "scheduler": scheduler
     }
 
 
-def perform_health_check(components: Dict[str, Any], platform: str) -> bool:
+
+def perform_health_check(components: Dict[str, Any]) -> bool:
     """
     Perform a health check on all components.
     
     Args:
         components: Dictionary containing all components
-        platform: Trading platform being used ("alpaca" or "coinbase")
         
     Returns:
         bool: True if all components are healthy, False otherwise
@@ -483,10 +369,7 @@ def perform_health_check(components: Dict[str, Any], platform: str) -> bool:
             # Try to get account info
             account_info = trader.get_account_info()
             if account_info:
-                if platform == "coinbase":
-                    log_info(f"Trader check: OK (Portfolio value: ${account_info.get('portfolio_value', 'N/A')})")
-                else:
-                    log_info(f"Trader check: OK (Account equity: ${account_info.get('equity', 'N/A')})")
+                log_info(f"Trader check: OK (Account balance: ${account_info.get('balance', 'N/A')})")
             else:
                 log_warning("Trader check: WARNING (Could not get account info)")
         except Exception as e:
@@ -495,19 +378,12 @@ def perform_health_check(components: Dict[str, Any], platform: str) -> bool:
             
         # Check position manager
         try:
-            if platform == "coinbase":
-                # For Coinbase, check portfolio summary
-                portfolio = trader.get_portfolio_summary()
-                if portfolio:
-                    log_info("Position manager check: OK")
-                else:
-                    log_warning("Position manager check: WARNING (Could not get portfolio summary)")
+            # For Kraken, check account balance
+            balance = trader.get_account_balance()
+            if balance:
+                log_info("Position manager check: OK")
             else:
-                # For Alpaca, reconcile positions
-                if trader.position_manager.reconcile_positions():
-                    log_info("Position manager check: OK")
-                else:
-                    log_warning("Position manager check: WARNING (Could not reconcile positions)")
+                log_warning("Position manager check: WARNING (Could not get account balance)")
         except Exception as e:
             log_error("Position manager check: FAILED", e)
             return False
@@ -558,15 +434,10 @@ def main() -> int:
             log_error("Failed to load environment variables")
             return 1
         
-        # Validate configuration based on selected platform
-        if args.platform == "coinbase":
-            if not config.validate_coinbase_config():
-                log_error("Invalid Coinbase configuration")
-                return 1
-        else:
-            if not config.validate_config():
-                log_error("Invalid Alpaca configuration")
-                return 1
+        # Validate configuration
+        if not config.validate_config():
+            log_error("Invalid Kraken configuration")
+            return 1
             
         # Initialize components
         components = initialize_components(config, args)
@@ -581,7 +452,7 @@ def main() -> int:
         logger.start_live_display()
         
         # Log startup information
-        log_info(f"Starting crypto trading bot with platform {args.platform}")
+        log_info(f"Starting crypto trading bot with Kraken")
         log_info(f"Trading symbol: {args.symbol}")
         log_info(f"Trading interval: {args.interval} minutes")
         log_info(f"Trade amount: ${args.amount}")
@@ -590,12 +461,11 @@ def main() -> int:
         log_info(f"Take profit: {args.take_profit * 100}%")
         log_info(f"Max trades per day: {args.maxtrades}")
         
-        if args.platform == "coinbase":
-            log_info(f"Using Coinbase {'sandbox' if args.sandbox else 'live'} environment")
+
         
         # Perform initial health check
         if not args.skip_health_check:
-            if not perform_health_check(components, args.platform):
+            if not perform_health_check(components):
                 log_error("Initial health check failed, aborting startup")
                 logger.stop_live_display()
                 return 1
@@ -635,7 +505,7 @@ def main() -> int:
                 # Perform periodic health check
                 current_time = time.time()
                 if current_time - last_health_check > health_check_interval:
-                    perform_health_check(components, args.platform)
+                    perform_health_check(components)
                     last_health_check = current_time
                     
         except KeyboardInterrupt:

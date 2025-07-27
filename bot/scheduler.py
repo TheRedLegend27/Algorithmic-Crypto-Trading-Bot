@@ -15,7 +15,7 @@ from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 from bot.data_fetcher import DataFetcher
 from bot.strategy import SignalGenerator, TradingSignal
 from bot.logger import SignalRecord
-from bot.trader import Trader
+from bot.kraken_trader import KrakenTrader
 from bot.logger import TradeRecord
 from bot.logger import TradingLogger, PositionRecord
 from bot.utils import log_error, log_info, log_warning, safe_execute
@@ -29,8 +29,8 @@ class TradingCycle:
     """
     
     def __init__(self, data_fetcher: DataFetcher, signal_generator: SignalGenerator,
-                trader: Trader, logger: TradingLogger, error_handler: ErrorHandler = None,
-                symbol: str = "BTC/USD"):
+                trader: KrakenTrader, logger: TradingLogger, error_handler: ErrorHandler = None,
+                symbol: str = "XBTUSD"):
         """
         Initialize the trading cycle.
         

@@ -1,0 +1,561 @@
+2025-07-27 02:32:18,718 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,719 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,770 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,770 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,771 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,771 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,771 - crypto_bot - ERROR - Failed to cancel order ORDER456: Order not found
+2025-07-27 02:32:18,771 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,771 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,772 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,772 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,772 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,773 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,773 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,773 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,774 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,774 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,774 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,775 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,780 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,780 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,781 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,782 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,784 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,784 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,785 - crypto_bot - ERROR - Error getting multi-pair ticker: Batch request failed
+2025-07-27 02:32:18,786 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,786 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,786 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:32:18,788 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,788 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,788 - crypto_bot - WARNING - Trading pair INVALID is not available on Kraken
+2025-07-27 02:32:18,790 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,790 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:32:18,791 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:32:18,791 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:46,058 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:46,059 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,161 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,161 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,163 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,163 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,165 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,165 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,165 - crypto_bot - ERROR - Failed to cancel order ORDER456: Order not found
+2025-07-27 02:33:51,166 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,166 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,167 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,167 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,168 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,168 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,169 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,169 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,170 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,170 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,170 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,170 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,171 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,171 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,172 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,172 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,173 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,173 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,173 - crypto_bot - ERROR - Error getting multi-pair ticker: Batch request failed
+2025-07-27 02:33:51,175 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,176 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,176 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:33:51,177 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,178 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,178 - crypto_bot - WARNING - Trading pair INVALID is not available on Kraken
+2025-07-27 02:33:51,178 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,178 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:33:51,179 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:33:51,179 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:35:24,726 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:35:24,728 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:36:01,304 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:36:01,305 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:36:01,306 - crypto_bot - WARNING - Trading pair INVALID_PAIR is not available on Kraken
+2025-07-27 02:36:01,306 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:47:03,406 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,406 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,407 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,407 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,408 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,408 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,409 - crypto_bot - ERROR - Failed to cancel order ORDER456: Order not found
+2025-07-27 02:47:03,409 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,409 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,411 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,411 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,412 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,412 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,413 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,413 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,415 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,416 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,416 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,416 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,417 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,417 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,418 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,418 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,419 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,419 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,419 - crypto_bot - ERROR - Error getting multi-pair ticker: Batch request failed
+2025-07-27 02:47:03,420 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,420 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,420 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:47:03,421 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,421 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,421 - crypto_bot - WARNING - Trading pair INVALID is not available on Kraken
+2025-07-27 02:47:03,422 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,422 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:47:03,422 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:47:03,422 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,133 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,135 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,142 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,143 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,143 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:49:01,149 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,149 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,150 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,151 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,151 - crypto_bot - ERROR - Failed to cancel order ORDER456: Order not found
+2025-07-27 02:49:01,151 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,151 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,152 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,153 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,153 - crypto_bot - ERROR - Failed to place order {'pair': 'BTCUSD', 'type': 'buy', 'ordertype': 'limit', 'volume': '0.1', 'price': '50000'}: KrakenClient.add_order() got an unexpected keyword argument 'type'. Did you mean 'type_'?
+2025-07-27 02:49:01,154 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell'}: Missing required fields in order: {'pair': 'ETHUSD', 'type': 'sell'}
+2025-07-27 02:49:01,398 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,408 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,447 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell', 'ordertype': 'market', 'volume': '1.0'}: Insufficient funds
+2025-07-27 02:49:01,488 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,488 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,505 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,505 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,511 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,512 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,516 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,516 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,517 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,517 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,517 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,517 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,529 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,531 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,535 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,535 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,536 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,536 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,537 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,537 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,677 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,677 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,678 - crypto_bot - ERROR - Error getting multi-pair ticker: Batch request failed
+2025-07-27 02:49:01,680 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,682 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,686 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:49:01,688 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,688 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,690 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,690 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,691 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,691 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,692 - crypto_bot - WARNING - Trading pair INVALID is not available on Kraken
+2025-07-27 02:49:01,699 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,699 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:49:01,700 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:49:01,702 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:22,695 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:22,697 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:25,651 - crypto_bot - ERROR - Kraken API error: ['EAPI:Invalid key']
+2025-07-27 02:50:25,652 - crypto_bot - ERROR - Failed to place order {'pair': 'BTCUSD', 'type': 'buy', 'ordertype': 'limit', 'volume': '0.1', 'price': '50000'}: Kraken API error: ['EAPI:Invalid key']
+2025-07-27 02:50:25,652 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell'}: Missing required fields in order: {'pair': 'ETHUSD', 'type': 'sell'}
+2025-07-27 02:50:43,306 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:43,308 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:43,309 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell'}: Missing required fields in order: {'pair': 'ETHUSD', 'type': 'sell'}
+2025-07-27 02:50:48,463 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,463 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,464 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,464 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,464 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:50:48,465 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,465 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,466 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,466 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,466 - crypto_bot - ERROR - Failed to cancel order ORDER456: Order not found
+2025-07-27 02:50:48,467 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,467 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,468 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,468 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,468 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell'}: Missing required fields in order: {'pair': 'ETHUSD', 'type': 'sell'}
+2025-07-27 02:50:48,469 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,469 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,469 - crypto_bot - ERROR - Failed to place order {'pair': 'ETHUSD', 'type': 'sell', 'ordertype': 'market', 'volume': '1.0'}: Insufficient funds
+2025-07-27 02:50:48,469 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,469 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,471 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,471 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,473 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,473 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,474 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,474 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,475 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,475 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,476 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,476 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,477 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,477 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,478 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,478 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,478 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,478 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,479 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,479 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,479 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,479 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,480 - crypto_bot - ERROR - Error getting multi-pair ticker: Batch request failed
+2025-07-27 02:50:48,480 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,480 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,480 - crypto_bot - INFO - Circuit breaker manually reset
+2025-07-27 02:50:48,481 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,481 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,482 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,482 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,483 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,483 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,483 - crypto_bot - WARNING - Trading pair INVALID is not available on Kraken
+2025-07-27 02:50:48,484 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,484 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:50:48,484 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:50:48,484 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:51:13,859 - crypto_bot - INFO - KrakenClient initialized
+2025-07-27 02:51:13,859 - crypto_bot - INFO - EnhancedKrakenClient initialized with advanced features
+2025-07-27 02:51:14,101 - crypto_bot - WARNING - Trading pair BTCUSD is not available on Kraken
+2025-07-27 02:51:14,101 - crypto_bot - WARNING - Trading pair ETHUSD is not available on Kraken
+2025-07-27 02:59:43,866 - crypto_bot - INFO - Ticker update for BTCUSD: {'c': ['50000', '1']}
+2025-07-27 02:59:43,868 - crypto_bot - INFO - OHLC update for BTCUSD: [1234567890, 1234567900, '49000', '51000', '48000', '50000', '49500', '100', 50]
+2025-07-27 02:59:43,868 - crypto_bot - INFO - Trade update for BTCUSD: [['50000', '1', '1234567890', 'b', 'm', '']]
+2025-07-27 02:59:43,869 - crypto_bot - INFO - Order book update for BTCUSD: {'as': [['50100', '1', '1234567890']]}
+2025-07-27 02:59:43,869 - crypto_bot - INFO - Spread update for BTCUSD: ['50000', '50100', '1234567890', '1', '2']
+2025-07-27 02:59:43,869 - crypto_bot - INFO - Order update: [{'order_id': 'test', 'status': 'open'}]
+2025-07-27 02:59:43,869 - crypto_bot - INFO - WebSocket connection status: connected
+2025-07-27 02:59:43,869 - crypto_bot - ERROR - WebSocket error: test error
+2025-07-27 02:59:43,870 - crypto_bot - INFO - Subscription sub_1 status: subscribed
+2025-07-27 02:59:43,892 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,902 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,915 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,927 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,929 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 02:59:43,930 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 02:59:43,930 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 02:59:43,930 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 02:59:43,930 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 02:59:43,930 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 02:59:43,934 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,938 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 02:59:43,938 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 02:59:43,939 - crypto_bot - WARNING - Subscription non_existent not found
+2025-07-27 02:59:43,944 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,947 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,948 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 02:59:43,949 - crypto_bot - INFO - Subscribed to trades for pairs: ['ETHUSD']
+2025-07-27 02:59:43,951 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,956 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,958 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,966 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,974 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,979 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,985 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,991 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,993 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 02:59:43,996 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,377 - crypto_bot - INFO - Ticker update for BTCUSD: {'c': ['50000', '1']}
+2025-07-27 03:04:17,378 - crypto_bot - INFO - OHLC update for BTCUSD: [1234567890, 1234567900, '49000', '51000', '48000', '50000', '49500', '100', 50]
+2025-07-27 03:04:17,378 - crypto_bot - INFO - Trade update for BTCUSD: [['50000', '1', '1234567890', 'b', 'm', '']]
+2025-07-27 03:04:17,378 - crypto_bot - INFO - Order book update for BTCUSD: {'as': [['50100', '1', '1234567890']]}
+2025-07-27 03:04:17,378 - crypto_bot - INFO - Spread update for BTCUSD: ['50000', '50100', '1234567890', '1', '2']
+2025-07-27 03:04:17,378 - crypto_bot - INFO - Order update: [{'order_id': 'test', 'status': 'open'}]
+2025-07-27 03:04:17,379 - crypto_bot - INFO - WebSocket connection status: connected
+2025-07-27 03:04:17,379 - crypto_bot - ERROR - WebSocket error: test error
+2025-07-27 03:04:17,379 - crypto_bot - INFO - Subscription sub_1 status: subscribed
+2025-07-27 03:04:17,383 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,383 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,385 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,390 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,391 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 03:04:17,392 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 03:04:17,393 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 03:04:17,393 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 03:04:17,393 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 03:04:17,393 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:04:17,396 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,397 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:04:17,397 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 03:04:17,397 - crypto_bot - WARNING - Subscription non_existent not found
+2025-07-27 03:04:17,399 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,402 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,403 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:04:17,403 - crypto_bot - INFO - Subscribed to trades for pairs: ['ETHUSD']
+2025-07-27 03:04:17,409 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,415 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,419 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,429 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,433 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,444 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,464 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,466 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,470 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:04:17,475 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:07:23,449 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:08:42,363 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:08:47,973 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:08:47,990 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:08:47,991 - crypto_bot - ERROR - Failed to connect to public WebSocket: object AsyncMock can't be used in 'await' expression
+2025-07-27 03:09:04,055 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:09:04,065 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:09:04,066 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:09:17,674 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:09:17,695 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:09:17,696 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:09:17,696 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:09:56,586 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:09:56,587 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 03:09:56,588 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 03:09:56,588 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 03:09:56,588 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 03:09:56,588 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 03:09:56,588 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:10:07,429 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:19,302 - crypto_bot - ERROR - Error parsing OHLC data: could not convert string to float: 'invalid'
+2025-07-27 03:10:19,303 - crypto_bot - ERROR - Error parsing trade data: could not convert string to float: 'invalid'
+2025-07-27 03:10:42,900 - crypto_bot - ERROR - Error parsing ticker data: could not convert string to float: 'i'
+2025-07-27 03:10:52,382 - crypto_bot - INFO - Ticker update for BTCUSD: {'c': ['50000', '1']}
+2025-07-27 03:10:52,383 - crypto_bot - INFO - OHLC update for BTCUSD: [1234567890, 1234567900, '49000', '51000', '48000', '50000', '49500', '100', 50]
+2025-07-27 03:10:52,383 - crypto_bot - INFO - Trade update for BTCUSD: [['50000', '1', '1234567890', 'b', 'm', '']]
+2025-07-27 03:10:52,383 - crypto_bot - INFO - Order book update for BTCUSD: {'as': [['50100', '1', '1234567890']]}
+2025-07-27 03:10:52,383 - crypto_bot - INFO - Spread update for BTCUSD: ['50000', '50100', '1234567890', '1', '2']
+2025-07-27 03:10:52,383 - crypto_bot - INFO - Order update: [{'order_id': 'test', 'status': 'open'}]
+2025-07-27 03:10:52,383 - crypto_bot - INFO - WebSocket connection status: connected
+2025-07-27 03:10:52,383 - crypto_bot - ERROR - WebSocket error: test error
+2025-07-27 03:10:52,383 - crypto_bot - INFO - Subscription sub_1 status: subscribed
+2025-07-27 03:10:52,386 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,388 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,389 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,393 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,393 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 03:10:52,394 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 03:10:52,394 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 03:10:52,394 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 03:10:52,394 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 03:10:52,394 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:10:52,395 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,395 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:10:52,395 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 03:10:52,395 - crypto_bot - WARNING - Subscription non_existent not found
+2025-07-27 03:10:52,396 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,396 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,397 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:10:52,397 - crypto_bot - INFO - Subscribed to trades for pairs: ['ETHUSD']
+2025-07-27 03:10:52,398 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,399 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,401 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,425 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:10:52,425 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:10:52,426 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:10:52,427 - crypto_bot - INFO - Connecting to Kraken private WebSocket...
+2025-07-27 03:10:52,427 - crypto_bot - ERROR - Failed to connect to private WebSocket: object AsyncMock can't be used in 'await' expression
+2025-07-27 03:12:24,794 - crypto_bot - INFO - Ticker update for BTCUSD: {'c': ['50000', '1']}
+2025-07-27 03:12:24,795 - crypto_bot - INFO - OHLC update for BTCUSD: [1234567890, 1234567900, '49000', '51000', '48000', '50000', '49500', '100', 50]
+2025-07-27 03:12:24,795 - crypto_bot - INFO - Trade update for BTCUSD: [['50000', '1', '1234567890', 'b', 'm', '']]
+2025-07-27 03:12:24,795 - crypto_bot - INFO - Order book update for BTCUSD: {'as': [['50100', '1', '1234567890']]}
+2025-07-27 03:12:24,795 - crypto_bot - INFO - Spread update for BTCUSD: ['50000', '50100', '1234567890', '1', '2']
+2025-07-27 03:12:24,795 - crypto_bot - INFO - Order update: [{'order_id': 'test', 'status': 'open'}]
+2025-07-27 03:12:24,795 - crypto_bot - INFO - WebSocket connection status: connected
+2025-07-27 03:12:24,795 - crypto_bot - ERROR - WebSocket error: test error
+2025-07-27 03:12:24,795 - crypto_bot - INFO - Subscription sub_1 status: subscribed
+2025-07-27 03:12:24,798 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,801 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,802 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,804 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 03:12:24,804 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:12:24,805 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,805 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:12:24,806 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 03:12:24,806 - crypto_bot - WARNING - Subscription non_existent not found
+2025-07-27 03:12:24,807 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,808 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,808 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:12:24,808 - crypto_bot - INFO - Subscribed to trades for pairs: ['ETHUSD']
+2025-07-27 03:12:24,808 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,809 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,810 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,830 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:12:24,830 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:12:24,833 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,834 - crypto_bot - INFO - Connecting to Kraken private WebSocket...
+2025-07-27 03:12:24,834 - crypto_bot - INFO - Connected to Kraken private WebSocket
+2025-07-27 03:12:24,836 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,837 - crypto_bot - INFO - WebSocket connections closed
+2025-07-27 03:12:24,838 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,840 - crypto_bot - ERROR - WebSocket not connected (public)
+2025-07-27 03:12:24,842 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,843 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,844 - crypto_bot - INFO - System status: online
+2025-07-27 03:12:24,844 - crypto_bot - INFO - Subscription status: subscribed for ticker (BTCUSD)
+2025-07-27 03:12:24,844 - crypto_bot - INFO - Received heartbeat
+2025-07-27 03:12:24,845 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:12:24,846 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,895 - crypto_bot - INFO - Ticker update for BTCUSD: {'c': ['50000', '1']}
+2025-07-27 03:37:34,896 - crypto_bot - INFO - OHLC update for BTCUSD: [1234567890, 1234567900, '49000', '51000', '48000', '50000', '49500', '100', 50]
+2025-07-27 03:37:34,896 - crypto_bot - INFO - Trade update for BTCUSD: [['50000', '1', '1234567890', 'b', 'm', '']]
+2025-07-27 03:37:34,896 - crypto_bot - INFO - Order book update for BTCUSD: {'as': [['50100', '1', '1234567890']]}
+2025-07-27 03:37:34,896 - crypto_bot - INFO - Spread update for BTCUSD: ['50000', '50100', '1234567890', '1', '2']
+2025-07-27 03:37:34,896 - crypto_bot - INFO - Order update: [{'order_id': 'test', 'status': 'open'}]
+2025-07-27 03:37:34,896 - crypto_bot - INFO - WebSocket connection status: connected
+2025-07-27 03:37:34,896 - crypto_bot - ERROR - WebSocket error: test error
+2025-07-27 03:37:34,896 - crypto_bot - INFO - Subscription sub_1 status: subscribed
+2025-07-27 03:37:34,899 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,899 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,901 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,903 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD', 'ETHUSD']
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to OHLC for pairs: ['BTCUSD'] (interval: 5)
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to trades for pairs: ['BTCUSD']
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to order book for pairs: ['BTCUSD'] (depth: 25)
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to spread for pairs: ['BTCUSD']
+2025-07-27 03:37:34,903 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:37:34,904 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,905 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:37:34,905 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 03:37:34,905 - crypto_bot - WARNING - Subscription non_existent not found
+2025-07-27 03:37:34,906 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,909 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,909 - crypto_bot - INFO - Subscribed to ticker for pairs: ['BTCUSD']
+2025-07-27 03:37:34,909 - crypto_bot - INFO - Subscribed to trades for pairs: ['ETHUSD']
+2025-07-27 03:37:34,910 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,911 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,912 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,927 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:37:34,928 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:37:34,929 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,930 - crypto_bot - INFO - Connecting to Kraken private WebSocket...
+2025-07-27 03:37:34,930 - crypto_bot - INFO - Connected to Kraken private WebSocket
+2025-07-27 03:37:34,932 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,933 - crypto_bot - INFO - WebSocket connections closed
+2025-07-27 03:37:34,934 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,935 - crypto_bot - ERROR - WebSocket not connected (public)
+2025-07-27 03:37:34,936 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,937 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,937 - crypto_bot - INFO - System status: online
+2025-07-27 03:37:34,937 - crypto_bot - INFO - Subscription status: subscribed for ticker (BTCUSD)
+2025-07-27 03:37:34,937 - crypto_bot - INFO - Received heartbeat
+2025-07-27 03:37:34,938 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:37:34,941 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:24,085 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:24,104 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:24,104 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:24,104 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:29,145 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:29,147 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:29,147 - crypto_bot - ERROR - Failed to connect to public WebSocket: Connection failed
+2025-07-27 03:38:29,147 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:33,161 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:33,162 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:33,162 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:33,162 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:37,184 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:37,186 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:37,186 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:37,186 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:40,196 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:38:41,210 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:41,212 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:41,213 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:41,213 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:44,219 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD', 'ETH/USD']
+2025-07-27 03:38:44,220 - crypto_bot - INFO - Subscribed to trades for pairs: ['XBT/USD']
+2025-07-27 03:38:44,220 - crypto_bot - INFO - Subscribed to order book for pairs: ['XBT/USD'] (depth: 25)
+2025-07-27 03:38:45,330 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:45,333 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:45,333 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:45,334 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:48,340 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:38:49,348 - crypto_bot - INFO - Unsubscribed from ticker
+2025-07-27 03:38:50,367 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:50,367 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:50,367 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:50,367 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:53,375 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:38:55,390 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:38:55,391 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:38:55,392 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:38:55,392 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:38:58,396 - crypto_bot - INFO - Subscribed to trades for pairs: ['XBT/USD']
+2025-07-27 03:39:00,412 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:00,414 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:00,414 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:00,414 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:03,424 - crypto_bot - INFO - Subscribed to order book for pairs: ['XBT/USD'] (depth: 25)
+2025-07-27 03:39:05,438 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:05,439 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:05,439 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:05,439 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:09,460 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:09,461 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:09,461 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:09,461 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:18,484 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:18,485 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:18,485 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:18,485 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:21,506 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:21,507 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:21,507 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:21,507 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:24,513 - crypto_bot - INFO - Subscribed to private order updates
+2025-07-27 03:39:25,530 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:25,531 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:25,531 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:25,531 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:28,541 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:39:31,564 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:31,565 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:31,565 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:31,565 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:31,565 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:34,569 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:39:36,574 - crypto_bot - INFO - Disconnecting WebSocket client...
+2025-07-27 03:39:37,577 - crypto_bot - INFO - WebSocket client disconnected
+2025-07-27 03:39:37,580 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:37,581 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:37,582 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:37,582 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:39:40,641 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
+2025-07-27 03:39:44,665 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:39:44,666 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:39:44,666 - crypto_bot - ERROR - Failed to connect to public WebSocket: object MockWebSocket can't be used in 'await' expression
+2025-07-27 03:39:44,666 - crypto_bot - ERROR - Error in WebSocket run loop: Failed to connect to public WebSocket
+2025-07-27 03:43:02,274 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:43:02,362 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:43:02,364 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:43:02,364 - crypto_bot - INFO - System status: online
+2025-07-27 03:43:07,373 - crypto_bot - INFO - Disconnecting WebSocket client...
+2025-07-27 03:43:07,395 - crypto_bot - INFO - WebSocket client disconnected
+2025-07-27 03:43:07,421 - asyncio - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-2' coro=<KrakenWebSocketClient._connection_monitor() running at /Users/kadenballard/Desktop/Misc./Code/crypto-scalping-bot-kiro/bot/kraken_websocket.py:390> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2025-07-27 03:44:36,698 - crypto_bot - INFO - KrakenWebSocketClient initialized
+2025-07-27 03:44:36,716 - crypto_bot - INFO - Connecting to Kraken public WebSocket...
+2025-07-27 03:44:36,716 - crypto_bot - INFO - Connected to Kraken public WebSocket
+2025-07-27 03:44:36,716 - crypto_bot - INFO - System status: online
+2025-07-27 03:44:36,716 - crypto_bot - INFO - Subscription status: subscribed for ticker (XBT/USD)
+2025-07-27 03:44:39,725 - crypto_bot - INFO - Subscribed to ticker for pairs: ['XBT/USD']
