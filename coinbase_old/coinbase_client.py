@@ -97,13 +97,91 @@ class CoinbaseClient:
     def _generate_jwt_token(self) -> str:
         """
         Generate JWT token for Coinbase Advanced Trade API authentication.
+        Supports both ECDSA (ES256) and Ed25519 (EdDSA) keys according to CDP documentation.
         
         Returns:
             JWT token string
         """
+        # Handle escaped newlines in private key from .env file
+        private_key_raw = self.credentials.api_secret.replace('\\n', '\n')
+        
+        # Determine key type and algorithm based on CDP documentation
+        if 'BEGIN EC PRIVATE KEY' in private_key_raw:
+            # ECDSA key (old format)
+            algorithm = 'ES256'
+            key_type = 'ECDSA'
+            private_key = private_key_raw
+        elif 'BEGIN PRIVATE KEY' in private_key_raw:
+            # Ed25519 key in PEM format (new format)
+            algorithm = 'EdDSA'
+            key_type = 'Ed25519'
+            private_key = private_key_raw
+        elif len(private_key_raw) == 64 and all(c in '0123456789abcdefABCDEF' for c in private_key_raw):
+            # Ed25519 key as hex string (32 bytes = 64 hex chars)
+            algorithm = 'EdDSA'
+            key_type = 'Ed25519 (hex)'
+            # Convert hex to bytes and create PEM format
+            import binascii
+            from cryptography.hazmat.primitives import serialization
+            from cryptography.hazmat.primitives.asymmetric import ed25519
+            
+            try:
+                key_bytes = binascii.unhexlify(private_key_raw)
+                ed25519_key = ed25519.Ed25519PrivateKey.from_private_bytes(key_bytes)
+                private_key = ed25519_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption()
+                ).decode('utf-8')
+            except Exception as e:
+                log_error(f"Failed to convert hex Ed25519 key: {e}")
+                raise
+        else:
+            # Try to detect if it's base64 encoded Ed25519 key
+            try:
+                import base64
+                decoded = base64.b64decode(private_key_raw)
+                
+                if len(decoded) == 32:  # Ed25519 private key is 32 bytes
+                    algorithm = 'EdDSA'
+                    key_type = 'Ed25519 (base64, 32 bytes)'
+                    # Convert to PEM format
+                    from cryptography.hazmat.primitives import serialization
+                    from cryptography.hazmat.primitives.asymmetric import ed25519
+                    
+                    ed25519_key = ed25519.Ed25519PrivateKey.from_private_bytes(decoded)
+                    private_key = ed25519_key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.PKCS8,
+                        encryption_algorithm=serialization.NoEncryption()
+                    ).decode('utf-8')
+                    
+                elif len(decoded) == 64:  # Ed25519 key with seed + public key (32 + 32)
+                    algorithm = 'EdDSA'
+                    key_type = 'Ed25519 (base64, 64 bytes - seed format)'
+                    # Use first 32 bytes as the private key seed
+                    from cryptography.hazmat.primitives import serialization
+                    from cryptography.hazmat.primitives.asymmetric import ed25519
+                    
+                    ed25519_key = ed25519.Ed25519PrivateKey.from_private_bytes(decoded[:32])
+                    private_key = ed25519_key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.PKCS8,
+                        encryption_algorithm=serialization.NoEncryption()
+                    ).decode('utf-8')
+                else:
+                    raise ValueError(f"Invalid key length: {len(decoded)} bytes (expected 32 or 64)")
+            except:
+                # Default to ES256 for backward compatibility
+                algorithm = 'ES256'
+                key_type = 'Unknown (defaulting to ECDSA)'
+                private_key = private_key_raw
+        
+        log_info(f"Using {key_type} key with {algorithm} algorithm")
+        
         # JWT header
         header = {
-            'alg': 'ES256',
+            'alg': algorithm,
             'kid': self.credentials.api_key,
             'typ': 'JWT'
         }
@@ -111,34 +189,21 @@ class CoinbaseClient:
         # JWT payload
         now = int(time.time())
         
-        # Check if this is a Cloud Trading API key (UUID format) vs Advanced Trade API key
-        if self.credentials.api_key.startswith('organizations/'):
-            # Advanced Trade API format
-            payload = {
-                'sub': self.credentials.api_key,
-                'iss': 'coinbase-cloud',
-                'nbf': now,
-                'exp': now + 120,  # Token expires in 2 minutes
-                'aud': ['public_websocket_api']
-            }
-        else:
-            # Cloud Trading API format (UUID)
-            payload = {
-                'sub': self.credentials.api_key,
-                'iss': 'coinbase-cloud',
-                'nbf': now,
-                'exp': now + 120,  # Token expires in 2 minutes
-                'aud': ['public_websocket_api']
-            }
+        # Advanced Trade API format
+        payload = {
+            'sub': self.credentials.api_key,
+            'iss': 'coinbase-cloud',
+            'nbf': now,
+            'exp': now + 120,  # Token expires in 2 minutes
+            'aud': ['public_websocket_api']
+        }
         
         # Sign the JWT with the private key
         try:
-            # Handle escaped newlines in private key from .env file
-            private_key = self.credentials.api_secret.replace('\\n', '\n')
-            token = jwt.encode(payload, private_key, algorithm='ES256', headers=header)
+            token = jwt.encode(payload, private_key, algorithm=algorithm, headers=header)
             return token
         except Exception as e:
-            log_error(f"Failed to generate JWT token: {str(e)}")
+            log_error(f"Failed to generate JWT token with {algorithm}: {str(e)}")
             raise
     
     def _get_auth_headers(self, method: str = None, path: str = None, body: str = "") -> Dict[str, str]:

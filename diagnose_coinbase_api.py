@@ -9,10 +9,52 @@ import jwt
 import requests
 from dotenv import load_dotenv
 
-def generate_jwt_token(api_key, private_key):
-    """Generate JWT token."""
+def generate_jwt_token(api_key, private_key_raw):
+    """Generate JWT token with Ed25519 support."""
+    # Handle escaped newlines in private key from .env file
+    private_key_raw = private_key_raw.replace('\\n', '\n')
+    
+    # Determine key type and algorithm
+    if 'BEGIN EC PRIVATE KEY' in private_key_raw:
+        algorithm = 'ES256'
+        private_key = private_key_raw
+    elif 'BEGIN PRIVATE KEY' in private_key_raw:
+        algorithm = 'EdDSA'
+        private_key = private_key_raw
+    else:
+        # Try base64 Ed25519
+        try:
+            import base64
+            decoded = base64.b64decode(private_key_raw)
+            
+            if len(decoded) == 32:
+                algorithm = 'EdDSA'
+                from cryptography.hazmat.primitives import serialization
+                from cryptography.hazmat.primitives.asymmetric import ed25519
+                ed25519_key = ed25519.Ed25519PrivateKey.from_private_bytes(decoded)
+                private_key = ed25519_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption()
+                ).decode('utf-8')
+            elif len(decoded) == 64:
+                algorithm = 'EdDSA'
+                from cryptography.hazmat.primitives import serialization
+                from cryptography.hazmat.primitives.asymmetric import ed25519
+                ed25519_key = ed25519.Ed25519PrivateKey.from_private_bytes(decoded[:32])
+                private_key = ed25519_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption()
+                ).decode('utf-8')
+            else:
+                raise ValueError("Invalid key length")
+        except:
+            algorithm = 'ES256'
+            private_key = private_key_raw
+    
     header = {
-        'alg': 'ES256',
+        'alg': algorithm,
         'kid': api_key,
         'typ': 'JWT'
     }
@@ -26,8 +68,7 @@ def generate_jwt_token(api_key, private_key):
         'aud': ['public_websocket_api']
     }
     
-    private_key_processed = private_key.replace('\\n', '\n')
-    return jwt.encode(payload, private_key_processed, algorithm='ES256', headers=header)
+    return jwt.encode(payload, private_key, algorithm=algorithm, headers=header)
 
 def test_endpoint(url, token, is_public=False):
     """Test endpoint and return detailed info."""
