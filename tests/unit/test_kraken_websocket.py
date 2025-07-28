@@ -14,11 +14,17 @@ from bot.kraken_websocket import (
     KrakenWebSocketClient,
     WebSocketCallbackHandler,
     DefaultWebSocketCallbackHandler,
+    EnhancedWebSocketCallbackHandler,
     WebSocketConfig,
     WebSocketState,
     SubscriptionType,
     Subscription,
     WebSocketMessage,
+    WebSocketClientFactory,
+    WebSocketHealthMonitor,
+    WebSocketMessageValidator,
+    WebSocketPerformanceOptimizer,
+    WebSocketConnectionPool,
     parse_ticker_data,
     parse_ohlc_data,
     parse_trade_data,
@@ -682,3 +688,305 @@ class TestMessageParsing:
         parsed = parse_book_data(data)
         assert "asks" in parsed
         assert len(parsed["asks"]) == 0
+
+
+class TestEnhancedWebSocketCallbackHandler:
+    """Test enhanced WebSocket callback handler."""
+    
+    def test_enhanced_handler_initialization(self):
+        """Test enhanced handler initialization."""
+        handler = EnhancedWebSocketCallbackHandler()
+        
+        assert handler.data_manager is None
+        assert handler.strategy_engine is None
+        assert handler.risk_manager is None
+        assert handler.last_prices == {}
+        assert handler.price_changes == {}
+    
+    def test_enhanced_ticker_processing(self):
+        """Test enhanced ticker processing."""
+        handler = EnhancedWebSocketCallbackHandler()
+        
+        # First ticker update
+        ticker_data = {"c": ["50000.0", "1"]}
+        handler.on_ticker("BTCUSD", ticker_data)
+        
+        assert "BTCUSD" in handler.last_prices
+        assert handler.last_prices["BTCUSD"] == 50000.0
+        
+        # Second ticker update to test price change
+        ticker_data = {"c": ["50100.0", "1"]}
+        handler.on_ticker("BTCUSD", ticker_data)
+        
+        assert handler.last_prices["BTCUSD"] == 50100.0
+        assert handler.price_changes["BTCUSD"] == 100.0
+    
+    def test_get_price_changes(self):
+        """Test getting price changes."""
+        handler = EnhancedWebSocketCallbackHandler()
+        
+        # Add some price changes
+        handler.price_changes = {"BTCUSD": 100.0, "ETHUSD": -50.0}
+        
+        changes = handler.get_price_changes()
+        assert changes == {"BTCUSD": 100.0, "ETHUSD": -50.0}
+        
+        # Ensure it returns a copy
+        changes.clear()
+        assert len(handler.price_changes) == 2
+
+
+class TestWebSocketClientFactory:
+    """Test WebSocket client factory."""
+    
+    @pytest.fixture
+    def credentials(self):
+        """Create test credentials."""
+        return KrakenCredentials("test_key", "dGVzdF9zZWNyZXQ=")
+    
+    def test_create_basic_client(self, credentials):
+        """Test creating basic client."""
+        client = WebSocketClientFactory.create_basic_client(credentials)
+        
+        assert isinstance(client, KrakenWebSocketClient)
+        assert isinstance(client.callback_handler, DefaultWebSocketCallbackHandler)
+        assert client.config.message_queue_size == 1000
+    
+    def test_create_enhanced_client(self, credentials):
+        """Test creating enhanced client."""
+        client = WebSocketClientFactory.create_enhanced_client(credentials)
+        
+        assert isinstance(client, KrakenWebSocketClient)
+        assert isinstance(client.callback_handler, EnhancedWebSocketCallbackHandler)
+        assert client.config.message_queue_size == 2000
+    
+    def test_create_high_frequency_client(self, credentials):
+        """Test creating high frequency client."""
+        client = WebSocketClientFactory.create_high_frequency_client(credentials)
+        
+        assert isinstance(client, KrakenWebSocketClient)
+        assert isinstance(client.callback_handler, EnhancedWebSocketCallbackHandler)
+        assert client.config.message_queue_size == 5000
+        assert client.config.ping_interval == 10
+
+
+class TestWebSocketHealthMonitor:
+    """Test WebSocket health monitor."""
+    
+    @pytest.fixture
+    def ws_client(self):
+        """Create mock WebSocket client."""
+        credentials = KrakenCredentials("test_key", "dGVzdF9zZWNyZXQ=")
+        return WebSocketClientFactory.create_basic_client(credentials)
+    
+    def test_health_monitor_initialization(self, ws_client):
+        """Test health monitor initialization."""
+        monitor = WebSocketHealthMonitor(ws_client)
+        
+        assert monitor.ws_client == ws_client
+        assert monitor.message_count == 0
+        assert monitor.error_count == 0
+        assert monitor.reconnect_count == 0
+        assert monitor.last_message_time is None
+    
+    def test_record_metrics(self, ws_client):
+        """Test recording metrics."""
+        monitor = WebSocketHealthMonitor(ws_client)
+        
+        # Record some events
+        monitor.record_message()
+        monitor.record_message()
+        monitor.record_error()
+        monitor.record_reconnect()
+        
+        assert monitor.message_count == 2
+        assert monitor.error_count == 1
+        assert monitor.reconnect_count == 1
+        assert monitor.last_message_time is not None
+    
+    def test_get_health_metrics(self, ws_client):
+        """Test getting health metrics."""
+        monitor = WebSocketHealthMonitor(ws_client)
+        
+        # Record some events
+        monitor.record_message()
+        monitor.record_error()
+        
+        metrics = monitor.get_health_metrics()
+        
+        assert "uptime_seconds" in metrics
+        assert "message_count" in metrics
+        assert "error_count" in metrics
+        assert "reconnect_count" in metrics
+        assert "messages_per_minute" in metrics
+        assert "error_rate" in metrics
+        assert "connection_state" in metrics
+        assert "queue_size" in metrics
+        assert "active_subscriptions" in metrics
+        
+        assert metrics["message_count"] == 1
+        assert metrics["error_count"] == 1
+        assert metrics["error_rate"] == 1.0
+
+
+class TestWebSocketMessageValidator:
+    """Test WebSocket message validator."""
+    
+    def test_validate_ticker_data(self):
+        """Test ticker data validation."""
+        # Valid ticker data
+        valid_data = {"c": ["50000.0", "1"], "a": ["50100.0", "2", "2.000"]}
+        assert WebSocketMessageValidator.validate_ticker_data(valid_data) is True
+        
+        # Invalid ticker data (missing required field)
+        invalid_data = {"a": ["50100.0", "2", "2.000"]}
+        assert WebSocketMessageValidator.validate_ticker_data(invalid_data) is False
+    
+    def test_validate_trade_data(self):
+        """Test trade data validation."""
+        # Valid trade data
+        valid_data = [["50000.0", "1.0", "1234567890.0", "b", "m", ""]]
+        assert WebSocketMessageValidator.validate_trade_data(valid_data) is True
+        
+        # Invalid trade data (not a list)
+        invalid_data = {"trades": []}
+        assert WebSocketMessageValidator.validate_trade_data(invalid_data) is False
+        
+        # Invalid trade data (insufficient fields)
+        invalid_data = [["50000.0", "1.0"]]
+        assert WebSocketMessageValidator.validate_trade_data(invalid_data) is False
+    
+    def test_validate_book_data(self):
+        """Test order book data validation."""
+        # Valid book data
+        valid_data = {"as": [["50100.0", "2.0", "1234567890.0"]]}
+        assert WebSocketMessageValidator.validate_book_data(valid_data) is True
+        
+        # Valid book data with bids
+        valid_data = {"bs": [["50000.0", "1.5", "1234567890.0"]]}
+        assert WebSocketMessageValidator.validate_book_data(valid_data) is True
+        
+        # Invalid book data (not a dict)
+        invalid_data = []
+        assert WebSocketMessageValidator.validate_book_data(invalid_data) is False
+        
+        # Invalid book data (no asks or bids)
+        invalid_data = {"other": "data"}
+        assert WebSocketMessageValidator.validate_book_data(invalid_data) is False
+    
+    def test_validate_ohlc_data(self):
+        """Test OHLC data validation."""
+        # Valid OHLC data
+        valid_data = [1234567890.0, 1234567900.0, "49000.0", "51000.0", "48000.0", "50000.0", "49500.0", "100.0", 50]
+        assert WebSocketMessageValidator.validate_ohlc_data(valid_data) is True
+        
+        # Invalid OHLC data (insufficient fields)
+        invalid_data = [1234567890.0, 1234567900.0]
+        assert WebSocketMessageValidator.validate_ohlc_data(invalid_data) is False
+        
+        # Invalid OHLC data (not a list)
+        invalid_data = {"time": 1234567890.0}
+        assert WebSocketMessageValidator.validate_ohlc_data(invalid_data) is False
+
+
+class TestWebSocketPerformanceOptimizer:
+    """Test WebSocket performance optimizer."""
+    
+    @pytest.fixture
+    def ws_client(self):
+        """Create mock WebSocket client."""
+        credentials = KrakenCredentials("test_key", "dGVzdF9zZWNyZXQ=")
+        return WebSocketClientFactory.create_basic_client(credentials)
+    
+    def test_optimizer_initialization(self, ws_client):
+        """Test optimizer initialization."""
+        optimizer = WebSocketPerformanceOptimizer(ws_client)
+        
+        assert optimizer.ws_client == ws_client
+        assert optimizer.message_rates == {}
+        assert optimizer.last_optimization is not None
+    
+    def test_record_message_rate(self, ws_client):
+        """Test recording message rates."""
+        optimizer = WebSocketPerformanceOptimizer(ws_client)
+        
+        # Record some messages
+        optimizer.record_message_rate("ticker")
+        optimizer.record_message_rate("ticker")
+        optimizer.record_message_rate("trade")
+        
+        assert "ticker" in optimizer.message_rates
+        assert "trade" in optimizer.message_rates
+        assert len(optimizer.message_rates["ticker"]) == 2
+        assert len(optimizer.message_rates["trade"]) == 1
+    
+    def test_get_message_rate(self, ws_client):
+        """Test getting message rates."""
+        optimizer = WebSocketPerformanceOptimizer(ws_client)
+        
+        # Record messages
+        for _ in range(60):  # 60 messages in last minute = 1 per second
+            optimizer.record_message_rate("ticker")
+        
+        rate = optimizer.get_message_rate("ticker")
+        assert rate == 1.0  # 1 message per second
+        
+        # Test unknown channel
+        rate = optimizer.get_message_rate("unknown")
+        assert rate == 0.0
+
+
+class TestWebSocketConnectionPool:
+    """Test WebSocket connection pool."""
+    
+    @pytest.fixture
+    def credentials(self):
+        """Create test credentials."""
+        return KrakenCredentials("test_key", "dGVzdF9zZWNyZXQ=")
+    
+    def test_pool_initialization(self, credentials):
+        """Test pool initialization."""
+        pool = WebSocketConnectionPool(credentials, max_connections=3)
+        
+        assert pool.credentials == credentials
+        assert pool.max_connections == 3
+        assert pool.connections == {}
+        assert pool.pair_assignments == {}
+    
+    def test_get_connection_for_pair(self, credentials):
+        """Test getting connection for pair."""
+        pool = WebSocketConnectionPool(credentials, max_connections=2)
+        
+        # First pair should create new connection
+        conn1 = pool.get_connection_for_pair("BTCUSD")
+        assert isinstance(conn1, KrakenWebSocketClient)
+        assert len(pool.connections) == 1
+        assert pool.pair_assignments["BTCUSD"] == conn1
+        
+        # Same pair should return same connection
+        conn1_again = pool.get_connection_for_pair("BTCUSD")
+        assert conn1_again == conn1
+        assert len(pool.connections) == 1
+        
+        # Different pair should use same connection if under load limit
+        conn2 = pool.get_connection_for_pair("ETHUSD")
+        assert conn2 == conn1  # Should reuse same connection
+        assert len(pool.connections) == 1
+    
+    def test_pool_stats(self, credentials):
+        """Test getting pool statistics."""
+        pool = WebSocketConnectionPool(credentials)
+        
+        # Add some pairs
+        pool.get_connection_for_pair("BTCUSD")
+        pool.get_connection_for_pair("ETHUSD")
+        
+        stats = pool.get_pool_stats()
+        
+        assert "total_connections" in stats
+        assert "total_pairs" in stats
+        assert "connection_states" in stats
+        assert "pair_distribution" in stats
+        
+        assert stats["total_connections"] == 1
+        assert stats["total_pairs"] == 2

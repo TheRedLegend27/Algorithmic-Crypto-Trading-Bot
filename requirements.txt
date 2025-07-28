@@ -5,3 +5,7 @@ apscheduler==3.10.1
 rich==13.4.2
 requests==2.31.0
 websocket-client==1.6.4
+psutil==5.9.8
+flask==3.0.0
+flask-socketio==5.3.6
+websockets==12.0

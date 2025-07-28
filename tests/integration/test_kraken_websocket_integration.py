@@ -13,9 +13,14 @@ from unittest.mock import Mock, patch, AsyncMock
 from bot.kraken_websocket import (
     KrakenWebSocketClient,
     WebSocketCallbackHandler,
+    EnhancedWebSocketCallbackHandler,
     WebSocketConfig,
     WebSocketState,
-    SubscriptionType
+    SubscriptionType,
+    WebSocketClientFactory,
+    WebSocketHealthMonitor,
+    WebSocketPerformanceOptimizer,
+    WebSocketConnectionPool
 )
 from bot.kraken_client import KrakenCredentials
 
@@ -112,7 +117,7 @@ class MockWebSocket:
     
     def add_message(self, message):
         """Add message to be received."""
-        if isinstance(message, dict):
+        if isinstance(message, (dict, list)):
             message = json.dumps(message)
         self.received_messages.append(message)
     
@@ -822,3 +827,276 @@ class TestErrorRecovery:
         
         # Cleanup
         ws_client.disconnect()
+
+
+class TestEnhancedWebSocketIntegration:
+    """Test enhanced WebSocket functionality integration."""
+    
+    @patch('websockets.connect')
+    def test_enhanced_callback_handler_integration(self, mock_connect, credentials):
+        """Test enhanced callback handler with real WebSocket integration."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create enhanced client
+        client = WebSocketClientFactory.create_enhanced_client(credentials)
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Add ticker data message
+        ticker_data = [
+            123,
+            {"c": ["50000.0", "1"], "a": ["50100.0", "2", "2.000"], "b": ["49900.0", "1", "1.000"]},
+            "ticker",
+            "XBT/USD"
+        ]
+        mock_ws.add_message(ticker_data)
+        
+        # Connect and subscribe
+        client.connect()
+        time.sleep(1)
+        
+        client.subscribe_ticker(["XBT/USD"])
+        time.sleep(2)  # Wait for message processing
+        
+        # Check that enhanced handler processed the data
+        handler = client.callback_handler
+        assert isinstance(handler, EnhancedWebSocketCallbackHandler)
+        assert "XBT/USD" in handler.get_last_prices()
+        assert handler.get_last_prices()["XBT/USD"] == 50000.0
+        
+        # Cleanup
+        client.disconnect()
+    
+    @patch('websockets.connect')
+    def test_websocket_health_monitoring(self, mock_connect, credentials):
+        """Test WebSocket health monitoring integration."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create client and health monitor
+        client = WebSocketClientFactory.create_basic_client(credentials)
+        monitor = WebSocketHealthMonitor(client)
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Connect
+        client.connect()
+        time.sleep(1)
+        
+        # Record some metrics
+        monitor.record_message()
+        monitor.record_message()
+        
+        # Get health metrics
+        metrics = monitor.get_health_metrics()
+        assert metrics["message_count"] == 2
+        assert metrics["connection_state"] == "connected"
+        assert monitor.is_healthy() is True
+        
+        # Cleanup
+        client.disconnect()
+    
+    @patch('websockets.connect')
+    def test_connection_pool_integration(self, mock_connect, credentials):
+        """Test WebSocket connection pool integration."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create connection pool
+        pool = WebSocketConnectionPool(credentials, max_connections=2)
+        
+        # Get connections for different pairs
+        conn1 = pool.get_connection_for_pair("XBT/USD")
+        conn2 = pool.get_connection_for_pair("ETH/USD")
+        
+        # Should reuse same connection for different pairs
+        assert conn1 == conn2
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Connect all connections
+        pool.connect_all()
+        time.sleep(1)
+        
+        # Check pool stats
+        stats = pool.get_pool_stats()
+        assert stats["total_connections"] == 1
+        assert stats["total_pairs"] == 2
+        
+        # Cleanup
+        pool.disconnect_all()
+    
+    @patch('websockets.connect')
+    def test_message_validation_integration(self, mock_connect, credentials):
+        """Test message validation integration."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create client
+        client = WebSocketClientFactory.create_basic_client(credentials)
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Add valid ticker message
+        valid_ticker = [123, {"c": ["50000.0", "1"]}, "ticker", "XBT/USD"]
+        mock_ws.add_message(valid_ticker)
+        
+        # Add invalid ticker message (should be handled gracefully)
+        invalid_ticker = [124, {"invalid": "data"}, "ticker", "XBT/USD"]
+        mock_ws.add_message(invalid_ticker)
+        
+        # Connect and subscribe
+        client.connect()
+        time.sleep(1)
+        
+        client.subscribe_ticker(["XBT/USD"])
+        time.sleep(2)  # Wait for message processing
+        
+        # Client should handle both valid and invalid messages gracefully
+        assert client.is_connected() is True
+        
+        # Cleanup
+        client.disconnect()
+
+
+class TestWebSocketPerformanceIntegration:
+    """Test WebSocket performance optimization integration."""
+    
+    @patch('websockets.connect')
+    def test_performance_optimization(self, mock_connect, credentials):
+        """Test performance optimization integration."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create client and optimizer
+        client = WebSocketClientFactory.create_basic_client(credentials)
+        optimizer = WebSocketPerformanceOptimizer(client)
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Simulate high message rate
+        for i in range(100):
+            optimizer.record_message_rate("ticker")
+        
+        # Get optimized config
+        optimized_config = optimizer.optimize_config()
+        
+        # Should have larger queue size for high message rate
+        assert optimized_config.message_queue_size > client.config.message_queue_size
+        
+        # Connect
+        client.connect()
+        time.sleep(1)
+        
+        # Cleanup
+        client.disconnect()
+
+
+class TestWebSocketErrorRecoveryEnhanced:
+    """Test enhanced error recovery scenarios."""
+    
+    @patch('websockets.connect')
+    def test_enhanced_reconnection_with_monitoring(self, mock_connect, credentials):
+        """Test enhanced reconnection with health monitoring."""
+        # Setup mock WebSocket that will fail
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create client with health monitor
+        client = WebSocketClientFactory.create_enhanced_client(credentials)
+        monitor = WebSocketHealthMonitor(client)
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Connect
+        client.connect()
+        time.sleep(1)
+        
+        # Record initial health
+        monitor.record_message()
+        initial_health = monitor.is_healthy()
+        assert initial_health is True
+        
+        # Simulate connection error
+        mock_ws.simulate_connection_error()
+        monitor.record_error()
+        
+        # Wait for reconnection attempts
+        time.sleep(3)
+        
+        # Check that error was recorded
+        metrics = monitor.get_health_metrics()
+        assert metrics["error_count"] > 0
+        
+        # Cleanup
+        client.disconnect()
+    
+    @patch('websockets.connect')
+    def test_connection_pool_error_handling(self, mock_connect, credentials):
+        """Test connection pool error handling."""
+        # Setup mock WebSocket
+        mock_ws = MockWebSocket()
+        
+        async def mock_connect_func(*args, **kwargs):
+            return mock_ws
+        
+        mock_connect.side_effect = mock_connect_func
+        
+        # Create connection pool
+        pool = WebSocketConnectionPool(credentials, max_connections=2)
+        
+        # Get connection
+        conn = pool.get_connection_for_pair("XBT/USD")
+        
+        # Add system status message
+        mock_ws.add_message({"event": "systemStatus", "status": "online"})
+        
+        # Connect
+        pool.connect_all()
+        time.sleep(1)
+        
+        # Simulate error
+        mock_ws.simulate_connection_error()
+        
+        # Pool should handle errors gracefully
+        stats = pool.get_pool_stats()
+        assert "connection_states" in stats
+        
+        # Cleanup
+        pool.disconnect_all()

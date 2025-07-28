@@ -13,7 +13,7 @@ from decimal import Decimal, ROUND_HALF_UP
 import logging
 import json
 
-from bot.coinbase_client import CoinbaseClient
+from bot.kraken_client import KrakenClient
 
 
 @dataclass
@@ -160,14 +160,14 @@ class CryptoPositionManager:
     Provides position tracking, USD value calculations, and portfolio summaries.
     """
     
-    def __init__(self, coinbase_client: CoinbaseClient):
+    def __init__(self, kraken_client: KrakenClient):
         """
         Initialize the crypto position manager.
         
         Args:
-            coinbase_client: Authenticated Coinbase client
+            kraken_client: Authenticated Kraken client
         """
-        self.client = coinbase_client
+        self.client = kraken_client
         self.balances: Dict[str, CryptoBalance] = {}
         self.positions: Dict[str, Dict[str, Any]] = {}
         self.pnl_calculator = CryptoPnLCalculator()
@@ -190,30 +190,31 @@ class CryptoPositionManager:
     
     def _refresh_balances(self) -> bool:
         """
-        Refresh all cryptocurrency balances from Coinbase.
+        Refresh all cryptocurrency balances from Kraken.
         
         Returns:
             bool: True if successful
         """
         try:
-            accounts = self.client.get_accounts()
+            balance_response = self.client.get_account_balance()
             
             # Reset balances
             self.balances = {}
             
-            for account in accounts:
-                currency = account.get('currency', '')
-                if not currency:
-                    continue
+            if balance_response and 'result' in balance_response:
+                balances = balance_response['result']
                 
-                self.balances[currency] = CryptoBalance(
-                    currency=currency,
-                    balance=float(account.get('balance', 0.0)),
-                    available=float(account.get('available', 0.0)),
-                    hold=float(account.get('hold', 0.0)),
-                    profile_id=account.get('profile_id', ''),
-                    trading_enabled=account.get('trading_enabled', True)
-                )
+                for currency, balance_str in balances.items():
+                    balance_value = float(balance_str)
+                    if balance_value > 0:  # Only track non-zero balances
+                        self.balances[currency] = CryptoBalance(
+                            currency=currency,
+                            balance=balance_value,
+                            available=balance_value,  # Kraken doesn't separate available/hold in balance call
+                            hold=0.0,
+                            profile_id='',  # Not applicable for Kraken
+                            trading_enabled=True
+                        )
             
             self.logger.info(f"Refreshed balances for {len(self.balances)} currencies")
             return True

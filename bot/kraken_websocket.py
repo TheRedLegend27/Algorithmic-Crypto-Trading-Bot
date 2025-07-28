@@ -1024,3 +1024,426 @@ def parse_book_data(data: Dict[str, Any]) -> Dict[str, Any]:
     except (ValueError, KeyError) as e:
         log_error(f"Error parsing book data: {str(e)}")
         return {}
+
+
+# Enhanced callback handler with additional functionality
+class EnhancedWebSocketCallbackHandler(WebSocketCallbackHandler):
+    """Enhanced callback handler with additional features for trading integration."""
+    
+    def __init__(self, data_manager=None, strategy_engine=None, risk_manager=None):
+        """Initialize enhanced callback handler."""
+        self.data_manager = data_manager
+        self.strategy_engine = strategy_engine
+        self.risk_manager = risk_manager
+        self.last_prices = {}
+        self.price_changes = {}
+        
+    def on_ticker(self, pair: str, data: Dict[str, Any]) -> None:
+        """Handle ticker updates with enhanced processing."""
+        try:
+            parsed_data = parse_ticker_data(data)
+            
+            # Track price changes
+            if pair in self.last_prices:
+                self.price_changes[pair] = parsed_data.get('last_price', 0) - self.last_prices[pair]
+            
+            self.last_prices[pair] = parsed_data.get('last_price', 0)
+            
+            # Update data manager if available
+            if self.data_manager:
+                self.data_manager.update_ticker_data(pair, parsed_data)
+            
+            # Trigger strategy calculations if available
+            if self.strategy_engine:
+                self.strategy_engine.process_ticker_update(pair, parsed_data)
+                
+            log_info(f"Ticker update for {pair}: ${parsed_data.get('last_price', 0):.2f}")
+            
+        except Exception as e:
+            log_error(f"Error processing ticker data for {pair}: {str(e)}")
+    
+    def on_trade(self, pair: str, data: Dict[str, Any]) -> None:
+        """Handle trade updates with enhanced processing."""
+        try:
+            parsed_trades = parse_trade_data(data)
+            
+            # Update data manager if available
+            if self.data_manager:
+                self.data_manager.update_trade_data(pair, parsed_trades)
+            
+            # Process trades for strategy signals
+            if self.strategy_engine:
+                for trade in parsed_trades:
+                    self.strategy_engine.process_trade_update(pair, trade)
+            
+            log_info(f"Trade update for {pair}: {len(parsed_trades)} trades")
+            
+        except Exception as e:
+            log_error(f"Error processing trade data for {pair}: {str(e)}")
+    
+    def on_book(self, pair: str, data: Dict[str, Any]) -> None:
+        """Handle order book updates with enhanced processing."""
+        try:
+            parsed_book = parse_book_data(data)
+            
+            # Update data manager if available
+            if self.data_manager:
+                self.data_manager.update_orderbook_data(pair, parsed_book)
+            
+            # Calculate spread and liquidity metrics
+            if parsed_book.get('asks') and parsed_book.get('bids'):
+                best_ask = min(parsed_book['asks'], key=lambda x: x['price'])
+                best_bid = max(parsed_book['bids'], key=lambda x: x['price'])
+                spread = best_ask['price'] - best_bid['price']
+                
+                # Update strategy engine with spread info
+                if self.strategy_engine:
+                    self.strategy_engine.process_spread_update(pair, spread, best_bid, best_ask)
+            
+            log_info(f"Order book update for {pair}: {len(parsed_book.get('asks', []))} asks, {len(parsed_book.get('bids', []))} bids")
+            
+        except Exception as e:
+            log_error(f"Error processing order book data for {pair}: {str(e)}")
+    
+    def on_orders(self, data: Dict[str, Any]) -> None:
+        """Handle private order updates with enhanced processing."""
+        try:
+            # Update risk manager with order status changes
+            if self.risk_manager:
+                self.risk_manager.process_order_update(data)
+            
+            # Update data manager with order information
+            if self.data_manager:
+                self.data_manager.update_order_data(data)
+            
+            log_info(f"Order update received: {len(data) if isinstance(data, list) else 1} orders")
+            
+        except Exception as e:
+            log_error(f"Error processing order data: {str(e)}")
+    
+    def on_connection_status(self, status: WebSocketState) -> None:
+        """Handle connection status changes with enhanced logging."""
+        log_info(f"WebSocket connection status changed to: {status.value}")
+        
+        # Notify components of connection status
+        if self.data_manager:
+            self.data_manager.handle_connection_status(status)
+        
+        if self.strategy_engine:
+            self.strategy_engine.handle_connection_status(status)
+        
+        if self.risk_manager:
+            self.risk_manager.handle_connection_status(status)
+    
+    def on_error(self, error: Exception) -> None:
+        """Handle errors with enhanced error processing."""
+        log_error(f"WebSocket error: {str(error)}")
+        
+        # Notify components of errors
+        if self.risk_manager:
+            self.risk_manager.handle_websocket_error(error)
+    
+    def get_price_changes(self) -> Dict[str, float]:
+        """Get recent price changes for all pairs."""
+        return self.price_changes.copy()
+    
+    def get_last_prices(self) -> Dict[str, float]:
+        """Get last known prices for all pairs."""
+        return self.last_prices.copy()
+
+
+# WebSocket client factory for easier instantiation
+class WebSocketClientFactory:
+    """Factory for creating WebSocket clients with different configurations."""
+    
+    @staticmethod
+    def create_basic_client(credentials: KrakenCredentials) -> KrakenWebSocketClient:
+        """Create a basic WebSocket client with default configuration."""
+        handler = DefaultWebSocketCallbackHandler()
+        config = WebSocketConfig()
+        return KrakenWebSocketClient(credentials, handler, config)
+    
+    @staticmethod
+    def create_enhanced_client(credentials: KrakenCredentials, 
+                             data_manager=None, 
+                             strategy_engine=None, 
+                             risk_manager=None) -> KrakenWebSocketClient:
+        """Create an enhanced WebSocket client with trading integration."""
+        handler = EnhancedWebSocketCallbackHandler(data_manager, strategy_engine, risk_manager)
+        config = WebSocketConfig(
+            ping_interval=20,  # More frequent pings for trading
+            max_reconnect_attempts=20,  # More reconnect attempts
+            message_queue_size=2000  # Larger queue for high-frequency trading
+        )
+        return KrakenWebSocketClient(credentials, handler, config)
+    
+    @staticmethod
+    def create_high_frequency_client(credentials: KrakenCredentials,
+                                   data_manager=None,
+                                   strategy_engine=None,
+                                   risk_manager=None) -> KrakenWebSocketClient:
+        """Create a WebSocket client optimized for high-frequency trading."""
+        handler = EnhancedWebSocketCallbackHandler(data_manager, strategy_engine, risk_manager)
+        config = WebSocketConfig(
+            ping_interval=10,  # Very frequent pings
+            ping_timeout=5,    # Quick timeout
+            max_reconnect_attempts=50,  # Many reconnect attempts
+            reconnect_delay=1,  # Quick reconnection
+            max_reconnect_delay=30,  # Lower max delay
+            backoff_multiplier=1.2,  # Gentler backoff
+            message_queue_size=5000,  # Large queue
+            heartbeat_interval=30  # Frequent health checks
+        )
+        return KrakenWebSocketClient(credentials, handler, config)
+
+
+# Connection health monitor
+class WebSocketHealthMonitor:
+    """Monitor WebSocket connection health and performance."""
+    
+    def __init__(self, ws_client: KrakenWebSocketClient):
+        self.ws_client = ws_client
+        self.start_time = datetime.now()
+        self.message_count = 0
+        self.error_count = 0
+        self.reconnect_count = 0
+        self.last_message_time = None
+        
+    def record_message(self):
+        """Record a message received."""
+        self.message_count += 1
+        self.last_message_time = datetime.now()
+    
+    def record_error(self):
+        """Record an error."""
+        self.error_count += 1
+    
+    def record_reconnect(self):
+        """Record a reconnection."""
+        self.reconnect_count += 1
+    
+    def get_health_metrics(self) -> Dict[str, Any]:
+        """Get health metrics."""
+        now = datetime.now()
+        uptime = now - self.start_time
+        
+        return {
+            "uptime_seconds": uptime.total_seconds(),
+            "message_count": self.message_count,
+            "error_count": self.error_count,
+            "reconnect_count": self.reconnect_count,
+            "messages_per_minute": self.message_count / max(uptime.total_seconds() / 60, 1),
+            "error_rate": self.error_count / max(self.message_count, 1),
+            "last_message_age_seconds": (now - self.last_message_time).total_seconds() if self.last_message_time else None,
+            "connection_state": self.ws_client.get_connection_state().value,
+            "queue_size": self.ws_client.get_queue_size(),
+            "active_subscriptions": len(self.ws_client.get_subscriptions())
+        }
+    
+    def is_healthy(self) -> bool:
+        """Check if the connection is healthy."""
+        metrics = self.get_health_metrics()
+        
+        # Check if we're connected
+        if metrics["connection_state"] != "connected":
+            return False
+        
+        # Check if we've received messages recently (within 2 minutes)
+        if metrics["last_message_age_seconds"] and metrics["last_message_age_seconds"] > 120:
+            return False
+        
+        # Check error rate (should be less than 10%)
+        if metrics["error_rate"] > 0.1:
+            return False
+        
+        # Check queue size (shouldn't be too full)
+        if metrics["queue_size"] > self.ws_client.config.message_queue_size * 0.8:
+            return False
+        
+        return True
+
+
+# WebSocket message validator
+class WebSocketMessageValidator:
+    """Validate WebSocket messages for data integrity."""
+    
+    @staticmethod
+    def validate_ticker_data(data: Dict[str, Any]) -> bool:
+        """Validate ticker data structure."""
+        required_fields = ['c']  # At least last price should be present
+        return all(field in data for field in required_fields)
+    
+    @staticmethod
+    def validate_trade_data(data: List[List[Any]]) -> bool:
+        """Validate trade data structure."""
+        if not isinstance(data, list):
+            return False
+        
+        for trade in data:
+            if not isinstance(trade, list) or len(trade) < 6:
+                return False
+        
+        return True
+    
+    @staticmethod
+    def validate_book_data(data: Dict[str, Any]) -> bool:
+        """Validate order book data structure."""
+        if not isinstance(data, dict):
+            return False
+        
+        # Should have at least asks or bids
+        return 'as' in data or 'bs' in data or 'a' in data or 'b' in data
+    
+    @staticmethod
+    def validate_ohlc_data(data: List[Any]) -> bool:
+        """Validate OHLC data structure."""
+        return isinstance(data, list) and len(data) >= 9
+
+
+# WebSocket performance optimizer
+class WebSocketPerformanceOptimizer:
+    """Optimize WebSocket performance based on usage patterns."""
+    
+    def __init__(self, ws_client: KrakenWebSocketClient):
+        self.ws_client = ws_client
+        self.message_rates = {}
+        self.last_optimization = datetime.now()
+        
+    def record_message_rate(self, channel: str):
+        """Record message rate for a channel."""
+        now = datetime.now()
+        if channel not in self.message_rates:
+            self.message_rates[channel] = []
+        
+        self.message_rates[channel].append(now)
+        
+        # Keep only last minute of data
+        cutoff = now - timedelta(minutes=1)
+        self.message_rates[channel] = [
+            timestamp for timestamp in self.message_rates[channel] 
+            if timestamp > cutoff
+        ]
+    
+    def get_message_rate(self, channel: str) -> float:
+        """Get messages per second for a channel."""
+        if channel not in self.message_rates:
+            return 0.0
+        
+        return len(self.message_rates[channel]) / 60.0  # per second
+    
+    def optimize_config(self) -> WebSocketConfig:
+        """Optimize configuration based on usage patterns."""
+        now = datetime.now()
+        
+        # Only optimize every 5 minutes
+        if (now - self.last_optimization).total_seconds() < 300:
+            return self.ws_client.config
+        
+        self.last_optimization = now
+        
+        # Calculate total message rate
+        total_rate = sum(self.get_message_rate(channel) for channel in self.message_rates)
+        
+        # Adjust queue size based on message rate
+        if total_rate > 10:  # High frequency
+            queue_size = min(5000, int(total_rate * 100))
+        elif total_rate > 1:  # Medium frequency
+            queue_size = min(2000, int(total_rate * 200))
+        else:  # Low frequency
+            queue_size = 1000
+        
+        # Adjust ping interval based on activity
+        if total_rate > 5:
+            ping_interval = 10  # More frequent pings for high activity
+        elif total_rate > 1:
+            ping_interval = 20
+        else:
+            ping_interval = 30
+        
+        # Create optimized config
+        optimized_config = WebSocketConfig(
+            public_url=self.ws_client.config.public_url,
+            private_url=self.ws_client.config.private_url,
+            ping_interval=ping_interval,
+            ping_timeout=self.ws_client.config.ping_timeout,
+            max_reconnect_attempts=self.ws_client.config.max_reconnect_attempts,
+            reconnect_delay=self.ws_client.config.reconnect_delay,
+            max_reconnect_delay=self.ws_client.config.max_reconnect_delay,
+            backoff_multiplier=self.ws_client.config.backoff_multiplier,
+            message_queue_size=queue_size,
+            heartbeat_interval=self.ws_client.config.heartbeat_interval
+        )
+        
+        log_info(f"Optimized WebSocket config: queue_size={queue_size}, ping_interval={ping_interval}")
+        return optimized_config
+
+
+# WebSocket connection pool for multiple pairs
+class WebSocketConnectionPool:
+    """Manage multiple WebSocket connections for different trading pairs."""
+    
+    def __init__(self, credentials: KrakenCredentials, max_connections: int = 5):
+        self.credentials = credentials
+        self.max_connections = max_connections
+        self.connections = {}
+        self.pair_assignments = {}
+        
+    def get_connection_for_pair(self, pair: str) -> KrakenWebSocketClient:
+        """Get or create a connection for a trading pair."""
+        # Check if pair is already assigned
+        if pair in self.pair_assignments:
+            return self.pair_assignments[pair]
+        
+        # Find connection with least pairs
+        if self.connections:
+            connection_loads = {
+                conn_id: len([p for p, c in self.pair_assignments.items() if c == conn])
+                for conn_id, conn in self.connections.items()
+            }
+            least_loaded_id = min(connection_loads, key=connection_loads.get)
+            
+            if connection_loads[least_loaded_id] < 10:  # Max 10 pairs per connection
+                connection = self.connections[least_loaded_id]
+                self.pair_assignments[pair] = connection
+                return connection
+        
+        # Create new connection if under limit
+        if len(self.connections) < self.max_connections:
+            conn_id = f"conn_{len(self.connections) + 1}"
+            connection = WebSocketClientFactory.create_enhanced_client(self.credentials)
+            self.connections[conn_id] = connection
+            self.pair_assignments[pair] = connection
+            return connection
+        
+        # Use first connection as fallback
+        connection = list(self.connections.values())[0]
+        self.pair_assignments[pair] = connection
+        return connection
+    
+    def connect_all(self) -> bool:
+        """Connect all connections in the pool."""
+        success = True
+        for connection in self.connections.values():
+            if not connection.connect():
+                success = False
+        return success
+    
+    def disconnect_all(self):
+        """Disconnect all connections in the pool."""
+        for connection in self.connections.values():
+            connection.disconnect()
+    
+    def get_pool_stats(self) -> Dict[str, Any]:
+        """Get statistics for the connection pool."""
+        return {
+            "total_connections": len(self.connections),
+            "total_pairs": len(self.pair_assignments),
+            "connection_states": {
+                conn_id: conn.get_connection_state().value
+                for conn_id, conn in self.connections.items()
+            },
+            "pair_distribution": {
+                conn_id: len([p for p, c in self.pair_assignments.items() if c == conn])
+                for conn_id, conn in self.connections.items()
+            }
+        }

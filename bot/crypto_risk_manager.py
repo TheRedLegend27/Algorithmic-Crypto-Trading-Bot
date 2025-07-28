@@ -16,8 +16,8 @@ import statistics
 from enum import Enum
 
 from bot.crypto_position_manager import CryptoPositionManager
-from bot.coinbase_client import CoinbaseClient
-from bot.coinbase_data_fetcher import CoinbaseDataFetcher
+from bot.kraken_client import KrakenClient
+from bot.data_fetcher import DataFetcher
 from bot.utils import log_error, log_warning, log_info
 
 
@@ -84,8 +84,8 @@ class CryptoRiskManager:
     
     def __init__(self, 
                  position_manager: CryptoPositionManager,
-                 data_fetcher: CoinbaseDataFetcher,
-                 client: CoinbaseClient,
+                 data_fetcher: DataFetcher,
+                 client: KrakenClient,
                  risk_settings: Optional[CryptoRiskSettings] = None,
                  alert_callback: Optional[Callable[[RiskAlert], None]] = None):
         """
@@ -93,8 +93,8 @@ class CryptoRiskManager:
         
         Args:
             position_manager: CryptoPositionManager instance for position tracking
-            data_fetcher: CoinbaseDataFetcher for market data
-            client: CoinbaseClient for API access
+            data_fetcher: DataFetcher for market data
+            client: KrakenClient for API access
             risk_settings: Risk management configuration settings
             alert_callback: Optional callback function for alerts
         """
