@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Debug script to test market data retrieval from Kraken API.
+Debug script to check what market data we're actually getting from Kraken.
 """
 import os
 import sys
@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 sys.path.append(os.path.join(os.path.dirname(__file__), 'bot'))
 
 from bot.kraken_client import KrakenCredentials, KrakenClient
-from bot.kraken_trader import KrakenTrader, KrakenTradingConfig
 from bot.utils import log_info, log_error
 
 
@@ -19,112 +18,87 @@ def debug_market_data():
     print("🔍 Debugging Market Data Retrieval")
     print("=" * 50)
     
-    # Load credentials
+    # Load environment variables
     load_dotenv()
+    
+    # Get credentials
     api_key = os.getenv("KRAKEN_API_KEY")
     api_secret = os.getenv("KRAKEN_API_SECRET")
     
     if not api_key or not api_secret:
-        print("❌ API credentials not found")
-        return False
+        print("❌ Missing Kraken API credentials!")
+        return
     
+    # Create credentials and client
     credentials = KrakenCredentials(api_key=api_key, api_secret=api_secret)
+    client = KrakenClient(credentials)
     
-    # Test KrakenClient directly
-    print("\n1. Testing KrakenClient directly...")
+    # Test connection
+    if not client.test_connection():
+        print("❌ Failed to connect to Kraken API")
+        return
+    
+    print("✅ Connected to Kraken API")
+    
+    # Test current price
+    print("\n📊 Testing Current Price:")
     try:
-        client = KrakenClient(credentials)
-        
-        # Test server time (public endpoint)
-        server_time = client.get_server_time()
-        print(f"✅ Server time: {server_time}")
-        
-        # Test ticker data
-        print("\n2. Testing ticker data...")
-        ticker_data = client.get_ticker(["XBTUSD"])
-        print(f"Ticker response: {ticker_data}")
-        
-        if ticker_data and "XBTUSD" in ticker_data:
-            price_data = ticker_data["XBTUSD"]
-            print(f"Price data: {price_data}")
-            
-            if 'c' in price_data:
-                current_price = float(price_data['c'][0])
-                print(f"✅ Current BTC/USD price: ${current_price:,.2f}")
-            else:
-                print("❌ No 'c' field in price data")
-        else:
-            print("❌ No XBTUSD data in ticker response")
-        
-        # Test get_current_price method
-        print("\n3. Testing get_current_price method...")
         price = client.get_current_price("XBTUSD")
-        if price:
-            print(f"✅ get_current_price: ${price:,.2f}")
-        else:
-            print("❌ get_current_price returned None")
-        
+        print(f"✅ Current BTC price: ${price:,.2f}")
     except Exception as e:
-        print(f"❌ KrakenClient test failed: {e}")
-        return False
+        print(f"❌ Error getting current price: {e}")
     
-    # Test KrakenTrader
-    print("\n4. Testing KrakenTrader...")
+    # Test ticker data
+    print("\n📈 Testing Ticker Data:")
     try:
-        config = KrakenTradingConfig(
-            trading_pair="XBTUSD",
-            trade_amount_usd=10.0,
-            max_position_usd=100.0,
-            min_trade_interval=60
-        )
-        trader = KrakenTrader(credentials, config)
-        
-        # Test connection
-        if trader.test_connection():
-            print("✅ KrakenTrader connection test passed")
-        else:
-            print("❌ KrakenTrader connection test failed")
-            return False
-        
-        # Test get_current_price
-        price = trader.get_current_price("XBTUSD")
-        if price:
-            print(f"✅ KrakenTrader get_current_price: ${price:,.2f}")
-        else:
-            print("❌ KrakenTrader get_current_price returned None")
-            return False
-        
+        ticker = client.get_ticker(["XBTUSD"])
+        print(f"✅ Ticker data keys: {list(ticker.keys())}")
+        if ticker:
+            for pair, data in ticker.items():
+                print(f"   {pair}: {data}")
     except Exception as e:
-        print(f"❌ KrakenTrader test failed: {e}")
-        return False
+        print(f"❌ Error getting ticker: {e}")
     
-    # Test other pairs
-    print("\n5. Testing other trading pairs...")
-    test_pairs = ["XBTUSD", "XETHZUSD", "ADAUSD"]
+    # Test OHLC data
+    print("\n📊 Testing OHLC Data:")
+    try:
+        ohlc = client.get_ohlc_data("XBTUSD", interval=5)
+        print(f"✅ OHLC response type: {type(ohlc)}")
+        print(f"✅ OHLC keys: {list(ohlc.keys()) if isinstance(ohlc, dict) else 'Not a dict'}")
+        
+        if isinstance(ohlc, dict):
+            for key, value in ohlc.items():
+                print(f"   {key}: {type(value)} with {len(value) if hasattr(value, '__len__') else 'no length'} items")
+                if hasattr(value, '__len__') and len(value) > 0:
+                    print(f"      First item: {value[0] if isinstance(value, list) else 'Not a list'}")
+                    if len(value) > 1:
+                        print(f"      Last item: {value[-1]}")
+    except Exception as e:
+        print(f"❌ Error getting OHLC: {e}")
     
-    for pair in test_pairs:
-        try:
-            price = client.get_current_price(pair)
-            if price:
-                print(f"✅ {pair}: ${price:,.2f}")
-            else:
-                print(f"❌ {pair}: No price data")
-        except Exception as e:
-            print(f"❌ {pair}: Error - {e}")
+    # Test tradable pairs
+    print("\n🔗 Testing Tradable Pairs:")
+    try:
+        pairs = client.get_tradable_pairs(["XBTUSD"])
+        print(f"✅ Pairs response: {list(pairs.keys()) if isinstance(pairs, dict) else 'Not a dict'}")
+        if isinstance(pairs, dict):
+            for pair, info in pairs.items():
+                print(f"   {pair}: altname={info.get('altname', 'N/A')}")
+    except Exception as e:
+        print(f"❌ Error getting pairs: {e}")
     
-    print("\n✅ Market data debugging complete!")
-    return True
-
-
-def main():
-    """Main function."""
-    if debug_market_data():
-        print("\n🎉 Market data is working correctly!")
-        return 0
-    else:
-        print("\n❌ Market data issues detected")
-        return 1
+    # Test account balance
+    print("\n💰 Testing Account Balance:")
+    try:
+        balance = client.get_account_balance()
+        print(f"✅ Balance keys: {list(balance.keys()) if isinstance(balance, dict) else 'Not a dict'}")
+        if isinstance(balance, dict):
+            for currency, amount in balance.items():
+                if float(amount) > 0:
+                    print(f"   {currency}: {amount}")
+    except Exception as e:
+        print(f"❌ Error getting balance: {e}")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    debug_market_data()
