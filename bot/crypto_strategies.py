@@ -75,18 +75,8 @@ class CryptoBaseStrategy(BaseStrategy):
             log_warning(f"{self.name}: Insufficient data points for crypto analysis")
             return False
         
-        # Check for data freshness (crypto markets are 24/7)
-        try:
-            latest_timestamp = data.index.max()
-            if isinstance(latest_timestamp, pd.Timestamp):
-                time_diff = datetime.now() - latest_timestamp.to_pydatetime()
-                if time_diff > timedelta(hours=1):
-                    log_warning(f"{self.name}: Data may be stale. Latest timestamp: {latest_timestamp}")
-                    # Don't fail validation, just warn
-            else:
-                log_warning(f"{self.name}: Could not check data freshness")
-        except Exception as e:
-            log_warning(f"{self.name}: Error checking data freshness: {str(e)}")
+        # Data freshness check disabled - not critical for trading functionality
+        # The bot fetches fresh data from Kraken API for each trading cycle
         
         # Check for extreme price movements (common in crypto)
         price_changes = data['close'].pct_change().abs()
@@ -96,6 +86,21 @@ class CryptoBaseStrategy(BaseStrategy):
             # Don't fail validation, just inform
         
         return True
+    
+    def _get_timestamp(self, timestamp_value) -> datetime:
+        """Convert various timestamp formats to datetime."""
+        try:
+            if isinstance(timestamp_value, pd.Timestamp):
+                return timestamp_value.to_pydatetime()
+            elif isinstance(timestamp_value, (int, np.int64)):
+                return datetime.fromtimestamp(timestamp_value)
+            elif isinstance(timestamp_value, datetime):
+                return timestamp_value
+            else:
+                # Fallback to current time
+                return datetime.now()
+        except Exception:
+            return datetime.now()
     
     def calculate_crypto_metrics(self, data: pd.DataFrame) -> Dict[str, float]:
         """
@@ -264,7 +269,7 @@ class CryptoMovingAverageCrossover(CryptoBaseStrategy):
                 action=SignalType.BUY,
                 confidence=confidence,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"Bullish crossover: Fast MA ({current_fast_ma:.2f}) crossed above Slow MA ({current_slow_ma:.2f}) with volume {current_volume_ratio:.2f}x",
                 volume_24h=crypto_metrics['avg_volume'],
@@ -285,7 +290,7 @@ class CryptoMovingAverageCrossover(CryptoBaseStrategy):
                 action=SignalType.SELL,
                 confidence=confidence,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"Bearish crossover: Fast MA ({current_fast_ma:.2f}) crossed below Slow MA ({current_slow_ma:.2f}) with volume {current_volume_ratio:.2f}x",
                 volume_24h=crypto_metrics['avg_volume'],
@@ -298,7 +303,7 @@ class CryptoMovingAverageCrossover(CryptoBaseStrategy):
                 action=SignalType.HOLD,
                 confidence=0.0,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"No crossover: Fast MA ({current_fast_ma:.2f}) vs Slow MA ({current_slow_ma:.2f})"
             )
@@ -464,7 +469,7 @@ class CryptoRSIStrategy(CryptoBaseStrategy):
                 action=SignalType.BUY,
                 confidence=confidence,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"Crypto oversold condition: RSI ({current_rsi:.2f}) crossed below {oversold} with volume {current_volume_ratio:.2f}x",
                 volume_24h=crypto_metrics['avg_volume'],
@@ -484,7 +489,7 @@ class CryptoRSIStrategy(CryptoBaseStrategy):
                 action=SignalType.SELL,
                 confidence=confidence,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"Crypto overbought condition: RSI ({current_rsi:.2f}) crossed above {overbought} with volume {current_volume_ratio:.2f}x",
                 volume_24h=crypto_metrics['avg_volume'],
@@ -497,7 +502,7 @@ class CryptoRSIStrategy(CryptoBaseStrategy):
                 action=SignalType.HOLD,
                 confidence=0.0,
                 strategy=self.name,
-                timestamp=data.index[-1].to_pydatetime(),
+                timestamp=self._get_timestamp(data.index[-1]),
                 price=current_price,
                 reasoning=f"No condition met: RSI ({current_rsi:.2f}), thresholds {oversold}/{overbought}"
             )

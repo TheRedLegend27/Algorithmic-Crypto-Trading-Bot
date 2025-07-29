@@ -89,7 +89,7 @@ def _create_hold_signal(strategy_name: str, data: pd.DataFrame, reasoning: str) 
         confidence=0.0,
         strategy=strategy_name,
         timestamp=datetime.now(),
-        price=data['close'].iloc[-1] if not data.empty else 0.0,
+        price=data['close'].iloc[-1] if hasattr(data, 'empty') and not data.empty else (data[-1]['close'] if isinstance(data, list) and len(data) > 0 else 0.0),
         reasoning=reasoning
     )
 
@@ -1191,7 +1191,24 @@ class EnhancedStrategyEngine:
             Aggregated trading signal or None if no valid signals
         """
         try:
-            if market_data is None or market_data.empty:
+            # Handle different data types
+            if market_data is None:
+                return None
+            
+            # Check if it's a list and convert to DataFrame if needed
+            if isinstance(market_data, list):
+                if len(market_data) == 0:
+                    return None
+                # Convert list to DataFrame if needed
+                import pandas as pd
+                if isinstance(market_data[0], dict):
+                    market_data = pd.DataFrame(market_data)
+                else:
+                    log_error("Unsupported market data format: list of non-dict objects")
+                    return None
+            
+            # Check if DataFrame is empty
+            if hasattr(market_data, 'empty') and market_data.empty:
                 return None
             
             signals = []

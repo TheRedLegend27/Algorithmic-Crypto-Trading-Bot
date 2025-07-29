@@ -113,20 +113,17 @@ class EnhancedKrakenBot:
                 cache_config=cache_config
             )
             
-            # Strategy Engine
+            # Aggressive Strategy Engine (like the old enhanced bot)
             strategy_params = StrategyParameters(
-                volatility_lookback=20,
-                momentum_periods=[5, 10, 20],
-                volume_threshold=1.2,
+                volatility_lookback=15,  # Shorter lookback for faster response
+                momentum_periods=[3, 8, 15],  # Shorter periods for more aggressive signals
+                volume_threshold=1.1,  # Lower threshold for more signals
                 confidence_threshold=self.config.confidence_threshold
             )
             
-            # Import and create strategies
-            from bot.crypto_strategies import CryptoMovingAverageCrossover, CryptoRSIStrategy
-            strategies = [
-                CryptoMovingAverageCrossover(fast_period=10, slow_period=30),
-                CryptoRSIStrategy(period=14, base_oversold=30, base_overbought=70)
-            ]
+            # Import and create aggressive strategies (like the old enhanced bot)
+            from bot.enhanced_strategies import create_enhanced_strategy_suite
+            strategies = create_enhanced_strategy_suite()
             
             strategy_engine = EnhancedStrategyEngine(
                 strategies=strategies,

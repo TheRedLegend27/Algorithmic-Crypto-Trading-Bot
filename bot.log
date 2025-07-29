@@ -365,3 +365,1039 @@
 2025-07-29 00:58:57,281 - crypto_bot - INFO - Enhanced dashboard server stopped
 2025-07-29 00:58:57,282 - crypto_bot - INFO - ✅ Bot stopped successfully
 2025-07-29 00:59:00,577 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:02:03,773 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:02:03,774 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:02:03,775 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:02:03,777 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:02:03,778 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:02:03,778 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:02:03,778 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:02:03,778 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:02:03,778 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:02:03,778 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:02:03,778 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:02:03,778 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:02:03,811 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:02:03,811 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:02:03,811 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:02:03,811 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:02:03,811 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:02:04,470 - crypto_bot - ERROR - Connection test failed: Incorrect padding
+2025-07-29 01:02:04,471 - crypto_bot - ERROR - Failed to connect for trading pair XBTUSD
+2025-07-29 01:02:04,471 - crypto_bot - ERROR - Connection tests failed
+2025-07-29 01:02:14,481 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:02:14,481 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:02:14,482 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:02:14,482 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:02:14,483 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:02:14,483 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:02:14,483 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:02:14,483 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:02:14,483 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:02:14,483 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:02:14,483 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:02:14,483 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:02:14,503 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:02:14,503 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:02:14,503 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:02:14,503 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:02:14,503 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:02:15,381 - crypto_bot - ERROR - Connection test failed: Incorrect padding
+2025-07-29 01:02:15,381 - crypto_bot - ERROR - Failed to connect for trading pair XBTUSD
+2025-07-29 01:02:15,381 - crypto_bot - ERROR - Connection tests failed
+2025-07-29 01:03:34,284 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:03:34,285 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:03:34,285 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:03:34,286 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:03:34,286 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:03:34,286 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:03:34,286 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:03:34,286 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:03:34,286 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:03:34,286 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:03:34,286 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:03:34,287 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:03:34,305 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:03:34,305 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:03:34,305 - crypto_bot - INFO - KrakenTrader initialized for SOLUSD
+2025-07-29 01:03:34,305 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:03:34,305 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:03:34,820 - crypto_bot - ERROR - Connection test failed: Incorrect padding
+2025-07-29 01:03:34,821 - crypto_bot - ERROR - Failed to connect for trading pair SOLUSD
+2025-07-29 01:03:34,821 - crypto_bot - ERROR - Connection tests failed
+2025-07-29 01:03:42,324 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:03:42,324 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:03:42,325 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:03:42,325 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:03:42,325 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:03:42,326 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:03:42,326 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:03:42,326 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:03:42,326 - bot.crypto_position_manager - ERROR - Error refreshing balances: Incorrect padding
+2025-07-29 01:03:42,326 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:03:42,326 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:03:42,326 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:03:42,343 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:03:42,344 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:03:42,344 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:03:42,344 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:03:42,344 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:03:42,900 - crypto_bot - ERROR - Connection test failed: Incorrect padding
+2025-07-29 01:03:42,900 - crypto_bot - ERROR - Failed to connect for trading pair XBTUSD
+2025-07-29 01:03:42,900 - crypto_bot - ERROR - Connection tests failed
+2025-07-29 01:04:38,278 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:04:38,280 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:04:38,281 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:04:38,282 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:04:38,282 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:04:38,282 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:04:38,282 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:04:38,521 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:04:38,742 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:04:38,742 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:04:38,742 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:04:38,742 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:04:38,768 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:04:38,769 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:04:38,769 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:04:38,769 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:04:38,769 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:04:39,354 - crypto_bot - INFO - ✅ XBTUSD: $118,534.80
+2025-07-29 01:04:39,354 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:04:39,356 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:04:39,372 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:04:39,372 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:04:41,361 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:04:41,361 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:04:41
+2025-07-29 01:04:41,361 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:04:41,362 - crypto_bot - INFO - ⏳ Waiting 60 seconds...
+2025-07-29 01:04:45,669 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET / HTTP/1.1" 200 -
+2025-07-29 01:04:45,746 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /socket.io/?EIO=4&transport=polling&t=PXKaPoj HTTP/1.1" 200 -
+2025-07-29 01:04:45,766 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 01:04:45,769 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 01:04:45,769 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "POST /socket.io/?EIO=4&transport=polling&t=PXKaPp5&sid=53uoul2yjgr4AZ2IAAAA HTTP/1.1" 200 -
+2025-07-29 01:04:45,770 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /api/market_data HTTP/1.1" 200 -
+2025-07-29 01:04:45,770 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 01:04:45,770 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /api/performance HTTP/1.1" 200 -
+2025-07-29 01:04:45,771 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /api/trades HTTP/1.1" 200 -
+2025-07-29 01:04:45,771 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /socket.io/?EIO=4&transport=polling&t=PXKaPp8&sid=53uoul2yjgr4AZ2IAAAA HTTP/1.1" 200 -
+2025-07-29 01:04:45,797 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /socket.io/?EIO=4&transport=polling&t=PXKaPpV&sid=53uoul2yjgr4AZ2IAAAA HTTP/1.1" 200 -
+2025-07-29 01:04:45,836 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:45] "GET /socket.io/?EIO=4&transport=polling&t=PXKaPq9&sid=53uoul2yjgr4AZ2IAAAA HTTP/1.1" 200 -
+2025-07-29 01:04:54,779 - crypto_bot - INFO - Dashboard client disconnected
+2025-07-29 01:04:54,779 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 01:04:54] "GET /socket.io/?EIO=4&transport=websocket&sid=53uoul2yjgr4AZ2IAAAA HTTP/1.1" 200 -
+2025-07-29 01:05:05,481 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:05,482 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:09,380 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:09,381 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:16,638 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:16,640 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:16,640 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:16,640 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:20,072 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:20,072 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:20,072 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:20,072 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:20,816 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:20,817 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:20,817 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:20,817 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:21,275 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:21,275 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:21,275 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:21,275 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:21,502 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:21,502 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:21,502 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:21,502 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:21,675 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:21,675 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:21,675 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:21,676 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:21,836 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:05:21,836 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:05:21,836 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:05:21,837 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:05:41,366 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:06:08,514 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:06:08,514 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:06:08,515 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:06:08,515 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:06:08,516 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:06:08,516 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:06:08,516 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:06:08,749 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:06:08,950 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:06:08,951 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:06:08,951 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:06:08,951 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:06:08,989 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:06:08,990 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:06:08,990 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:06:08,990 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:06:08,990 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:06:09,594 - crypto_bot - INFO - ✅ XBTUSD: $118,553.60
+2025-07-29 01:06:09,594 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:06:09,596 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:06:09,612 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:06:09,612 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:06:11,601 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:06:11,601 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:06:11
+2025-07-29 01:06:11,601 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:11,602 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:16,607 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:06:16
+2025-07-29 01:06:16,659 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:16,659 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:16,659 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:16,659 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:21,664 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:06:21
+2025-07-29 01:06:21,722 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:21,722 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:21,722 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:21,722 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:26,728 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 01:06:26
+2025-07-29 01:06:26,778 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:26,778 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:26,778 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:26,778 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:31,784 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 01:06:31
+2025-07-29 01:06:31,834 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:31,834 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:31,835 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:31,835 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:36,840 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 01:06:36
+2025-07-29 01:06:36,893 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:36,893 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:36,893 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:36,893 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:41,899 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 01:06:41
+2025-07-29 01:06:41,955 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 01:06:41,955 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:06:41,955 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:06:41,955 - crypto_bot - INFO - ⏳ Waiting 5 seconds...
+2025-07-29 01:06:46,053 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:06:46,054 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:06:49,627 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:06:49,629 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:06:49,629 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:07:49,538 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:07:49,540 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:07:49,541 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:07:49,542 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:07:49,543 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:07:49,543 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:07:49,543 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:07:49,783 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:07:50,110 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:07:50,110 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:07:50,110 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:07:50,110 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:07:50,147 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:07:50,147 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:07:50,147 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:07:50,147 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:07:50,147 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:07:50,841 - crypto_bot - INFO - ✅ XBTUSD: $118,626.00
+2025-07-29 01:07:50,841 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:07:50,843 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:07:50,851 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:07:50,852 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:07:52,847 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:07:52,848 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:07:52
+2025-07-29 01:07:52,848 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:07:52,848 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:08:02,853 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:08:02
+2025-07-29 01:08:02,911 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:08:02,918 - crypto_bot - ERROR - Error generating signal from Crypto MA Crossover: 'numpy.int64' object has no attribute 'to_pydatetime'
+2025-07-29 01:08:02,918 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:08:02,921 - crypto_bot - ERROR - Error generating signal from Crypto RSI Strategy: 'numpy.int64' object has no attribute 'to_pydatetime'
+2025-07-29 01:08:02,921 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:08:02,921 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:08:02,921 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:08:12,926 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:08:12
+2025-07-29 01:08:13,279 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:08:13,284 - crypto_bot - ERROR - Error generating signal from Crypto MA Crossover: 'numpy.int64' object has no attribute 'to_pydatetime'
+2025-07-29 01:08:13,285 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:08:13,293 - crypto_bot - ERROR - Error generating signal from Crypto RSI Strategy: 'numpy.int64' object has no attribute 'to_pydatetime'
+2025-07-29 01:08:13,294 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:08:13,294 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:08:13,294 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:08:16,219 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:08:16,219 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:08:20,865 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:08:20,870 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:08:23,299 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:12:47,402 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:12:47,403 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:12:47,404 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:12:47,404 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:12:47,438 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:12:47,438 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:12:47,438 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:12:47,742 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:12:47,885 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:12:47,885 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:12:47,885 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:12:47,885 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:12:47,912 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:12:47,912 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:12:47,912 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:12:47,912 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:12:47,912 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:12:48,491 - crypto_bot - INFO - ✅ XBTUSD: $118,714.40
+2025-07-29 01:12:48,491 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:12:48,492 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:12:48,500 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:12:48,500 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:12:50,497 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:12:50,497 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:12:50
+2025-07-29 01:12:50,498 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:12:50,498 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:13:05,503 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:13:05
+2025-07-29 01:13:10,363 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:13:10,364 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:13:10,379 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:13:10,379 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:13:10,385 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:13:10,385 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:13:10,385 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:13:25,387 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:13:25
+2025-07-29 01:13:25,463 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:13:25,463 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:13:25,469 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:13:25,469 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:13:25,475 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:13:25,475 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:13:25,476 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:13:39,934 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:13:39,935 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:13:43,538 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:13:43,538 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:13:43,538 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:14:03,136 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:14:03,136 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:14:03,137 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:14:03,137 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:14:03,138 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:14:03,138 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:14:03,138 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:14:03,378 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:14:03,516 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:14:03,516 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:14:03,516 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:14:03,516 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:14:03,540 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:14:03,540 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:14:03,540 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:14:03,540 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:14:03,540 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:14:04,798 - crypto_bot - INFO - ✅ XBTUSD: $118,700.90
+2025-07-29 01:14:04,798 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:14:04,798 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:14:04,804 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:14:04,804 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:14:06,803 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:14:06,803 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:14:06
+2025-07-29 01:14:06,803 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:14:06,803 - crypto_bot - INFO - ⏳ Waiting 20 seconds...
+2025-07-29 01:14:26,808 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:14:26
+2025-07-29 01:14:26,968 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:14:26,969 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:14:26,982 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:14:26,982 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:14:26,988 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:14:26,988 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:14:26,988 - crypto_bot - INFO - ⏳ Waiting 20 seconds...
+2025-07-29 01:14:46,993 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:14:46
+2025-07-29 01:14:47,172 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:14:47,172 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:14:47,179 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:14:47,179 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:14:47,184 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:14:47,185 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:14:47,185 - crypto_bot - INFO - ⏳ Waiting 20 seconds...
+2025-07-29 01:14:50,515 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:14:50,516 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:14:54,864 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:14:54,864 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:15:07,190 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:16:51,600 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:16:51,602 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:16:51,603 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:16:51,604 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:16:51,604 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:16:51,604 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:16:51,604 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:16:51,853 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:16:52,236 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:16:52,236 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:16:52,237 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:16:52,237 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:16:52,279 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:16:52,280 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:16:52,280 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:16:52,280 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:16:52,280 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:16:53,073 - crypto_bot - INFO - ✅ XBTUSD: $118,554.80
+2025-07-29 01:16:53,073 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:16:53,075 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:16:53,085 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:16:53,085 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:16:55,075 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:16:55,076 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:16:55
+2025-07-29 01:16:55,076 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:16:55,076 - crypto_bot - INFO - ⏳ Waiting 20 seconds...
+2025-07-29 01:17:15,081 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:17:15
+2025-07-29 01:17:15,152 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:17:15,152 - crypto_bot - WARNING - Crypto MA Crossover: Could not check data freshness
+2025-07-29 01:17:15,171 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:17:15,171 - crypto_bot - WARNING - Crypto RSI Strategy: Could not check data freshness
+2025-07-29 01:17:15,177 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:17:15,177 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:17:15,177 - crypto_bot - INFO - ⏳ Waiting 20 seconds...
+2025-07-29 01:17:21,671 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:17:21,671 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:17:23,115 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:17:23,115 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:17:35,177 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:18:31,293 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:18:31,296 - crypto_bot - INFO - Fetching XBTUSD data with 5Min timeframe
+2025-07-29 01:18:31,620 - crypto_bot - INFO - Successfully fetched 720 data points for XBTUSD
+2025-07-29 01:18:31,623 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:19:59,574 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:19:59,577 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:19:59,579 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:19:59,579 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:19:59,586 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:19:59,586 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:19:59,586 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:20:00,261 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:20:00,496 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:20:00,496 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:20:00,496 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:20:00,496 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:20:00,537 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:20:00,537 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:20:00,537 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:20:00,537 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:20:00,537 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:20:01,275 - crypto_bot - INFO - ✅ XBTUSD: $118,575.10
+2025-07-29 01:20:01,275 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:20:01,276 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:20:01,286 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:20:01,286 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:20:03,280 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:20:03,281 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:20:03
+2025-07-29 01:20:03,281 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:20:03,281 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:20:18,285 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:20:18
+2025-07-29 01:20:18,366 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:18,380 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:18,387 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:20:18,387 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:20:18,387 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:20:33,392 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:20:33
+2025-07-29 01:20:33,455 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:33,459 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:33,463 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:20:33,463 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:20:33,463 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:20:48,468 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 01:20:48
+2025-07-29 01:20:48,598 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:48,604 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:20:48,610 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:20:48,611 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:20:48,611 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:21:03,616 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 01:21:03
+2025-07-29 01:21:03,710 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:21:03,715 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:21:03,720 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:21:03,720 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:21:03,720 - crypto_bot - INFO - ⏳ Waiting 15 seconds...
+2025-07-29 01:21:07,343 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:21:07,344 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:21:11,330 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:21:11,331 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:21:18,721 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:22:21,557 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:22:21,560 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:22:21,562 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:22:21,564 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:22:21,575 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:22:21,575 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:22:21,575 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:22:21,844 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:22:21,989 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:22:21,990 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:22:21,990 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:22:21,990 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:22:22,022 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:22:22,022 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:22:22,022 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:22:22,022 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:22:22,022 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:22:22,886 - crypto_bot - INFO - ✅ XBTUSD: $118,600.00
+2025-07-29 01:22:22,886 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:22:22,886 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:22:22,891 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:22:22,891 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:22:24,891 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:22:24,892 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:22:24
+2025-07-29 01:22:24,892 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:22:24,892 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:22:34,897 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:22:34
+2025-07-29 01:22:35,088 - crypto_bot - WARNING - Crypto MA Crossover: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:22:35,104 - crypto_bot - WARNING - Crypto RSI Strategy: Data may be stale. Latest timestamp: 1969-12-31 19:11:59
+2025-07-29 01:22:35,107 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:22:35,107 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:22:35,107 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:22:44,969 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:22:44,970 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:22:47,910 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:22:47,911 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:22:47,911 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:23:31,677 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:23:31,679 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:23:31,680 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:23:31,682 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:23:31,686 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:23:31,686 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:23:31,686 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:23:31,924 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:23:32,073 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:23:32,073 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:23:32,073 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:23:32,073 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:23:32,104 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 01:23:32,104 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:23:32,104 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:23:32,104 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:23:32,104 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:23:32,794 - crypto_bot - INFO - ✅ XBTUSD: $118,612.50
+2025-07-29 01:23:32,794 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:23:32,795 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 01:23:32,805 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 01:23:32,805 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 01:23:34,800 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:23:34,800 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:23:34
+2025-07-29 01:23:34,801 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:23:34,801 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:23:44,806 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:23:44
+2025-07-29 01:23:44,960 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:23:44,960 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:23:44,960 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:23:54,965 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:23:54
+2025-07-29 01:23:55,032 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:23:55,032 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:23:55,032 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:24:05,037 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 01:24:05
+2025-07-29 01:24:05,107 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:24:05,108 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:24:05,108 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:24:08,607 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:24:08,607 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:24:12,837 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 01:24:12,837 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:24:15,112 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 01:26:03,211 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 01:26:03,214 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 01:26:03,215 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 01:26:03,216 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 01:26:03,217 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 01:26:03,217 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:26:03,217 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 01:26:03,448 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:26:03,603 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 01:26:03,604 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 01:26:03,604 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 01:26:03,604 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 01:26:03,604 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 01:26:03,604 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 01:26:03,604 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 01:26:03,604 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 01:26:04,297 - crypto_bot - INFO - ✅ XBTUSD: $118,612.50
+2025-07-29 01:26:04,297 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 01:26:04,297 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 01:26:04,297 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 01:26:04
+2025-07-29 01:26:04,297 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:04,297 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:26:14,299 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 01:26:14
+2025-07-29 01:26:14,383 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:26:14,383 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:14,383 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:26:24,388 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 01:26:24
+2025-07-29 01:26:24,449 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:26:24,450 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:24,450 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:26:34,455 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 01:26:34
+2025-07-29 01:26:34,550 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:26:34,550 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:34,550 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:26:44,555 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 01:26:44
+2025-07-29 01:26:44,781 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:26:44,781 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:44,781 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:26:54,786 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 01:26:54
+2025-07-29 01:26:54,844 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:26:54,845 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:26:54,845 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:04,850 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 01:27:04
+2025-07-29 01:27:05,045 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:05,045 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:05,045 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:15,050 - crypto_bot - INFO - 🔄 Trading Cycle #8 - 01:27:15
+2025-07-29 01:27:15,213 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:15,213 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:15,213 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:25,219 - crypto_bot - INFO - 🔄 Trading Cycle #9 - 01:27:25
+2025-07-29 01:27:25,564 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:25,564 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:25,564 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:35,570 - crypto_bot - INFO - 🔄 Trading Cycle #10 - 01:27:35
+2025-07-29 01:27:35,647 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:35,647 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:35,647 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:45,653 - crypto_bot - INFO - 🔄 Trading Cycle #11 - 01:27:45
+2025-07-29 01:27:45,709 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:45,709 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:45,709 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:27:55,714 - crypto_bot - INFO - 🔄 Trading Cycle #12 - 01:27:55
+2025-07-29 01:27:55,804 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:27:55,804 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:27:55,805 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:05,810 - crypto_bot - INFO - 🔄 Trading Cycle #13 - 01:28:05
+2025-07-29 01:28:05,879 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:05,879 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:05,879 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:15,885 - crypto_bot - INFO - 🔄 Trading Cycle #14 - 01:28:15
+2025-07-29 01:28:16,062 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:16,062 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:16,062 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:26,067 - crypto_bot - INFO - 🔄 Trading Cycle #15 - 01:28:26
+2025-07-29 01:28:26,248 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:26,248 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:26,248 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:36,254 - crypto_bot - INFO - 🔄 Trading Cycle #16 - 01:28:36
+2025-07-29 01:28:36,334 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:36,335 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:36,335 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:46,340 - crypto_bot - INFO - 🔄 Trading Cycle #17 - 01:28:46
+2025-07-29 01:28:46,389 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:46,389 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:46,389 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:28:56,394 - crypto_bot - INFO - 🔄 Trading Cycle #18 - 01:28:56
+2025-07-29 01:28:56,457 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:28:56,457 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:28:56,457 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:06,457 - crypto_bot - INFO - 🔄 Trading Cycle #19 - 01:29:06
+2025-07-29 01:29:06,560 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:06,560 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:06,560 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:16,566 - crypto_bot - INFO - 🔄 Trading Cycle #20 - 01:29:16
+2025-07-29 01:29:16,639 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:16,639 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:16,639 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:26,644 - crypto_bot - INFO - 🔄 Trading Cycle #21 - 01:29:26
+2025-07-29 01:29:26,721 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:26,721 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:26,721 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:36,727 - crypto_bot - INFO - 🔄 Trading Cycle #22 - 01:29:36
+2025-07-29 01:29:36,815 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:36,815 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:36,815 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:46,820 - crypto_bot - INFO - 🔄 Trading Cycle #23 - 01:29:46
+2025-07-29 01:29:46,876 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:46,876 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:46,876 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:29:56,881 - crypto_bot - INFO - 🔄 Trading Cycle #24 - 01:29:56
+2025-07-29 01:29:56,935 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:29:56,935 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:29:56,935 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:06,940 - crypto_bot - INFO - 🔄 Trading Cycle #25 - 01:30:06
+2025-07-29 01:30:07,011 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:07,011 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:07,011 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:17,016 - crypto_bot - INFO - 🔄 Trading Cycle #26 - 01:30:17
+2025-07-29 01:30:17,145 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:17,145 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:17,145 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:27,150 - crypto_bot - INFO - 🔄 Trading Cycle #27 - 01:30:27
+2025-07-29 01:30:27,205 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:27,205 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:27,205 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:37,210 - crypto_bot - INFO - 🔄 Trading Cycle #28 - 01:30:37
+2025-07-29 01:30:37,293 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:37,294 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:37,294 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:47,299 - crypto_bot - INFO - 🔄 Trading Cycle #29 - 01:30:47
+2025-07-29 01:30:47,368 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:47,368 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:47,368 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:30:57,373 - crypto_bot - INFO - 🔄 Trading Cycle #30 - 01:30:57
+2025-07-29 01:30:57,439 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:30:57,440 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:30:57,440 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:07,445 - crypto_bot - INFO - 🔄 Trading Cycle #31 - 01:31:07
+2025-07-29 01:31:07,582 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:07,582 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:07,582 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:17,588 - crypto_bot - INFO - 🔄 Trading Cycle #32 - 01:31:17
+2025-07-29 01:31:17,752 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:17,752 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:17,752 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:27,755 - crypto_bot - INFO - 🔄 Trading Cycle #33 - 01:31:27
+2025-07-29 01:31:27,806 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:27,806 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:27,806 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:37,811 - crypto_bot - INFO - 🔄 Trading Cycle #34 - 01:31:37
+2025-07-29 01:31:37,887 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:37,887 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:37,887 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:47,892 - crypto_bot - INFO - 🔄 Trading Cycle #35 - 01:31:47
+2025-07-29 01:31:48,052 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:48,052 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:48,052 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:31:58,057 - crypto_bot - INFO - 🔄 Trading Cycle #36 - 01:31:58
+2025-07-29 01:31:58,140 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:31:58,140 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:31:58,140 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:08,142 - crypto_bot - INFO - 🔄 Trading Cycle #37 - 01:32:08
+2025-07-29 01:32:08,208 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:08,208 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:08,208 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:18,209 - crypto_bot - INFO - 🔄 Trading Cycle #38 - 01:32:18
+2025-07-29 01:32:18,263 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:18,263 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:18,263 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:28,268 - crypto_bot - INFO - 🔄 Trading Cycle #39 - 01:32:28
+2025-07-29 01:32:28,349 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:28,349 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:28,350 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:38,355 - crypto_bot - INFO - 🔄 Trading Cycle #40 - 01:32:38
+2025-07-29 01:32:38,727 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:38,727 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:38,727 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:48,732 - crypto_bot - INFO - 🔄 Trading Cycle #41 - 01:32:48
+2025-07-29 01:32:48,794 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:48,795 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:48,795 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:32:58,800 - crypto_bot - INFO - 🔄 Trading Cycle #42 - 01:32:58
+2025-07-29 01:32:58,852 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:32:58,852 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:32:58,852 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:08,857 - crypto_bot - INFO - 🔄 Trading Cycle #43 - 01:33:08
+2025-07-29 01:33:09,181 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:09,181 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:09,181 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:19,186 - crypto_bot - INFO - 🔄 Trading Cycle #44 - 01:33:19
+2025-07-29 01:33:19,264 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:19,264 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:19,265 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:29,269 - crypto_bot - INFO - 🔄 Trading Cycle #45 - 01:33:29
+2025-07-29 01:33:29,337 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:29,337 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:29,337 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:39,343 - crypto_bot - INFO - 🔄 Trading Cycle #46 - 01:33:39
+2025-07-29 01:33:39,403 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:39,403 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:39,403 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:49,409 - crypto_bot - INFO - 🔄 Trading Cycle #47 - 01:33:49
+2025-07-29 01:33:49,477 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:49,477 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:49,477 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:33:59,483 - crypto_bot - INFO - 🔄 Trading Cycle #48 - 01:33:59
+2025-07-29 01:33:59,535 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:33:59,535 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:33:59,535 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:34:09,540 - crypto_bot - INFO - 🔄 Trading Cycle #49 - 01:34:09
+2025-07-29 01:34:09,605 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:34:09,605 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:34:09,605 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:34:19,611 - crypto_bot - INFO - 🔄 Trading Cycle #50 - 01:34:19
+2025-07-29 01:34:19,670 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:34:19,670 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:34:19,670 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:34:29,676 - crypto_bot - INFO - 🔄 Trading Cycle #51 - 01:34:29
+2025-07-29 01:34:29,826 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:34:29,826 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:34:29,826 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:34:39,831 - crypto_bot - INFO - 🔄 Trading Cycle #52 - 01:34:39
+2025-07-29 01:34:39,922 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:34:39,923 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:34:39,923 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:34:49,928 - crypto_bot - INFO - 🔄 Trading Cycle #53 - 01:34:49
+2025-07-29 01:34:50,054 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:34:50,054 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:34:50,054 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:00,059 - crypto_bot - INFO - 🔄 Trading Cycle #54 - 01:35:00
+2025-07-29 01:35:00,188 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:00,188 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:00,188 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:10,189 - crypto_bot - INFO - 🔄 Trading Cycle #55 - 01:35:10
+2025-07-29 01:35:10,249 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:10,249 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:10,249 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:20,254 - crypto_bot - INFO - 🔄 Trading Cycle #56 - 01:35:20
+2025-07-29 01:35:20,316 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:20,316 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:20,316 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:30,322 - crypto_bot - INFO - 🔄 Trading Cycle #57 - 01:35:30
+2025-07-29 01:35:30,386 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:30,386 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:30,386 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:40,392 - crypto_bot - INFO - 🔄 Trading Cycle #58 - 01:35:40
+2025-07-29 01:35:40,461 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:40,461 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:40,461 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:35:50,466 - crypto_bot - INFO - 🔄 Trading Cycle #59 - 01:35:50
+2025-07-29 01:35:50,522 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:35:50,522 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:35:50,522 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:00,528 - crypto_bot - INFO - 🔄 Trading Cycle #60 - 01:36:00
+2025-07-29 01:36:00,588 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:00,588 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:00,588 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:10,594 - crypto_bot - INFO - 🔄 Trading Cycle #61 - 01:36:10
+2025-07-29 01:36:10,666 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:10,667 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:10,667 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:20,672 - crypto_bot - INFO - 🔄 Trading Cycle #62 - 01:36:20
+2025-07-29 01:36:20,798 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:20,798 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:20,798 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:30,800 - crypto_bot - INFO - 🔄 Trading Cycle #63 - 01:36:30
+2025-07-29 01:36:30,871 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:30,871 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:30,871 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:40,876 - crypto_bot - INFO - 🔄 Trading Cycle #64 - 01:36:40
+2025-07-29 01:36:40,938 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:40,939 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:40,939 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:36:50,944 - crypto_bot - INFO - 🔄 Trading Cycle #65 - 01:36:50
+2025-07-29 01:36:51,112 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:36:51,112 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:36:51,113 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:01,118 - crypto_bot - INFO - 🔄 Trading Cycle #66 - 01:37:01
+2025-07-29 01:37:01,193 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:01,193 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:01,193 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:11,199 - crypto_bot - INFO - 🔄 Trading Cycle #67 - 01:37:11
+2025-07-29 01:37:11,282 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:11,282 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:11,282 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:21,287 - crypto_bot - INFO - 🔄 Trading Cycle #68 - 01:37:21
+2025-07-29 01:37:21,357 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:21,357 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:21,357 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:31,363 - crypto_bot - INFO - 🔄 Trading Cycle #69 - 01:37:31
+2025-07-29 01:37:31,438 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:31,438 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:31,438 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:41,444 - crypto_bot - INFO - 🔄 Trading Cycle #70 - 01:37:41
+2025-07-29 01:37:41,614 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:41,614 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:41,614 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:37:51,619 - crypto_bot - INFO - 🔄 Trading Cycle #71 - 01:37:51
+2025-07-29 01:37:51,681 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:37:51,682 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:37:51,682 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:38:01,687 - crypto_bot - INFO - 🔄 Trading Cycle #72 - 01:38:01
+2025-07-29 01:38:01,741 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:38:01,741 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:38:01,741 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:38:11,745 - crypto_bot - INFO - 🔄 Trading Cycle #73 - 01:38:11
+2025-07-29 01:38:11,915 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:38:11,915 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:38:11,915 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:38:21,920 - crypto_bot - INFO - 🔄 Trading Cycle #74 - 01:38:21
+2025-07-29 01:38:22,083 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:38:22,083 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:38:22,083 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:38:32,088 - crypto_bot - INFO - 🔄 Trading Cycle #75 - 01:38:32
+2025-07-29 01:38:32,247 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 01:38:32,247 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 01:38:32,247 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 01:38:32,577 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 01:38:32,577 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 01:38:32,577 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 01:38:42,252 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 09:23:09,327 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 09:23:09,329 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 09:23:09,329 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 09:23:09,331 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 09:23:09,331 - crypto_bot - INFO - Enhanced strategy engine initialized with 7 strategies
+2025-07-29 09:23:09,331 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 09:23:09,331 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 09:23:09,567 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 09:23:09,688 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 09:23:09,688 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 09:23:09,688 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 09:23:09,688 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 09:23:09,714 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 09:23:09,714 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 09:23:09,714 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 09:23:09,714 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 09:23:09,714 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 09:23:10,447 - crypto_bot - INFO - ✅ XBTUSD: $118,884.50
+2025-07-29 09:23:10,447 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 09:23:10,447 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 09:23:10,457 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 09:23:10,457 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 09:23:12,452 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 09:23:12,453 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 09:23:12
+2025-07-29 09:23:12,453 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:23:12,453 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:23:22,458 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 09:23:22
+2025-07-29 09:23:22,539 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:23:22,539 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:23:22,539 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:23:32,540 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 09:23:32
+2025-07-29 09:23:32,699 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:23:32,699 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:23:32,699 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:23:42,704 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 09:23:42
+2025-07-29 09:23:42,864 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:23:42,864 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:23:42,864 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:23:52,870 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 09:23:52
+2025-07-29 09:23:52,935 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:23:52,935 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:23:52,935 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:02,945 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 09:24:02
+2025-07-29 09:24:03,407 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:03,407 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:03,407 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:13,413 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 09:24:13
+2025-07-29 09:24:13,499 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:13,500 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:13,500 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:23,502 - crypto_bot - INFO - 🔄 Trading Cycle #8 - 09:24:23
+2025-07-29 09:24:23,666 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:23,667 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:23,667 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:33,671 - crypto_bot - INFO - 🔄 Trading Cycle #9 - 09:24:33
+2025-07-29 09:24:33,848 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:33,848 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:33,848 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:43,853 - crypto_bot - INFO - 🔄 Trading Cycle #10 - 09:24:43
+2025-07-29 09:24:44,016 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:44,016 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:44,016 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:24:54,021 - crypto_bot - INFO - 🔄 Trading Cycle #11 - 09:24:54
+2025-07-29 09:24:54,200 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:24:54,200 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:24:54,200 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:04,205 - crypto_bot - INFO - 🔄 Trading Cycle #12 - 09:25:04
+2025-07-29 09:25:04,385 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:04,385 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:04,385 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:14,390 - crypto_bot - INFO - 🔄 Trading Cycle #13 - 09:25:14
+2025-07-29 09:25:14,464 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:14,465 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:14,465 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:20,171 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:20] "GET / HTTP/1.1" 200 -
+2025-07-29 09:25:21,306 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /socket.io/?EIO=4&transport=polling&t=PXMM-iJ HTTP/1.1" 200 -
+2025-07-29 09:25:21,415 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 09:25:21,416 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /api/market_data HTTP/1.1" 200 -
+2025-07-29 09:25:21,417 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /api/trades HTTP/1.1" 200 -
+2025-07-29 09:25:21,418 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 09:25:21,418 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /api/performance HTTP/1.1" 200 -
+2025-07-29 09:25:21,420 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 09:25:21,421 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "POST /socket.io/?EIO=4&transport=polling&t=PXMM-k5&sid=43_7nctA7OpOzQN8AAAA HTTP/1.1" 200 -
+2025-07-29 09:25:21,422 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /socket.io/?EIO=4&transport=polling&t=PXMM-k7&sid=43_7nctA7OpOzQN8AAAA HTTP/1.1" 200 -
+2025-07-29 09:25:21,443 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /socket.io/?EIO=4&transport=polling&t=PXMM-kX&sid=43_7nctA7OpOzQN8AAAA HTTP/1.1" 200 -
+2025-07-29 09:25:21,464 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:21] "GET /socket.io/?EIO=4&transport=polling&t=PXMM-kr&sid=43_7nctA7OpOzQN8AAAA HTTP/1.1" 200 -
+2025-07-29 09:25:24,470 - crypto_bot - INFO - 🔄 Trading Cycle #14 - 09:25:24
+2025-07-29 09:25:24,672 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:24,672 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:24,672 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:31,691 - crypto_bot - INFO - Dashboard client disconnected
+2025-07-29 09:25:31,691 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:25:31] "GET /socket.io/?EIO=4&transport=websocket&sid=43_7nctA7OpOzQN8AAAA HTTP/1.1" 200 -
+2025-07-29 09:25:34,674 - crypto_bot - INFO - 🔄 Trading Cycle #15 - 09:25:34
+2025-07-29 09:25:34,761 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:34,762 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:34,762 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:44,767 - crypto_bot - INFO - 🔄 Trading Cycle #16 - 09:25:44
+2025-07-29 09:25:45,101 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:45,101 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:45,101 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:25:55,103 - crypto_bot - INFO - 🔄 Trading Cycle #17 - 09:25:55
+2025-07-29 09:25:55,253 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:25:55,254 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:25:55,254 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:26:05,258 - crypto_bot - INFO - 🔄 Trading Cycle #18 - 09:26:05
+2025-07-29 09:26:05,438 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:26:05,438 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:26:05,438 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:26:15,443 - crypto_bot - INFO - 🔄 Trading Cycle #19 - 09:26:15
+2025-07-29 09:26:15,499 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 09:26:15,499 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:26:15,499 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 09:26:19,887 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 09:26:19,888 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 09:26:20,626 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 09:26:20,626 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 09:26:25,502 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 09:50:20,183 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 09:51:17,491 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 09:51:17,492 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 09:51:17,492 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 09:51:17,493 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 09:51:17,493 - crypto_bot - INFO - Enhanced strategy engine initialized with 7 strategies
+2025-07-29 09:51:17,493 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 09:51:17,493 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 09:51:17,709 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 09:51:17,836 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 09:51:17,837 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 09:51:17,837 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 09:51:17,837 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 09:51:17,883 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 09:51:17,883 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 09:51:17,884 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 09:51:17,884 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 09:51:17,884 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 09:51:18,504 - crypto_bot - INFO - ✅ XBTUSD: $118,652.00
+2025-07-29 09:51:18,505 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 09:51:18,505 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 09:51:18,519 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 09:51:18,519 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 09:51:20,505 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 09:51:20,506 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 09:51:20
+2025-07-29 09:51:20,506 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 09:51:20,506 - crypto_bot - INFO - ⏳ Waiting 60 seconds...
+2025-07-29 09:51:22,207 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET / HTTP/1.1" 200 -
+2025-07-29 09:51:22,342 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET /socket.io/?EIO=4&transport=polling&t=PXMSxpZ HTTP/1.1" 200 -
+2025-07-29 09:51:22,357 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 09:51:22,359 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 09:51:22,369 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 09:51:22,369 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "POST /socket.io/?EIO=4&transport=polling&t=PXMSxpy&sid=MHnFq95MOsB_aLZkAAAA HTTP/1.1" 200 -
+2025-07-29 09:51:22,370 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET /socket.io/?EIO=4&transport=polling&t=PXMSxpy.0&sid=MHnFq95MOsB_aLZkAAAA HTTP/1.1" 200 -
+2025-07-29 09:51:22,376 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:22] "GET /socket.io/?EIO=4&transport=polling&t=PXMSxq4&sid=MHnFq95MOsB_aLZkAAAA HTTP/1.1" 200 -
+2025-07-29 09:51:23,636 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:28,781 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:33,923 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:39,065 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:41,393 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:41] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 09:51:42,162 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:42] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 09:51:44,200 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:44,476 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:51:44] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 09:51:49,350 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:54,491 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:51:59,635 - crypto_bot - ERROR - Object of type datetime is not JSON serializable: Failed to update system health
+2025-07-29 09:52:04,302 - crypto_bot - INFO - Dashboard client disconnected
+2025-07-29 09:52:04,302 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 09:52:04] "GET /socket.io/?EIO=4&transport=websocket&sid=MHnFq95MOsB_aLZkAAAA HTTP/1.1" 200 -
+2025-07-29 09:52:14,469 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 09:52:14,470 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 09:52:15,054 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 09:52:15,055 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 09:52:20,510 - crypto_bot - INFO - 🛑 Trading loop stopped
