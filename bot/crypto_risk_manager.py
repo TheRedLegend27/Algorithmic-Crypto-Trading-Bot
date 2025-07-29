@@ -154,20 +154,57 @@ class CryptoRiskManager:
             if not balances:
                 return 0.0
             
+            # Kraken currency code mapping
+            kraken_to_standard = {
+                'ZUSD': 'USD',
+                'ZEUR': 'EUR',
+                'XXBT': 'BTC',
+                'XETH': 'ETH',
+                'XLTC': 'LTC',
+                'XXRP': 'XRP',
+                'XADA': 'ADA',
+                'XDOT': 'DOT',
+                'XSOL': 'SOL',
+                'XMATIC': 'MATIC'
+            }
+            
             # Fetch prices for all currencies with non-zero balances
             prices = {}
             for currency, balance in balances.items():
                 if balance.balance > 0:
-                    if currency == "USD":
+                    # Convert Kraken currency code to standard code
+                    standard_currency = kraken_to_standard.get(currency, currency)
+                    
+                    if standard_currency == "USD" or currency == "ZUSD":
                         prices[currency] = 1.0
                     else:
                         try:
-                            # Try to get price for currency-USD pair
-                            ticker = self.data_fetcher.get_latest_price(f"{currency}-USD")
+                            # Try to get price for standard currency-USD pair
+                            ticker = self.data_fetcher.get_latest_price(f"{standard_currency}-USD")
                             prices[currency] = ticker
                         except Exception:
-                            # If failed, skip this currency
-                            self.logger.warning(f"Could not get price for {currency}")
+                            # Try alternative format (e.g., BTC/USD)
+                            try:
+                                ticker = self.data_fetcher.get_latest_price(f"{standard_currency}/USD")
+                                prices[currency] = ticker
+                            except Exception:
+                                # If still failed, try using Kraken client directly
+                                try:
+                                    # Map to Kraken trading pair format
+                                    if standard_currency == 'BTC':
+                                        kraken_pair = 'XBTUSD'
+                                    elif standard_currency == 'ETH':
+                                        kraken_pair = 'ETHUSD'
+                                    else:
+                                        kraken_pair = f"{standard_currency}USD"
+                                    
+                                    current_price = self.client.get_current_price(kraken_pair)
+                                    if current_price:
+                                        prices[currency] = current_price
+                                    else:
+                                        self.logger.warning(f"Could not get price for {currency} ({standard_currency})")
+                                except Exception:
+                                    self.logger.warning(f"Could not get price for {currency} ({standard_currency})")
             
             # Calculate total portfolio value
             total_value = 0.0

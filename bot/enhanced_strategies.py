@@ -1249,18 +1249,22 @@ class EnhancedStrategyEngine:
             
             # Create aggregated signal
             from bot.strategy import TradingSignal
+            contributing_strategies = [getattr(signal, 'metadata', {}).get('strategy', signal.strategy) 
+                                     for signal, _ in signals]
+            
             aggregated_signal = TradingSignal(
                 action=action,
                 confidence=weighted_confidence,
-                price=market_data['close'].iloc[-1] if 'close' in market_data.columns else 0.0,
+                strategy="Enhanced Strategy Engine",
                 timestamp=datetime.now(),
+                price=market_data['close'].iloc[-1] if 'close' in market_data.columns else 0.0,
+                reasoning=f"Weighted signal from {len(signals)} strategies: {', '.join(contributing_strategies[:3])}{'...' if len(contributing_strategies) > 3 else ''}",
                 metadata={
                     'strategy_count': len(signals),
                     'total_weight': total_weight,
                     'buy_weight': buy_weight,
                     'sell_weight': sell_weight,
-                    'contributing_strategies': [signal.metadata.get('strategy', 'unknown') 
-                                              for signal, _ in signals]
+                    'contributing_strategies': contributing_strategies
                 }
             )
             

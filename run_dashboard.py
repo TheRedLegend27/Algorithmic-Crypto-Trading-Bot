@@ -62,7 +62,7 @@ def main():
             port=enhanced_config.dashboard_port,
             debug=False,
             auto_refresh_interval=5,
-            enable_manual_trading=True,
+            enable_manual_trading=False,
             enable_websocket=enhanced_config.enable_websocket,
             theme="dark"
         )

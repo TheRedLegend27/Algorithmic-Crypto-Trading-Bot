@@ -275,7 +275,12 @@ class EnhancedDashboard:
             )
             
             self.system_health = health
-            self._broadcast_update('system_health_update', asdict(health))
+            
+            # Convert to dict and handle datetime serialization
+            health_data = asdict(health)
+            health_data['last_heartbeat'] = health.last_heartbeat.isoformat()
+            
+            self._broadcast_update('system_health_update', health_data)
             
         except Exception as e:
             log_error(e, "Failed to update system health")
@@ -297,15 +302,19 @@ class EnhancedDashboard:
                 if float(balance) > 0:
                     positions[asset] = {
                         'balance': float(balance),
-                        'usd_value': 0  # Would need price conversion
+                        'usd_value': 0  # Will be calculated below
                     }
                     
-                    # For USD/USDT, use direct value
-                    if asset in ['USD', 'USDT', 'USDC']:
+                    # For USD currencies (including Kraken's ZUSD), use direct value
+                    if asset in ['USD', 'USDT', 'USDC', 'ZUSD']:
                         usd_value = float(balance)
                         positions[asset]['usd_value'] = usd_value
                         total_value_usd += usd_value
                         available_balance += usd_value
+                    else:
+                        # For other assets, would need price conversion
+                        # For now, just set to 0 but could be enhanced later
+                        positions[asset]['usd_value'] = 0
             
             # Create portfolio object
             portfolio = Portfolio(

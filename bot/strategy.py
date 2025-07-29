@@ -36,6 +36,12 @@ class TradingSignal:
     timestamp: datetime
     price: float
     reasoning: str
+    metadata: Dict[str, Any] = None
+    
+    def __post_init__(self):
+        """Initialize metadata if not provided."""
+        if self.metadata is None:
+            self.metadata = {}
 
 
 class BaseStrategy(ABC):
