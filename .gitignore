@@ -1,5 +1,3 @@
-# Environment variables
-.env
 
 # Python
 __pycache__/
@@ -44,3 +42,5 @@ Thumbs.db
 
 # Pytest
 .pytest_cache/
+.env
+bot.log

@@ -1,0 +1,367 @@
+2025-07-29 00:36:39,151 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:39] "GET /socket.io/?EIO=4&transport=polling&t=PXKTypb&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:44,156 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:44] "GET /socket.io/?EIO=4&transport=polling&t=PXKT-1o&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:49,158 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:49] "GET /socket.io/?EIO=4&transport=polling&t=PXKT_G0&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:49,319 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:49] "GET /socket.io/?EIO=4&transport=polling&t=PXKU0U9&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:49,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:49] "POST /socket.io/?EIO=4&transport=polling&t=PXKU0Wf&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:54,161 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:54] "GET /socket.io/?EIO=4&transport=polling&t=PXKU0Wg&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:36:59,162 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:36:59] "GET /socket.io/?EIO=4&transport=polling&t=PXKU1iK&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:01,228 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 00:37:01
+2025-07-29 00:37:01,295 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:37:01,296 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:37:01,296 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:37:01,296 - crypto_bot - INFO - ⏳ Waiting 30 seconds...
+2025-07-29 00:37:04,168 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:04] "GET /socket.io/?EIO=4&transport=polling&t=PXKU2wT&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:09,169 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:09] "GET /socket.io/?EIO=4&transport=polling&t=PXKU48h&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:14,172 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:14] "GET /socket.io/?EIO=4&transport=polling&t=PXKU5Mq&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:14,333 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:14] "GET /socket.io/?EIO=4&transport=polling&t=PXKU6a_&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:14,345 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:14] "POST /socket.io/?EIO=4&transport=polling&t=PXKU6dW&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:19,177 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:19] "GET /socket.io/?EIO=4&transport=polling&t=PXKU6dX&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:24,183 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:24] "GET /socket.io/?EIO=4&transport=polling&t=PXKU7pC&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:27,118 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET / HTTP/1.1" 200 -
+2025-07-29 00:37:27,267 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /socket.io/?EIO=4&transport=polling&t=PXKU9nW HTTP/1.1" 200 -
+2025-07-29 00:37:27,298 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:37:27,302 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /api/market_data HTTP/1.1" 200 -
+2025-07-29 00:37:27,302 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /api/trades HTTP/1.1" 200 -
+2025-07-29 00:37:27,303 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 00:37:27,303 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /api/performance HTTP/1.1" 200 -
+2025-07-29 00:37:27,305 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 00:37:27,306 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "POST /socket.io/?EIO=4&transport=polling&t=PXKU9n-&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:27,306 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:27] "GET /socket.io/?EIO=4&transport=polling&t=PXKU9n_&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:29,193 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:29] "GET /socket.io/?EIO=4&transport=polling&t=PXKU91P&sid=f-mMAX4n8hnQZm5cAAAA HTTP/1.1" 200 -
+2025-07-29 00:37:29,194 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:29] "GET /socket.io/?EIO=4&transport=polling&t=PXKU9oE&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:31,301 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 00:37:31
+2025-07-29 00:37:31,364 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:37:31,364 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:37:31,364 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:37:31,364 - crypto_bot - INFO - ⏳ Waiting 30 seconds...
+2025-07-29 00:37:34,192 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:34] "GET /socket.io/?EIO=4&transport=polling&t=PXKUAFj&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:39,195 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:39] "GET /socket.io/?EIO=4&transport=polling&t=PXKUBTp&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:44,201 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:44] "GET /socket.io/?EIO=4&transport=polling&t=PXKUCh-&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:49,202 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:49] "GET /socket.io/?EIO=4&transport=polling&t=PXKUDwC&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:52,272 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:52] "GET /socket.io/?EIO=4&transport=polling&t=PXKUF8L&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:52,282 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:52] "POST /socket.io/?EIO=4&transport=polling&t=PXKUFuI&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:54,205 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:54] "GET /socket.io/?EIO=4&transport=polling&t=PXKUFuJ&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:37:59,210 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:37:59] "GET /socket.io/?EIO=4&transport=polling&t=PXKUGMW&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:01,366 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 00:38:01
+2025-07-29 00:38:01,424 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:38:01,424 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:38:01,424 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:38:01,424 - crypto_bot - INFO - ⏳ Waiting 30 seconds...
+2025-07-29 00:38:04,217 - crypto_bot - INFO - Dashboard client disconnected
+2025-07-29 00:38:04,218 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:04] "GET /socket.io/?EIO=4&transport=polling&t=PXKUHaj&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:09,221 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:09] "GET /socket.io/?EIO=4&transport=polling&t=PXKUIoy&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:14,227 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:14] "GET /socket.io/?EIO=4&transport=polling&t=PXKUK18&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:17,287 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:17] "GET /socket.io/?EIO=4&transport=polling&t=PXKULFL&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:17,297 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:17] "POST /socket.io/?EIO=4&transport=polling&t=PXKUL_9&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:19,232 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:19] "GET /socket.io/?EIO=4&transport=polling&t=PXKUL_A&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:24,237 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:24] "GET /socket.io/?EIO=4&transport=polling&t=PXKUMTZ&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:29,243 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:29] "GET /socket.io/?EIO=4&transport=polling&t=PXKUNhn&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:31,426 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 00:38:31
+2025-07-29 00:38:31,567 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:38:31,568 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:38:31,568 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:38:31,568 - crypto_bot - INFO - ⏳ Waiting 30 seconds...
+2025-07-29 00:38:34,245 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:34] "GET /socket.io/?EIO=4&transport=polling&t=PXKUOv-&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:39,250 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:39] "GET /socket.io/?EIO=4&transport=polling&t=PXKUQ87&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:42,302 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:42] "GET /socket.io/?EIO=4&transport=polling&t=PXKURML&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:42,312 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:42] "POST /socket.io/?EIO=4&transport=polling&t=PXKUS60&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:44,255 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:44] "GET /socket.io/?EIO=4&transport=polling&t=PXKUS60.0&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:49,261 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:49] "GET /socket.io/?EIO=4&transport=polling&t=PXKUSaY&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:54,266 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:54] "GET /socket.io/?EIO=4&transport=polling&t=PXKUTol&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:38:59,272 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:38:59] "GET /socket.io/?EIO=4&transport=polling&t=PXKUV0z&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:01,573 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 00:39:01
+2025-07-29 00:39:01,655 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:39:01,656 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:39:01,656 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:39:01,656 - crypto_bot - INFO - ⏳ Waiting 30 seconds...
+2025-07-29 00:39:04,276 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:04] "GET /socket.io/?EIO=4&transport=polling&t=PXKUWFA&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:05,217 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:05] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:39:06,344 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:06] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:39:07,179 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:07] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:39:07,315 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:07] "GET /socket.io/?EIO=4&transport=polling&t=PXKUXTM&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:07,325 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:07] "POST /socket.io/?EIO=4&transport=polling&t=PXKUYCr&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:09,276 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:09] "GET /socket.io/?EIO=4&transport=polling&t=PXKUYCs&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:14,277 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:14] "GET /socket.io/?EIO=4&transport=polling&t=PXKUYhV&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:19,283 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:19] "GET /socket.io/?EIO=4&transport=polling&t=PXKUZve&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:24,287 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:39:24] "GET /socket.io/?EIO=4&transport=polling&t=PXKUb7r&sid=_gCCR-Huu2plFEKTAAAC HTTP/1.1" 200 -
+2025-07-29 00:39:25,630 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 00:39:25,631 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 00:39:29,292 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 00:39:29,293 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 00:39:31,661 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 00:51:29,864 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 00:51:29,865 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 00:51:29,866 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 00:51:29,867 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 00:51:29,867 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 00:51:29,867 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:51:29,868 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 00:51:30,453 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:51:30,693 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:51:30,694 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 00:51:30,694 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 00:51:30,694 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 00:51:30,737 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 00:51:30,737 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:51:30,737 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD
+2025-07-29 00:51:30,737 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 00:51:30,737 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 00:51:31,493 - crypto_bot - INFO - ✅ XBTUSD: $118,428.90
+2025-07-29 00:51:31,493 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 00:51:31,494 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 00:51:31,508 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 00:51:31,508 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 00:51:33,497 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 00:51:33,498 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 00:51:33
+2025-07-29 00:51:33,498 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:51:33,498 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:51:43,504 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 00:51:43
+2025-07-29 00:51:43,680 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:51:43,680 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:51:43,681 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:51:43,681 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:51:53,686 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 00:51:53
+2025-07-29 00:51:53,743 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:51:53,744 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:51:53,744 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:51:53,744 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:00,075 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:00] "GET / HTTP/1.1" 200 -
+2025-07-29 00:52:00,930 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:00] "GET /socket.io/?EIO=4&transport=polling&t=PXKXV4Q HTTP/1.1" 200 -
+2025-07-29 00:52:01,029 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:52:01,030 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /api/market_data HTTP/1.1" 200 -
+2025-07-29 00:52:01,031 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /api/trades HTTP/1.1" 200 -
+2025-07-29 00:52:01,032 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 00:52:01,034 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /api/performance HTTP/1.1" 200 -
+2025-07-29 00:52:01,035 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 00:52:01,036 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "POST /socket.io/?EIO=4&transport=polling&t=PXKXV64&sid=SEwJTIOYeWNPgzT7AAAA HTTP/1.1" 200 -
+2025-07-29 00:52:01,036 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /socket.io/?EIO=4&transport=polling&t=PXKXV65&sid=SEwJTIOYeWNPgzT7AAAA HTTP/1.1" 200 -
+2025-07-29 00:52:01,056 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /socket.io/?EIO=4&transport=polling&t=PXKXV6U&sid=SEwJTIOYeWNPgzT7AAAA HTTP/1.1" 200 -
+2025-07-29 00:52:01,074 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:01] "GET /socket.io/?EIO=4&transport=polling&t=PXKXV6l&sid=SEwJTIOYeWNPgzT7AAAA HTTP/1.1" 200 -
+2025-07-29 00:52:03,749 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 00:52:03
+2025-07-29 00:52:03,870 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:03,870 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:03,870 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:03,870 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:13,876 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 00:52:13
+2025-07-29 00:52:13,933 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:13,933 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:13,933 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:13,933 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:20,636 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:52:20] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:52:23,937 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 00:52:23
+2025-07-29 00:52:23,992 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:23,992 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:23,993 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:23,993 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:33,998 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 00:52:33
+2025-07-29 00:52:34,173 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:34,173 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:34,173 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:34,173 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:44,179 - crypto_bot - INFO - 🔄 Trading Cycle #8 - 00:52:44
+2025-07-29 00:52:44,303 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:44,304 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:44,304 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:44,304 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:52:54,308 - crypto_bot - INFO - 🔄 Trading Cycle #9 - 00:52:54
+2025-07-29 00:52:54,363 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:52:54,364 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:52:54,364 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:52:54,364 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:53:04,372 - crypto_bot - INFO - 🔄 Trading Cycle #10 - 00:53:04
+2025-07-29 00:53:04,438 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:53:04,439 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:53:04,439 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:53:04,439 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:53:14,444 - crypto_bot - INFO - 🔄 Trading Cycle #11 - 00:53:14
+2025-07-29 00:53:14,504 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:53:14,504 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:53:14,504 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:53:14,504 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:53:24,509 - crypto_bot - INFO - 🔄 Trading Cycle #12 - 00:53:24
+2025-07-29 00:53:24,566 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 00:53:24,566 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 00:53:26,605 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 00:53:26,606 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 00:53:26,611 - crypto_bot - ERROR - Error calculating weighted signal: 'list' object has no attribute 'empty'
+2025-07-29 00:53:26,612 - crypto_bot - INFO - No signal generated for XBTUSD
+2025-07-29 00:53:26,612 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:53:26,612 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:53:36,617 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 00:54:59,905 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 00:54:59,905 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 00:54:59,906 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 00:54:59,906 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 00:54:59,907 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 00:54:59,907 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:54:59,907 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 00:55:00,167 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:55:00,558 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:55:00,558 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 00:55:00,558 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 00:55:00,558 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 00:55:00,596 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 00:55:00,596 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:55:00,596 - crypto_bot - INFO - KrakenTrader initialized for XBTUSD,SOLUSD
+2025-07-29 00:55:00,596 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 00:55:00,596 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 00:55:01,808 - crypto_bot - INFO - ✅ XBTUSD,SOLUSD: $183.58
+2025-07-29 00:55:01,808 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 00:55:01,809 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 00:55:01,822 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 00:55:01,822 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 00:55:03,814 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 00:55:03,814 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 00:55:03
+2025-07-29 00:55:03,815 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:55:03,815 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:55:05,955 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:05] "GET / HTTP/1.1" 200 -
+2025-07-29 00:55:06,043 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /socket.io/?EIO=4&transport=polling&t=PXKYCGo HTTP/1.1" 200 -
+2025-07-29 00:55:06,074 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /api/portfolio HTTP/1.1" 200 -
+2025-07-29 00:55:06,080 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /api/trades HTTP/1.1" 200 -
+2025-07-29 00:55:06,083 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /api/system_health HTTP/1.1" 200 -
+2025-07-29 00:55:06,083 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /api/performance HTTP/1.1" 200 -
+2025-07-29 00:55:06,085 - crypto_bot - INFO - Dashboard client connected
+2025-07-29 00:55:06,086 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /api/market_data HTTP/1.1" 200 -
+2025-07-29 00:55:06,088 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "POST /socket.io/?EIO=4&transport=polling&t=PXKYCHP&sid=yVPX8jqyi163vaXUAAAA HTTP/1.1" 200 -
+2025-07-29 00:55:06,089 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /socket.io/?EIO=4&transport=polling&t=PXKYCHR&sid=yVPX8jqyi163vaXUAAAA HTTP/1.1" 200 -
+2025-07-29 00:55:06,099 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:06] "GET /socket.io/?EIO=4&transport=polling&t=PXKYCHk&sid=yVPX8jqyi163vaXUAAAA HTTP/1.1" 200 -
+2025-07-29 00:55:13,820 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 00:55:13
+2025-07-29 00:55:14,155 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:14,497 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:14,497 - crypto_bot - WARNING - Retry 1/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 1.14s
+2025-07-29 00:55:15,635 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:16,435 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:16,437 - crypto_bot - WARNING - Retry 2/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 2.27s
+2025-07-29 00:55:18,716 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:19,210 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:19,212 - crypto_bot - WARNING - Retry 3/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 4.47s
+2025-07-29 00:55:23,689 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:24,108 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:24,111 - crypto_bot - ERROR - Function fetch_crypto_data failed after 3 retries: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:24,111 - crypto_bot - ERROR - Failed to get latest data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:24,119 - crypto_bot - INFO - Fetching fresh market data for XBTUSD,SOLUSD
+2025-07-29 00:55:24,275 - crypto_bot - ERROR - Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:24,275 - crypto_bot - ERROR - Error processing XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:24,275 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:55:24,275 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:55:34,277 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 00:55:34
+2025-07-29 00:55:34,621 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:35,072 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:35,072 - crypto_bot - WARNING - Retry 1/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 1.22s
+2025-07-29 00:55:36,293 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:36,812 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:36,814 - crypto_bot - WARNING - Retry 2/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 2.45s
+2025-07-29 00:55:39,178 - crypto_bot - INFO - Dashboard client disconnected
+2025-07-29 00:55:39,179 - werkzeug - INFO - 127.0.0.1 - - [29/Jul/2025 00:55:39] "GET /socket.io/?EIO=4&transport=websocket&sid=yVPX8jqyi163vaXUAAAA HTTP/1.1" 200 -
+2025-07-29 00:55:39,272 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:39,500 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:39,502 - crypto_bot - WARNING - Retry 3/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 4.94s
+2025-07-29 00:55:44,449 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:44,888 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:44,891 - crypto_bot - ERROR - Function fetch_crypto_data failed after 3 retries: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:44,891 - crypto_bot - ERROR - Failed to get latest data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:44,897 - crypto_bot - INFO - Fetching fresh market data for XBTUSD,SOLUSD
+2025-07-29 00:55:45,320 - crypto_bot - ERROR - Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:45,320 - crypto_bot - ERROR - Error processing XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:45,321 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:55:45,321 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:55:55,326 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 00:55:55
+2025-07-29 00:55:55,478 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:55,788 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:55,789 - crypto_bot - WARNING - Retry 1/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 1.08s
+2025-07-29 00:55:56,877 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:57,314 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:57,317 - crypto_bot - WARNING - Retry 2/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 2.09s
+2025-07-29 00:55:59,409 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:55:59,729 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:55:59,731 - crypto_bot - WARNING - Retry 3/3 for fetch_crypto_data after error: Kraken API error: ['EQuery:Unknown asset pair']. Waiting 4.25s
+2025-07-29 00:56:03,987 - crypto_bot - INFO - Fetching XBTUSD,SOLUSD data with 5Min timeframe
+2025-07-29 00:56:04,441 - crypto_bot - ERROR - Error fetching data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:56:04,443 - crypto_bot - ERROR - Function fetch_crypto_data failed after 3 retries: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:56:04,444 - crypto_bot - ERROR - Failed to get latest data for XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:56:04,445 - crypto_bot - INFO - Fetching fresh market data for XBTUSD,SOLUSD
+2025-07-29 00:56:04,655 - crypto_bot - ERROR - Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:56:04,656 - crypto_bot - ERROR - Error processing XBTUSD,SOLUSD: Kraken API error: ['EQuery:Unknown asset pair']
+2025-07-29 00:56:04,656 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:56:04,656 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:56:09,565 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 00:56:09,565 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 00:56:11,864 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 00:56:11,865 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 00:56:14,661 - crypto_bot - INFO - 🛑 Trading loop stopped
+2025-07-29 00:57:05,685 - crypto_bot - INFO - ✅ Kraken credentials loaded successfully
+2025-07-29 00:57:05,685 - crypto_bot - INFO - 🔧 Initializing enhanced components...
+2025-07-29 00:57:05,686 - enhanced_crypto_bot - INFO - Enhanced logger initialized
+2025-07-29 00:57:05,686 - crypto_bot - INFO - Enhanced data manager initialized for 1 pairs
+2025-07-29 00:57:05,687 - crypto_bot - INFO - Enhanced strategy engine initialized with 2 strategies
+2025-07-29 00:57:05,687 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:57:05,687 - bot.crypto_position_manager - INFO - CryptoPositionManager initialized
+2025-07-29 00:57:06,207 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:57:06,354 - bot.crypto_position_manager - INFO - Refreshed balances for 0 currencies
+2025-07-29 00:57:06,355 - bot.crypto_risk_manager - INFO - Initial portfolio value: $0.00
+2025-07-29 00:57:06,355 - bot.crypto_risk_manager - INFO - CryptoRiskManager initialized
+2025-07-29 00:57:06,355 - bot.enhanced_risk_manager - INFO - EnhancedRiskManager initialized for 1 trading pairs
+2025-07-29 00:57:06,398 - crypto_bot - INFO - Enhanced dashboard initialized
+2025-07-29 00:57:06,398 - crypto_bot - INFO - KrakenClient initialized
+2025-07-29 00:57:06,398 - crypto_bot - INFO - KrakenTrader initialized for SOLUSD
+2025-07-29 00:57:06,398 - crypto_bot - INFO - ✅ All enhanced components initialized successfully
+2025-07-29 00:57:06,398 - crypto_bot - INFO - 🔍 Testing connections...
+2025-07-29 00:57:07,131 - crypto_bot - INFO - ✅ SOLUSD: $183.60
+2025-07-29 00:57:07,131 - crypto_bot - INFO - ✅ All connections tested successfully
+2025-07-29 00:57:07,132 - crypto_bot - INFO - Starting enhanced dashboard server on localhost:8080
+2025-07-29 00:57:07,145 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:8080
+2025-07-29 00:57:07,145 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-29 00:57:09,137 - crypto_bot - INFO - 🚀 Starting enhanced trading loop...
+2025-07-29 00:57:09,137 - crypto_bot - INFO - 🔄 Trading Cycle #1 - 00:57:09
+2025-07-29 00:57:09,137 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:09,138 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:57:19,143 - crypto_bot - INFO - 🔄 Trading Cycle #2 - 00:57:19
+2025-07-29 00:57:19,308 - crypto_bot - INFO - Fetching SOLUSD data with 5Min timeframe
+2025-07-29 00:57:19,656 - crypto_bot - INFO - Successfully fetched 720 data points for SOLUSD
+2025-07-29 00:57:19,677 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:57:19,677 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:19,677 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:57:29,683 - crypto_bot - INFO - 🔄 Trading Cycle #3 - 00:57:29
+2025-07-29 00:57:29,752 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:57:29,752 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:29,752 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:57:39,757 - crypto_bot - INFO - 🔄 Trading Cycle #4 - 00:57:39
+2025-07-29 00:57:39,819 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:57:39,819 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:39,819 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:57:49,823 - crypto_bot - INFO - 🔄 Trading Cycle #5 - 00:57:49
+2025-07-29 00:57:49,890 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:57:49,890 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:49,890 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:57:59,895 - crypto_bot - INFO - 🔄 Trading Cycle #6 - 00:57:59
+2025-07-29 00:57:59,953 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:57:59,953 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:57:59,954 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:09,958 - crypto_bot - INFO - 🔄 Trading Cycle #7 - 00:58:09
+2025-07-29 00:58:10,110 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:58:10,110 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:58:10,110 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:20,110 - crypto_bot - INFO - 🔄 Trading Cycle #8 - 00:58:20
+2025-07-29 00:58:20,172 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:58:20,172 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:58:20,173 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:30,175 - crypto_bot - INFO - 🔄 Trading Cycle #9 - 00:58:30
+2025-07-29 00:58:30,332 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:58:30,332 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:58:30,332 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:40,335 - crypto_bot - INFO - 🔄 Trading Cycle #10 - 00:58:40
+2025-07-29 00:58:40,394 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:58:40,394 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:58:40,394 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:50,397 - crypto_bot - INFO - 🔄 Trading Cycle #11 - 00:58:50
+2025-07-29 00:58:50,572 - crypto_bot - INFO - No signal generated for SOLUSD
+2025-07-29 00:58:50,572 - crypto_bot - INFO - 📊 Status: 0 trades today across 1 pairs
+2025-07-29 00:58:50,572 - crypto_bot - INFO - ⏳ Waiting 10 seconds...
+2025-07-29 00:58:52,705 - crypto_bot - INFO - Received shutdown signal, stopping bot...
+2025-07-29 00:58:52,706 - crypto_bot - INFO - 🛑 Stopping enhanced Kraken bot...
+2025-07-29 00:58:57,281 - crypto_bot - INFO - Enhanced dashboard server stopped
+2025-07-29 00:58:57,282 - crypto_bot - INFO - ✅ Bot stopped successfully
+2025-07-29 00:59:00,577 - crypto_bot - INFO - 🛑 Trading loop stopped

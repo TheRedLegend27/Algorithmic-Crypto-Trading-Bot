@@ -1200,7 +1200,7 @@ class EnhancedStrategyEngine:
             # Get signals from all strategies
             for strategy in self.strategies:
                 try:
-                    signal = strategy.generate_signal(market_data)
+                    signal = strategy.calculate_signals(market_data)
                     if signal and signal.confidence >= self.parameters.confidence_threshold:
                         weight = self.strategy_weights.get(strategy.name, 1.0)
                         signals.append((signal, weight))

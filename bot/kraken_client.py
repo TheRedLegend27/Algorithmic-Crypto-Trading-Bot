@@ -392,10 +392,19 @@ class KrakenClient:
         """Get current price for a trading pair."""
         try:
             ticker_data = self.get_ticker([pair])
+            
+            # Kraken may return data with different key names
+            # Try the original pair name first, then check all keys
             if pair in ticker_data:
-                # Kraken returns last trade price in 'c' field
                 last_price = ticker_data[pair]['c'][0]
                 return float(last_price)
+            
+            # If not found, try to find it in the response with different key
+            for key, data in ticker_data.items():
+                if 'c' in data:  # 'c' contains the last trade price
+                    last_price = data['c'][0]
+                    return float(last_price)
+            
             return None
         except Exception as e:
             log_error(f"Error getting price for {pair}: {str(e)}")
