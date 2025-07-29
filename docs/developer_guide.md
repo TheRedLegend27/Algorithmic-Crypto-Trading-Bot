@@ -1,37 +1,103 @@
-# Crypto Trading Bot Developer Guide
+# Developer Guide for Enhanced Kraken Trading Bot
 
-This guide provides detailed information for developers who want to understand, modify, or extend the crypto trading bot.
+This comprehensive guide provides information for developers who want to contribute to, extend, or customize the Enhanced Kraken Trading Bot.
 
-## Project Structure
+## Table of Contents
+
+1. [Architecture Overview](#architecture-overview)
+2. [Core Components](#core-components)
+3. [Adding New Strategies](#adding-new-strategies)
+4. [Extending Risk Management](#extending-risk-management)
+5. [Custom Indicators](#custom-indicators)
+6. [WebSocket Integration](#websocket-integration)
+7. [Dashboard Development](#dashboard-development)
+8. [Testing Framework](#testing-framework)
+9. [Performance Optimization](#performance-optimization)
+10. [Deployment and Monitoring](#deployment-and-monitoring)
+
+## Architecture Overview
+
+The Enhanced Kraken Trading Bot follows a modular, event-driven architecture:
 
 ```
-crypto-trading-bot/
-├── .env.template           # Template for environment variables
-├── .kiro/                  # Kiro spec files
-├── README.md               # User documentation
-├── bot/                    # Main bot package
-│   ├── __init__.py
-│   ├── config.py           # Configuration handling
-│   ├── data_fetcher.py     # Market data retrieval
-│   ├── error_handler.py    # Error handling and recovery
-│   ├── logger.py           # Logging and dashboard
-│   ├── main.py             # Entry point and initialization
-│   ├── scheduler.py        # Trading cycle scheduling
-│   ├── strategy.py         # Trading strategies
-│   ├── trader.py           # Order execution
-│   └── utils.py            # Utility functions
-├── docs/                   # Documentation
-├── examples/               # Example code and configurations
-│   └── strategy_examples.py # Example strategy implementations
-├── logs/                   # Log files directory
-│   ├── errors.log
-│   ├── signals.log
-│   └── trades.log
-├── requirements.txt        # Python dependencies
-├── run_bot.py              # Command-line entry point
-└── tests/                  # Test suite
-    ├── integration/        # Integration tests
-    └── unit/               # Unit tests
+bot/
+├── main.py                    # Main orchestrator
+├── config.py                  # Configuration management
+├── kraken_client.py          # Enhanced Kraken REST API client
+├── kraken_websocket.py       # Real-time WebSocket client
+├── kraken_trader.py          # Trade execution engine
+├── enhanced_strategies.py     # Advanced trading strategies
+├── enhanced_risk_manager.py   # Portfolio risk management
+├── enhanced_data_manager.py   # Market data processing
+├── enhanced_logger.py         # Structured logging system
+├── enhanced_alerts.py         # Multi-channel alert system
+├── enhanced_dashboard.py      # Real-time web dashboard
+└── utils.py                  # Utility functions
+```
+
+### System Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "External APIs"
+        KrakenREST[Kraken REST API]
+        KrakenWS[Kraken WebSocket]
+    end
+    
+    subgraph "Data Layer"
+        DataManager[Enhanced Data Manager]
+        Cache[Data Cache]
+        DB[(Database)]
+    end
+    
+    subgraph "Strategy Layer"
+        StrategyEngine[Strategy Engine]
+        Momentum[Momentum Strategy]
+        Volatility[Volatility Strategy]
+        Volume[Volume Strategy]
+        Bollinger[Bollinger Strategy]
+        MACD[MACD Strategy]
+    end
+    
+    subgraph "Risk Layer"
+        RiskManager[Enhanced Risk Manager]
+        PositionSizer[Position Sizer]
+        PortfolioManager[Portfolio Manager]
+    end
+    
+    subgraph "Execution Layer"
+        TradeEngine[Trade Engine]
+        OrderManager[Order Manager]
+        KrakenClient[Kraken Client]
+    end
+    
+    subgraph "Monitoring Layer"
+        Logger[Enhanced Logger]
+        AlertSystem[Alert System]
+        Dashboard[Web Dashboard]
+        HealthMonitor[Health Monitor]
+    end
+    
+    KrakenREST --> KrakenClient
+    KrakenWS --> DataManager
+    DataManager --> Cache
+    DataManager --> DB
+    DataManager --> StrategyEngine
+    StrategyEngine --> Momentum
+    StrategyEngine --> Volatility
+    StrategyEngine --> Volume
+    StrategyEngine --> Bollinger
+    StrategyEngine --> MACD
+    StrategyEngine --> RiskManager
+    RiskManager --> PositionSizer
+    RiskManager --> PortfolioManager
+    RiskManager --> TradeEngine
+    TradeEngine --> OrderManager
+    OrderManager --> KrakenClient
+    TradeEngine --> Logger
+    Logger --> AlertSystem
+    Logger --> Dashboard
+    Dashboard --> HealthMonitor
 ```
 
 ## Core Components
