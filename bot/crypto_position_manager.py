@@ -196,14 +196,13 @@ class CryptoPositionManager:
             bool: True if successful
         """
         try:
-            balance_response = self.client.get_account_balance()
+            # Kraken client returns balance data directly (not wrapped in 'result')
+            balances = self.client.get_account_balance()
             
             # Reset balances
             self.balances = {}
             
-            if balance_response and 'result' in balance_response:
-                balances = balance_response['result']
-                
+            if balances:
                 for currency, balance_str in balances.items():
                     balance_value = float(balance_str)
                     if balance_value > 0:  # Only track non-zero balances

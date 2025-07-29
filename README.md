@@ -9,16 +9,19 @@ A production-ready cryptocurrency trading bot with enterprise-grade features for
 ✅ **Real-time Dashboard** - Professional web interface with live monitoring  
 ✅ **Multi-pair Trading** - Simultaneous trading across multiple cryptocurrency pairs  
 ✅ **Advanced Risk Management** - Portfolio-level risk assessment and protection  
-✅ **Comprehensive Testing** - Full integration and performance validation completed
+✅ **Comprehensive Testing** - Full integration and performance validation completed  
+✅ **Mock Trading Environment** - Complete paper trading simulation system  
+✅ **Performance Analytics** - Advanced metrics tracking and reporting
 
 ## 🚀 Features
 
 ### ⚡ **Enhanced Trading Engine**
 - **Multi-Pair Trading**: Simultaneous trading across multiple cryptocurrency pairs with intelligent coordination
-- **Advanced Strategies**: Moving Average Crossover, RSI, Momentum, and Volume-weighted strategies
+- **Advanced Strategies**: Enhanced Momentum, Price Action, Multi-Timeframe, Bollinger Bands, MACD, and Volume-weighted strategies
 - **Real-time Execution**: WebSocket-powered live market data with sub-second trade execution
 - **Smart Order Management**: Market, limit, and advanced order types with intelligent routing
 - **Portfolio Optimization**: Dynamic position sizing with correlation-based risk assessment
+- **Strategy Engine**: Weighted strategy combination with confidence scoring and backtesting
 
 ### 🛡️ **Advanced Risk Management**
 - **Enhanced Risk Manager**: Portfolio-level exposure limits with real-time monitoring
@@ -26,6 +29,7 @@ A production-ready cryptocurrency trading bot with enterprise-grade features for
 - **Emergency Protection**: Automatic drawdown protection and circuit breaker mechanisms
 - **Multi-timeframe Analysis**: Cross-timeframe signal confirmation and validation
 - **Correlation Analysis**: Real-time portfolio correlation monitoring and adjustment
+- **Risk Assessment**: Comprehensive trade validation with multiple risk factors
 
 ### 📊 **Professional Monitoring**
 - **Enhanced Dashboard**: Real-time web interface with live portfolio visualization at http://localhost:8080
@@ -33,13 +37,15 @@ A production-ready cryptocurrency trading bot with enterprise-grade features for
 - **Multi-channel Alerts**: Email, webhook, and console notifications with intelligent throttling
 - **Performance Analytics**: Comprehensive trade analysis, Sharpe ratio, and drawdown metrics
 - **System Health**: Real-time monitoring of API connectivity, memory usage, and bot performance
+- **WebSocket Updates**: Real-time dashboard updates with live data streaming
 
 ### 🔧 **Enterprise Architecture**
-- **Enhanced Data Manager**: Intelligent caching, data validation, and quality scoring
+- **Enhanced Data Manager**: Intelligent caching, data validation, and quality scoring with indicator engine
 - **WebSocket Integration**: Real-time market data with automatic reconnection and error recovery
 - **Connection Pooling**: Optimized API connections with rate limiting and circuit breakers
 - **Modular Design**: Pluggable components for strategies, risk management, and data sources
 - **Configuration System**: Flexible JSON-based configuration with environment variable support
+- **Mock Trading Environment**: Complete paper trading simulation with realistic market conditions
 
 ## 🚀 Quick Start
 
@@ -108,6 +114,15 @@ cp .env.template .env
    python run_enhanced_kraken_bot.py --pairs XBTUSD
    ```
 
+5. **Alternative Bot Options**:
+   ```bash
+   # Original enhanced bot with Yahoo Finance data
+   python run_enhanced_bot.py --paper-trading --capital 100
+   
+   # Basic bot for simple trading
+   python run_bot.py
+   ```
+
 ### 📊 **Dashboard Access**
 Once running, access the real-time dashboard at:
 - **URL**: http://localhost:8080
@@ -162,6 +177,30 @@ python validate_system_performance.py --trading-pairs XBTUSD --api-test-calls 20
 
 # Full system integration test
 python run_integrated_system_test.py --trading-pairs XBTUSD
+
+# Test dashboard functionality
+python test_dashboard.py
+
+# Debug market data and signals
+python debug_market_data.py
+python debug_signals.py
+python debug_timestamps.py
+```
+
+### Additional Bot Options
+```bash
+# Enhanced bot with Yahoo Finance data (alternative)
+python run_enhanced_bot.py --paper-trading --capital 100 --interval 15
+
+# Basic trading bot (simple implementation)
+python run_bot.py
+
+# Market monitoring and alerts
+python market_monitor.py
+python trading_opportunity_alert.py
+
+# Launch system monitor
+python launch_monitor.py
 ```
 
 ### 🎛️ Command-Line Options
@@ -203,50 +242,86 @@ python run_enhanced_kraken_bot.py --paper-trading --pairs XBTUSD XETHZUSD --trad
 ### **Integrated Strategy Engine**
 The bot uses an enhanced strategy engine that combines multiple strategies with intelligent weighting and confidence scoring.
 
-### **Moving Average Crossover Strategy**
-Advanced implementation with dynamic period adjustment:
-- **Buy Signal**: Fast MA crosses above slow MA with volume confirmation
-- **Sell Signal**: Fast MA crosses below slow MA with momentum validation
-- **Features**: Adaptive periods, false signal filtering, trend strength analysis
-- **Parameters**: Fast period (10), Slow period (30), Volume threshold
+### **Enhanced Momentum Strategy**
+Advanced momentum detection with volatility adjustment:
+- **Buy Signal**: Multi-timeframe momentum alignment with volume confirmation
+- **Sell Signal**: Momentum reversal with acceleration analysis
+- **Features**: Short/medium-term momentum, volume validation, price acceleration
+- **Parameters**: Short period (3), Medium period (8), Volume threshold (1.1x)
 
-### **RSI Strategy with Enhancements**
-Sophisticated RSI implementation with multi-timeframe analysis:
-- **Buy Signal**: RSI oversold with divergence confirmation
-- **Sell Signal**: RSI overbought with momentum exhaustion
-- **Features**: Dynamic thresholds, divergence detection, trend filtering
-- **Parameters**: Period (14), Oversold (30), Overbought (70)
+### **Price Action Strategy**
+Pure price action analysis with candlestick patterns:
+- **Buy Signal**: Bullish breakout above resistance with volume
+- **Sell Signal**: Bearish breakdown below support with volume
+- **Features**: Support/resistance detection, candlestick analysis, breakout confirmation
+- **Parameters**: Lookback (20), Min body size (0.2%)
+
+### **Multi-Timeframe Strategy**
+Cross-timeframe analysis with moving average trends:
+- **Buy Signal**: MA crossover with trend alignment
+- **Sell Signal**: MA crossover with bearish trend
+- **Features**: Fast/slow/trend MA analysis, slope calculation, trend confirmation
+- **Parameters**: Fast MA (5), Slow MA (15), Trend MA (50)
+
+### **Bollinger Bands RSI Strategy**
+Mean reversion with volatility bands and RSI confirmation:
+- **Buy Signal**: Price at lower band with RSI oversold
+- **Sell Signal**: Price at upper band with RSI overbought
+- **Features**: Dynamic bands, RSI confirmation, squeeze detection
+- **Parameters**: BB period (20), BB std (2.0), RSI period (14)
+
+### **MACD Strategy**
+Trend following with momentum confirmation:
+- **Buy Signal**: MACD bullish crossover with histogram momentum
+- **Sell Signal**: MACD bearish crossover with histogram momentum
+- **Features**: Signal line crossovers, histogram analysis, zero line confirmation
+- **Parameters**: Fast (12), Slow (26), Signal (9)
+
+### **Volume-Weighted Strategy**
+VWAP-based analysis with volume profile:
+- **Buy Signal**: Price below VWAP with volume breakout
+- **Sell Signal**: Price above VWAP with volume breakout
+- **Features**: VWAP calculation, volume profile analysis, price-volume correlation
+- **Parameters**: VWAP period (20), Volume threshold (1.5x)
 
 ### **Enhanced Strategy Features**
 - **Multi-timeframe Analysis**: Cross-timeframe signal confirmation
 - **Volume Validation**: Volume-weighted signal strength
 - **Volatility Adjustment**: Dynamic parameters based on market volatility
-- **Confidence Scoring**: Probabilistic signal strength assessment
-- **Strategy Coordination**: Intelligent combination of multiple strategies
+- **Confidence Scoring**: Probabilistic signal strength assessment (0.0-1.0)
+- **Strategy Coordination**: Intelligent combination of multiple strategies with weighted signals
+- **Backtesting Support**: Historical performance validation and optimization
 
 ### **Creating Custom Strategies**
 
 The enhanced framework supports custom strategy development:
 
 ```python
-from bot.crypto_strategies import BaseCryptoStrategy
+from bot.enhanced_strategies import VolatilityAdjustedStrategy
+from bot.strategy import TradingSignal, SignalType
 
-class CustomEnhancedStrategy(BaseCryptoStrategy):
+class CustomEnhancedStrategy(VolatilityAdjustedStrategy):
     def __init__(self, custom_param=20):
         super().__init__("CustomEnhanced")
         self.custom_param = custom_param
         
     def calculate_signals(self, data):
+        if not self.validate_data(data) or len(data) < self.custom_param:
+            return self._create_hold_signal(data, "Insufficient data")
+        
         # Enhanced signal calculation with confidence scoring
         signal_strength = self._calculate_signal_strength(data)
+        vol_adjustment = self.calculate_volatility_adjustment(data)
+        
+        confidence = min(0.9, signal_strength * vol_adjustment)
         
         return TradingSignal(
             action=SignalType.BUY if signal_strength > 0.5 else SignalType.HOLD,
-            confidence=signal_strength,
+            confidence=confidence,
             price=data['close'].iloc[-1],
-            timestamp=time.time(),
+            timestamp=datetime.now(),
             strategy=self.name,
-            reasoning=f"Custom analysis with strength {signal_strength:.3f}"
+            reasoning=f"Custom analysis with strength {signal_strength:.3f}, vol adj {vol_adjustment:.3f}"
         )
 ```
 
@@ -255,6 +330,8 @@ class CustomEnhancedStrategy(BaseCryptoStrategy):
 - Win rate and profit factor analysis
 - Strategy weight adjustment based on performance
 - Backtesting capabilities with historical data
+- Sharpe ratio and maximum drawdown calculation
+- Strategy attribution analysis
 
 ## 📊 Enhanced Dashboard
 
@@ -293,10 +370,12 @@ Access the professional dashboard at **http://localhost:8080** with:
 
 ### **Dashboard Features**
 - **Responsive Design**: Works on desktop, tablet, and mobile
-- **Real-time Updates**: WebSocket-powered live data updates
-- **Interactive Charts**: Zoom, pan, and analyze market data
-- **Export Capabilities**: Download trade history and performance reports
-- **Dark/Light Theme**: Customizable interface themes
+- **Real-time Updates**: WebSocket-powered live data updates with Socket.IO
+- **Interactive Charts**: Chart.js integration for market data visualization
+- **Manual Trading**: Execute trades directly from the dashboard interface
+- **System Health Monitoring**: CPU, memory, API rate limits, and error tracking
+- **Portfolio Analytics**: Real-time P&L, position tracking, and performance metrics
+- **Dark Theme**: Professional dark theme optimized for trading environments
 
 ## Logging
 
@@ -373,13 +452,15 @@ python examples/websocket_demo.py
 ```
 
 ### **Test Coverage**
-- **API Integration**: REST and WebSocket connectivity
-- **Strategy Engine**: Signal generation and validation
-- **Risk Management**: Portfolio risk assessment
-- **Data Management**: Caching and data quality
-- **Dashboard**: Web interface and real-time updates
-- **Error Recovery**: System resilience and recovery
-- **Performance**: Load testing and optimization
+- **API Integration**: REST and WebSocket connectivity with Kraken
+- **Strategy Engine**: Signal generation and validation across all strategies
+- **Risk Management**: Portfolio risk assessment and position sizing
+- **Data Management**: Caching, data quality, and indicator calculations
+- **Dashboard**: Web interface and real-time updates with WebSocket
+- **Error Recovery**: System resilience and recovery mechanisms
+- **Performance**: Load testing and optimization under realistic conditions
+- **Multi-pair Trading**: Coordination and correlation analysis
+- **Mock Trading**: Paper trading simulation with realistic market conditions
 
 ### **Continuous Testing**
 ```bash
@@ -391,6 +472,14 @@ python -m pytest tests/integration/test_performance_and_load.py -v
 
 # End-to-end trading simulation
 python -m pytest tests/integration/test_end_to_end_trading.py -v
+
+# Mock trading environment testing
+python -m pytest tests/integration/test_mock_trading_environment.py -v
+
+# Enhanced component testing
+python -m pytest tests/unit/test_enhanced_strategies.py -v
+python -m pytest tests/unit/test_enhanced_data_manager.py -v
+python -m pytest tests/unit/test_enhanced_dashboard.py -v
 ```
 
 ## Documentation
@@ -402,16 +491,19 @@ python -m pytest tests/integration/test_end_to_end_trading.py -v
 | [Setup Guide](docs/setup_guide.md) | Complete installation and configuration guide |
 | [User Guide](docs/user_guide.md) | Trading strategies and risk management guide |
 | [API Documentation](docs/api_endpoints.md) | REST API and dashboard usage |
-| [Developer Guide](docs/developer_guide.md) | Extending and customizing the bot |
-| [Troubleshooting](docs/troubleshooting_guide.md) | Common issues and solutions |
+| [Troubleshooting Guide](docs/troubleshooting_guide.md) | Common issues and solutions |
+| [Dashboard README](DASHBOARD_README.md) | Enhanced dashboard features and usage |
+| [Final Integration Report](final_integration_report.txt) | Comprehensive testing and validation results |
+| [Performance Validation Report](performance_validation_report.txt) | System performance metrics and analysis |
 
 ### 🎯 Quick Links
 
 - **New Users**: Start with [Setup Guide](docs/setup_guide.md)
 - **Strategy Configuration**: See [User Guide](docs/user_guide.md)
-- **API Integration**: Check [API Documentation](docs/api_endpoints.md)
+- **Dashboard Usage**: Check [Dashboard README](DASHBOARD_README.md)
+- **API Integration**: Review [API Documentation](docs/api_endpoints.md)
 - **Issues**: Consult [Troubleshooting Guide](docs/troubleshooting_guide.md)
-- **Development**: Read [Developer Guide](docs/developer_guide.md)
+- **System Status**: View [Final Integration Report](final_integration_report.txt)
 
 ### 📊 Dashboard Access
 
@@ -419,6 +511,12 @@ Once running, access the web dashboard at:
 - **URL**: http://localhost:8080
 - **Features**: Real-time portfolio, performance metrics, manual trading
 - **Mobile**: Responsive design works on mobile devices
+
+### Web Dashboard Files
+- **`Web/tech_admin_dashboard.html`** - Technical administrator dashboard
+- **`Web/cfo_admin_dashboard.html`** - CFO/financial administrator dashboard  
+- **`Web/client_dashboard_mockup.html`** - Client-facing dashboard mockup
+- **`market_dashboard.py`** - Market data dashboard backend
 
 ## Configuration Files
 
@@ -432,29 +530,52 @@ KRAKEN_API_SECRET=your_api_secret
 IS_PAPER_TRADING=true
 DEFAULT_TRADE_AMOUNT_USD=100.0
 MAX_DAILY_LOSS_PCT=0.05
+MAX_POSITION_PER_PAIR_USD=1000.0
 
 # System Settings
 LOG_LEVEL=INFO
 ENABLE_DASHBOARD=true
 DASHBOARD_PORT=8080
+ENABLE_ALERTS=true
+
+# Risk Management
+RISK_PER_TRADE_PCT=0.02
+EMERGENCY_STOP_LOSS_PCT=0.20
 ```
 
 ### Trading Configuration (config_examples/enhanced_trading_config.json)
 ```json
 {
   "trading_pairs": [
-    {"symbol": "XBTUSD", "enabled": true},
-    {"symbol": "ETHUSD", "enabled": true}
+    {
+      "symbol": "XBTUSD",
+      "base_currency": "XBT",
+      "quote_currency": "USD",
+      "enabled": true,
+      "weight": 0.4
+    },
+    {
+      "symbol": "ETHUSD", 
+      "base_currency": "ETH",
+      "quote_currency": "USD",
+      "enabled": true,
+      "weight": 0.3
+    }
   ],
   "strategy": {
     "momentum_weight": 0.3,
     "volatility_weight": 0.25,
+    "volume_weight": 0.2,
+    "bollinger_weight": 0.15,
+    "macd_weight": 0.1,
     "min_signal_strength": 0.65
   },
   "risk": {
     "risk_per_trade_pct": 0.02,
     "max_daily_loss_pct": 0.05,
-    "enable_stop_loss": true
+    "max_position_per_pair_usd": 1000.0,
+    "enable_stop_loss": true,
+    "default_stop_loss_pct": 0.03
   }
 }
 ```
@@ -655,6 +776,27 @@ pip install -r requirements-dev.txt  # Development dependencies
 - 🔧 **Infrastructure**: Performance optimizations and monitoring
 - 📱 **UI/UX**: Dashboard improvements and mobile optimization
 
+### **Project Structure**
+```
+crypto-scalping-bot-kiro/
+├── bot/                          # Core bot components
+│   ├── enhanced_*.py            # Enhanced components (strategies, data, risk, etc.)
+│   ├── kraken_*.py              # Kraken API integration
+│   └── crypto_*.py              # Crypto-specific modules
+├── docs/                        # Documentation
+├── examples/                    # Usage examples and demos
+├── tests/                       # Comprehensive test suite
+│   ├── unit/                    # Unit tests
+│   └── integration/             # Integration tests
+├── Web/                         # Dashboard HTML files
+├── logs/                        # Log files
+├── cache/                       # Data cache
+├── run_*.py                     # Bot entry points
+├── test_*.py                    # Test scripts
+├── debug_*.py                   # Debug utilities
+└── validate_*.py                # Validation scripts
+```
+
 ---
 
 ## 🎯 Project Status
@@ -662,14 +804,28 @@ pip install -r requirements-dev.txt  # Development dependencies
 ### **✅ COMPLETED FEATURES**
 - ✅ **Complete Kraken Migration** - Full REST and WebSocket API integration
 - ✅ **Enhanced Components** - All advanced features integrated and tested
-- ✅ **Multi-pair Trading** - Simultaneous trading across multiple pairs
-- ✅ **Real-time Dashboard** - Professional web interface with live monitoring
+- ✅ **Multi-pair Trading** - Simultaneous trading across multiple pairs with correlation analysis
+- ✅ **Real-time Dashboard** - Professional web interface with live monitoring and manual trading
 - ✅ **Advanced Risk Management** - Portfolio-level risk assessment and protection
+- ✅ **Enhanced Strategy Engine** - 6 sophisticated strategies with weighted combination
+- ✅ **Mock Trading Environment** - Complete paper trading simulation system
+- ✅ **Performance Analytics** - Comprehensive metrics tracking and reporting
+- ✅ **Data Management System** - Intelligent caching, validation, and indicator calculations
+- ✅ **Alert System** - Multi-channel notifications with intelligent throttling
 - ✅ **Comprehensive Testing** - Full integration and performance validation
 - ✅ **Production Ready** - Stable, tested, and ready for live trading
 
 ### **🚀 READY FOR USE**
 The Enhanced Kraken Trading Bot is now **fully integrated, comprehensively tested, and production-ready** for both paper and live trading with professional-grade features and monitoring capabilities.
+
+### **📈 System Capabilities**
+- **6 Advanced Trading Strategies** with weighted combination and confidence scoring
+- **Multi-pair Trading** with correlation analysis and portfolio optimization
+- **Real-time Dashboard** with WebSocket updates and manual trading controls
+- **Comprehensive Risk Management** with dynamic position sizing and emergency stops
+- **Professional Monitoring** with structured logging, alerts, and performance analytics
+- **Mock Trading Environment** for safe testing and strategy validation
+- **Enterprise Architecture** with caching, data validation, and error recovery
 
 ---
 
