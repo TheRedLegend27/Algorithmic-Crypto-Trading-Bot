@@ -1,0 +1,23 @@
+{
+  "strategy_attribution": {
+    "momentum_strategy": 2750.0,
+    "mean_reversion_strategy": 200.0,
+    "breakout_strategy": 0.0
+  },
+  "regime_attribution": {
+    "trending_bull": 880.0,
+    "ranging": 1910.0,
+    "high_volatility": 160.0
+  },
+  "time_period_attribution": {
+    "2025-W26": 2950.0
+  },
+  "pair_attribution": {
+    "BTCUSD": 2750.0,
+    "ETHUSD": 200.0,
+    "SOLUSD": 0.0
+  },
+  "total_return": 2950,
+  "attribution_period": "30d",
+  "generated_at": "2025-07-31T01:41:00.802078"
+}

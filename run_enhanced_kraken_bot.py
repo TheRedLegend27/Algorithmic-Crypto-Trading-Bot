@@ -27,7 +27,7 @@ from bot.kraken_trader import KrakenTrader, KrakenTradingConfig
 from bot.enhanced_data_manager import EnhancedDataManager, CacheConfig
 from bot.enhanced_strategies import EnhancedStrategyEngine, StrategyParameters
 from bot.enhanced_risk_manager import EnhancedRiskManager
-from bot.enhanced_logger import EnhancedLogger
+from bot.enhanced_logger import EnhancedLogger, TradeExecution
 from bot.enhanced_alerts import EnhancedAlertSystem
 from bot.enhanced_dashboard import EnhancedDashboard, DashboardConfig
 from bot.crypto_position_manager import CryptoPositionManager
@@ -48,6 +48,28 @@ class BotConfig:
     enable_dashboard: bool = True
     enable_alerts: bool = True
     dashboard_port: int = 8080
+    log_level: str = "INFO"
+
+
+def convert_trade_result_to_execution(trade_result, signal: TradingSignal, strategy: str = "enhanced") -> TradeExecution:
+    """Convert KrakenTradeResult to TradeExecution for logging and alerts."""
+    return TradeExecution(
+        trade_id=trade_result.order_id or f"trade_{int(time.time())}",
+        pair=trade_result.pair or signal.pair,
+        side=trade_result.side.upper() if trade_result.side else signal.action.name,
+        order_type="market",
+        volume=float(trade_result.volume) if trade_result.volume else 0.0,
+        price=float(trade_result.price) if trade_result.price else signal.price,
+        fee=0.0,  # Kraken fees are calculated separately
+        timestamp=datetime.now(),
+        strategy=strategy,
+        signal_confidence=signal.confidence,
+        execution_time_ms=0,  # Not tracked in current implementation
+        status="filled" if trade_result.success else "failed",
+        order_id=trade_result.order_id,
+        fill_price=float(trade_result.price) if trade_result.price else None,
+        slippage=None  # Not calculated in current implementation
+    )
     log_level: str = "INFO"
 
 
@@ -418,18 +440,28 @@ class EnhancedKrakenBot:
                             if trade_result and trade_result.success:
                                 log_info(f"   ✅ Trade executed successfully: {trade_result.order_id}")
                                 
+                                # Convert to TradeExecution format
+                                trade_execution = convert_trade_result_to_execution(trade_result, signal)
+                                
                                 # Log the trade
                                 try:
-                                    enhanced_logger.log_trade(trade_result)
+                                    enhanced_logger.log_trade(trade_execution)
                                 except Exception as e:
                                     log_warning(f"Failed to log trade: {e}")
                                 
                                 # Send alerts
                                 if alert_system:
                                     try:
-                                        alert_system.send_trade_alert(trade_result)
+                                        alert_system.send_trade_alert(trade_execution)
                                     except Exception as e:
                                         log_warning(f"Failed to send trade alert: {e}")
+                                
+                                # Update dashboard
+                                if dashboard:
+                                    try:
+                                        dashboard.add_trade_event(trade_execution.to_dict())
+                                    except Exception as e:
+                                        log_warning(f"Failed to update dashboard: {e}")
                             else:
                                 log_error(f"   ❌ Trade execution failed: {trade_result.error if trade_result else 'Unknown error'}")
                         

@@ -283,18 +283,18 @@ class AggressiveRiskManager:
     Implements dynamic position sizing and risk controls for $100 starting capital.
     """
     
-    def __init__(self, initial_capital: float = 100.0, max_risk_per_trade: float = 0.05,
-                 max_daily_loss: float = 0.15, max_position_size: float = 0.8,
-                 max_trades_per_day: int = 20):
+    def __init__(self, initial_capital: float = 100.0, max_risk_per_trade: float = 0.08,
+                 max_daily_loss: float = 0.25, max_position_size: float = 0.9,
+                 max_trades_per_day: int = 100):
         """
         Initialize aggressive risk manager.
         
         Args:
             initial_capital: Starting capital ($100)
-            max_risk_per_trade: Max risk per trade (5% of capital)
-            max_daily_loss: Max daily loss (15% of capital)
-            max_position_size: Max position size (80% of capital for aggressive trading)
-            max_trades_per_day: Maximum number of trades per day (default: 20)
+            max_risk_per_trade: Max risk per trade (8% of capital - more aggressive)
+            max_daily_loss: Max daily loss (25% of capital - higher for aggressive)
+            max_position_size: Max position size (90% of capital for very aggressive trading)
+            max_trades_per_day: Maximum number of trades per day (100 for high frequency)
         """
         self.initial_capital = initial_capital
         self.current_capital = initial_capital
@@ -306,23 +306,24 @@ class AggressiveRiskManager:
         self.max_trades_per_day = max_trades_per_day
     
     def calculate_position_size(self, signal_confidence: float, current_price: float,
-                              stop_loss_pct: float = 0.02) -> float:
+                              available_balance: float, stop_loss_pct: float = 0.015) -> float:
         """
-        Calculate aggressive position size based on confidence and risk.
+        Calculate aggressive position size based on confidence, risk, and available balance.
         
         Args:
             signal_confidence: Confidence level of the signal (0.0 to 1.0)
             current_price: Current asset price
-            stop_loss_pct: Stop loss percentage (2% for aggressive trading)
+            available_balance: Available balance for trading
+            stop_loss_pct: Stop loss percentage (1.5% for very aggressive trading)
             
         Returns:
             Position size in USD
         """
-        # Base risk amount
+        # Base risk amount (more aggressive)
         base_risk = self.current_capital * self.max_risk_per_trade
         
         # Scale risk by confidence (higher confidence = larger position)
-        confidence_multiplier = 0.5 + (signal_confidence * 1.5)  # 0.5x to 2x
+        confidence_multiplier = 0.3 + (signal_confidence * 2.0)  # 0.3x to 2.3x
         adjusted_risk = base_risk * confidence_multiplier
         
         # Calculate position size based on stop loss
@@ -332,9 +333,17 @@ class AggressiveRiskManager:
         max_position = self.current_capital * self.max_position_size
         position_size = min(position_size, max_position)
         
+        # Constrain by available balance (critical for small accounts)
+        max_available = available_balance * 0.95  # Use 95% of available
+        position_size = min(position_size, max_available)
+        
         # Ensure minimum viable position for small accounts
-        min_position = max(5.0, self.current_capital * 0.1)  # At least $5 or 10%
+        min_position = max(3.0, available_balance * 0.15)  # At least $3 or 15% of available
         position_size = max(position_size, min_position)
+        
+        # Final safety check
+        if position_size > available_balance:
+            position_size = available_balance * 0.9
         
         return position_size
     
@@ -374,6 +383,76 @@ class AggressiveRiskManager:
         log_info("Daily risk stats reset")
 
 
+class UltraAggressiveScalpStrategy(BaseStrategy):
+    """
+    Ultra-aggressive scalping strategy for maximum trade frequency.
+    
+    Designed for small accounts that need high-frequency trading to grow.
+    Uses minimal thresholds and maximum sensitivity.
+    """
+    
+    def __init__(self, min_move_threshold: float = 0.002):
+        """
+        Initialize ultra-aggressive scalp strategy.
+        
+        Args:
+            min_move_threshold: Minimum price move to trigger signal (0.2%)
+        """
+        super().__init__("Ultra Aggressive Scalp")
+        self.min_move_threshold = min_move_threshold
+    
+    def calculate_signals(self, data: pd.DataFrame) -> TradingSignal:
+        """Calculate ultra-aggressive scalp signals."""
+        if not self.validate_data(data) or len(data) < 3:
+            return _create_hold_signal(self.name, data, "Insufficient data")
+        
+        data = data.copy()
+        
+        # Very short-term indicators
+        data['price_change_1'] = data['close'].pct_change(1)
+        data['price_change_2'] = data['close'].pct_change(2)
+        data['volume_change'] = data['volume'].pct_change(1)
+        
+        # Simple moving averages for trend
+        data['sma_3'] = data['close'].rolling(window=3).mean()
+        data['sma_5'] = data['close'].rolling(window=5).mean()
+        
+        latest = data.iloc[-1]
+        prev = data.iloc[-2]
+        
+        # Ultra-sensitive conditions
+        recent_move = abs(latest['price_change_1'])
+        volume_increase = latest['volume_change'] > 0.1  # Any volume increase
+        trend_alignment = latest['close'] > latest['sma_3'] if len(data) >= 3 else True
+        
+        # Generate signals on minimal moves
+        if recent_move > self.min_move_threshold:
+            if latest['price_change_1'] > 0 and trend_alignment:
+                # Bullish micro-move
+                confidence = min(0.8, 0.3 + (recent_move * 100) + (0.1 if volume_increase else 0))
+                return TradingSignal(
+                    action=SignalType.BUY,
+                    confidence=confidence,
+                    strategy=self.name,
+                    timestamp=data.index[-1].to_pydatetime(),
+                    price=latest['close'],
+                    reasoning=f"Bullish micro-move: {latest['price_change_1']:.3f}% with volume"
+                )
+            elif latest['price_change_1'] < 0:
+                # Bearish micro-move
+                confidence = min(0.8, 0.3 + (recent_move * 100) + (0.1 if volume_increase else 0))
+                return TradingSignal(
+                    action=SignalType.SELL,
+                    confidence=confidence,
+                    strategy=self.name,
+                    timestamp=data.index[-1].to_pydatetime(),
+                    price=latest['close'],
+                    reasoning=f"Bearish micro-move: {latest['price_change_1']:.3f}% with volume"
+                )
+        
+        return _create_hold_signal(self.name, data, f"Move too small: {recent_move:.3f}%")
+
+
 def create_aggressive_strategy_suite() -> List[BaseStrategy]:
     """
     Create a suite of aggressive strategies optimized for small accounts.
@@ -382,19 +461,22 @@ def create_aggressive_strategy_suite() -> List[BaseStrategy]:
         List of aggressive trading strategies
     """
     return [
+        UltraAggressiveScalpStrategy(
+            min_move_threshold=0.001  # 0.1% moves trigger signals
+        ),
         ScalpingMomentumStrategy(
-            lookback_period=3,  # Very short-term
-            volume_threshold=1.3,  # Lower threshold for more signals
-            momentum_threshold=0.005  # 0.5% moves
+            lookback_period=2,  # Even shorter-term
+            volume_threshold=1.1,  # Very low threshold for more signals
+            momentum_threshold=0.003  # 0.3% moves
         ),
         VolatilityBreakoutStrategy(
-            atr_period=10,  # Shorter period for quicker signals
-            squeeze_threshold=0.8,
-            breakout_multiplier=1.2  # Lower threshold for more trades
+            atr_period=8,  # Shorter period for quicker signals
+            squeeze_threshold=0.9,
+            breakout_multiplier=1.1  # Very low threshold for maximum trades
         ),
         MeanReversionScalpStrategy(
-            bb_period=8,  # Very short Bollinger Bands
-            bb_std=2.0,  # Tighter bands for more signals
-            rsi_period=5  # Very responsive RSI
+            bb_period=6,  # Very short Bollinger Bands
+            bb_std=1.8,  # Tighter bands for more signals
+            rsi_period=4  # Ultra-responsive RSI
         )
     ]

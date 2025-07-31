@@ -253,6 +253,33 @@ class CryptoPositionManager:
         self._refresh_balances()
         return self.balances.copy()
     
+    def get_positions(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Get all current positions in a format compatible with the trading system.
+        
+        Returns:
+            Dictionary of trading pair to position information
+        """
+        # Refresh balances to ensure they're up to date
+        self._refresh_balances()
+        
+        positions = {}
+        
+        # Convert balances to position format
+        for currency, balance in self.balances.items():
+            if balance.balance > 0:
+                # Create position entry for each currency with balance
+                positions[currency] = {
+                    "size": balance.balance,
+                    "available": balance.available,
+                    "hold": balance.hold,
+                    "value": 0.0,  # Will be calculated with current price if needed
+                    "currency": currency,
+                    "trading_enabled": balance.trading_enabled
+                }
+        
+        return positions
+    
     def get_position_value_usd(self, currency: str, current_price: float) -> float:
         """
         Calculate the USD value of a cryptocurrency position.

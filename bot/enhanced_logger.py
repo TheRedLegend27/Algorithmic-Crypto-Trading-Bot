@@ -53,12 +53,19 @@ class TradeExecution:
     fill_price: Optional[float] = None
     slippage: Optional[float] = None
     
+    @property
+    def quantity(self) -> float:
+        """Alias for volume to maintain compatibility with alert system."""
+        return self.volume
+    
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         data = asdict(self)
         # Convert datetime to ISO string
         if isinstance(data.get('timestamp'), datetime.datetime):
             data['timestamp'] = data['timestamp'].isoformat()
+        # Add quantity for compatibility
+        data['quantity'] = self.quantity
         return data
 
 

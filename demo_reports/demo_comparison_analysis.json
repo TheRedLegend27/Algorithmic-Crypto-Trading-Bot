@@ -1,0 +1,66 @@
+{
+  "comparison_id": "comp_20250731_014100",
+  "baseline_config": "previous",
+  "comparison_config": "current",
+  "baseline_metrics": {
+    "total_return": 0.0,
+    "annualized_return": 0.0,
+    "excess_return": 0.0,
+    "sharpe_ratio": 0.0,
+    "sortino_ratio": 0.0,
+    "calmar_ratio": 0.0,
+    "max_drawdown": 0.0,
+    "volatility": 0.0,
+    "downside_deviation": 0.0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "avg_trade_duration": "0:00:00",
+    "trades_count": 0,
+    "avg_win": 0.0,
+    "avg_loss": 0.0,
+    "regime_performance": {},
+    "last_updated": "2025-07-31T01:41:00.802269",
+    "measurement_period": "30 days, 0:00:00",
+    "recovery_factor": null,
+    "expectancy": null
+  },
+  "comparison_metrics": {
+    "total_return": 0.12166666666666667,
+    "annualized_return": 11.102083333333335,
+    "excess_return": 11.082083333333335,
+    "sharpe_ratio": 1.463258274784647,
+    "sortino_ratio": 0.9057559709655773,
+    "calmar_ratio": 5.521959347436833,
+    "max_drawdown": 2.0105333333333335,
+    "volatility": 7.573566146389519,
+    "downside_deviation": 12.235175575513267,
+    "win_rate": 0.7333333333333333,
+    "profit_factor": 3.36,
+    "avg_trade_duration": "2:06:40",
+    "trades_count": 45,
+    "avg_win": 127.27272727272727,
+    "avg_loss": -104.16666666666667,
+    "regime_performance": {
+      "trending_bull": 0.176,
+      "ranging": 0.2818518518518519,
+      "high_volatility": 0.3137254901960773
+    },
+    "last_updated": "2025-07-31T01:41:00.802498",
+    "measurement_period": "30 days, 0:00:00",
+    "recovery_factor": 0.060514622985609126,
+    "expectancy": 65.55555555555554
+  },
+  "relative_performance": {
+    "total_return_change": 0,
+    "sharpe_ratio_change": 1.463258274784647,
+    "win_rate_change": 0.7333333333333333,
+    "max_drawdown_change": 2.0105333333333335
+  },
+  "statistical_significance": {
+    "return_difference_p_value": 0.05,
+    "sharpe_difference_p_value": 0.1,
+    "win_rate_difference_p_value": 0.15
+  },
+  "comparison_period": "30d",
+  "generated_at": "2025-07-31T01:41:00.802505"
+}

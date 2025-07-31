@@ -165,7 +165,14 @@ class CryptoRiskManager:
                 'XADA': 'ADA',
                 'XDOT': 'DOT',
                 'XSOL': 'SOL',
-                'XMATIC': 'MATIC'
+                'SOL': 'SOL',
+                'AVAX': 'AVAX',
+                'XMATIC': 'MATIC',
+                # Handle futures and other derivatives
+                'ETH.F': 'ETH',  # ETH futures
+                'BTC.F': 'BTC',  # BTC futures
+                'SOL.F': 'SOL',  # SOL futures
+                'AVAX.F': 'AVAX'  # AVAX futures
             }
             
             # Fetch prices for all currencies with non-zero balances
@@ -312,6 +319,12 @@ class CryptoRiskManager:
             return self.volatility_cache[symbol]
         
         try:
+            # Check if data_fetcher is available
+            if not self.data_fetcher:
+                # Return a default volatility value when data_fetcher is not available
+                self.logger.warning(f"No data fetcher available for volatility calculation of {symbol}")
+                return 0.02  # Default 2% volatility
+            
             # Get hourly candles for the lookback period
             hours = self.settings.volatility_lookback_hours
             candles = self.data_fetcher.fetch_crypto_ohlcv(

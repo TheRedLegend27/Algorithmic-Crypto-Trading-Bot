@@ -39,6 +39,24 @@ class KrakenTradeResult:
     price: Optional[str] = None
     pair: Optional[str] = None
     error: Optional[str] = None
+    
+    @property
+    def quantity(self) -> float:
+        """Get quantity as float for compatibility."""
+        return float(self.volume) if self.volume else 0.0
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for logging and alerts."""
+        return {
+            'success': self.success,
+            'order_id': self.order_id,
+            'side': self.side,
+            'volume': self.volume,
+            'quantity': self.quantity,
+            'price': self.price,
+            'pair': self.pair,
+            'error': self.error
+        }
 
 
 class KrakenTrader:
@@ -111,9 +129,42 @@ class KrakenTrader:
             'USD': 'ZUSD',
             'EUR': 'ZEUR',
             'ETH': 'XETH',
-            'LTC': 'XLTC'
+            'LTC': 'XLTC',
+            'SOL': 'SOL',
+            'AVAX': 'AVAX'
         }
         return mapping.get(currency.upper(), currency.upper())
+    
+    def _parse_trading_pair(self, pair: str) -> tuple[str, str]:
+        """Parse trading pair to extract base and quote currencies."""
+        # Handle common Kraken pair formats
+        pair_mappings = {
+            'XBTUSD': ('BTC', 'USD'),
+            'ETHUSD': ('ETH', 'USD'),
+            'SOLUSD': ('SOL', 'USD'),
+            'AVAXUSD': ('AVAX', 'USD'),
+            'XBTEUR': ('BTC', 'EUR'),
+            'ETHEUR': ('ETH', 'EUR')
+        }
+        
+        if pair in pair_mappings:
+            return pair_mappings[pair]
+        
+        # Fallback: try to parse manually
+        if pair.endswith('USD'):
+            base = pair[:-3]
+            if base == 'XBT':
+                base = 'BTC'
+            return (base, 'USD')
+        elif pair.endswith('EUR'):
+            base = pair[:-3]
+            if base == 'XBT':
+                base = 'BTC'
+            return (base, 'EUR')
+        
+        # Default fallback
+        log_warning(f"Could not parse trading pair {pair}, defaulting to BTC/USD")
+        return ('BTC', 'USD')
     
     def get_current_price(self, pair: str) -> Optional[float]:
         """Get current market price for a trading pair."""
@@ -122,6 +173,9 @@ class KrakenTrader:
     def _calculate_order_volume(self, side: str, price: float) -> Optional[str]:
         """Calculate appropriate order volume."""
         try:
+            # Extract base and quote currencies from trading pair
+            base_currency, quote_currency = self._parse_trading_pair(self.config.trading_pair)
+            
             if side.upper() == 'BUY':
                 # Calculate volume based on USD amount
                 volume = self.config.trade_amount_usd / price
@@ -131,23 +185,23 @@ class KrakenTrader:
                     log_warning(f"Calculated volume {volume} below minimum {self.config.min_order_size}")
                     return None
                 
-                # Check available USD balance
-                usd_balance = self.get_balance('USD')
-                if not usd_balance or usd_balance.available < self.config.trade_amount_usd:
-                    log_warning(f"Insufficient USD balance for ${self.config.trade_amount_usd} trade")
+                # Check available quote currency balance (usually USD)
+                quote_balance = self.get_balance(quote_currency)
+                if not quote_balance or quote_balance.available < self.config.trade_amount_usd:
+                    log_warning(f"Insufficient {quote_currency} balance for ${self.config.trade_amount_usd} trade")
                     return None
                 
             else:  # SELL
-                # Get BTC balance
-                btc_balance = self.get_balance('BTC')
+                # Get base currency balance (BTC, ETH, SOL, AVAX, etc.)
+                base_balance = self.get_balance(base_currency)
                 
-                if not btc_balance or btc_balance.available <= 0:
-                    log_warning("No BTC available to sell")
+                if not base_balance or base_balance.available <= 0:
+                    log_warning(f"No {base_currency} available to sell")
                     return None
                 
                 # Use available balance, but respect trade amount limit
                 max_volume_by_amount = self.config.trade_amount_usd / price
-                volume = min(btc_balance.available, max_volume_by_amount)
+                volume = min(base_balance.available, max_volume_by_amount)
                 
                 if volume < self.config.min_order_size:
                     log_warning(f"Available volume {volume} below minimum {self.config.min_order_size}")
@@ -247,23 +301,28 @@ class KrakenTrader:
             if not current_price:
                 current_price = 0.0
             
+            # Parse trading pair
+            base_currency, quote_currency = self._parse_trading_pair(self.config.trading_pair)
+            
             # Get balances
-            btc_balance = self.get_balance('BTC')
-            usd_balance = self.get_balance('USD')
+            base_balance = self.get_balance(base_currency)
+            quote_balance = self.get_balance(quote_currency)
             
             # Calculate values
-            btc_value = (btc_balance.balance * current_price) if btc_balance else 0.0
-            usd_value = usd_balance.balance if usd_balance else 0.0
-            total_value = btc_value + usd_value
+            base_value = (base_balance.balance * current_price) if base_balance else 0.0
+            quote_value = quote_balance.balance if quote_balance else 0.0
+            total_value = base_value + quote_value
             
             return {
                 'trading_pair': self.config.trading_pair,
                 'current_price': current_price,
-                'btc_balance': btc_balance.balance if btc_balance else 0.0,
-                'btc_available': btc_balance.available if btc_balance else 0.0,
-                'btc_value_usd': btc_value,
-                'usd_balance': usd_balance.balance if usd_balance else 0.0,
-                'usd_available': usd_balance.available if usd_balance else 0.0,
+                'base_currency': base_currency,
+                'quote_currency': quote_currency,
+                f'{base_currency.lower()}_balance': base_balance.balance if base_balance else 0.0,
+                f'{base_currency.lower()}_available': base_balance.available if base_balance else 0.0,
+                f'{base_currency.lower()}_value_usd': base_value,
+                f'{quote_currency.lower()}_balance': quote_balance.balance if quote_balance else 0.0,
+                f'{quote_currency.lower()}_available': quote_balance.available if quote_balance else 0.0,
                 'total_portfolio_value': total_value,
                 'last_trade_time': self.last_trade_time
             }
