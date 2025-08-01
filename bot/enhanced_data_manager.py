@@ -17,6 +17,21 @@ from pathlib import Path
 from bot.utils import log_error, log_info, log_warning, retry_with_backoff, safe_execute
 from bot.data_fetcher import DataFetcher
 
+# Adaptive components imports
+try:
+    from bot.adaptive.data_models import MarketRegime, PerformanceMetrics as AdaptivePerformanceMetrics, AdaptationEvent
+    from bot.adaptive.enums import RegimeType
+    from bot.adaptive.interfaces import DataManagerInterface
+    ADAPTIVE_AVAILABLE = True
+except ImportError:
+    # Fallback for when adaptive components are not available
+    ADAPTIVE_AVAILABLE = False
+    MarketRegime = None
+    AdaptivePerformanceMetrics = None
+    AdaptationEvent = None
+    RegimeType = None
+    DataManagerInterface = object
+
 
 @dataclass
 class CacheConfig:
@@ -367,10 +382,11 @@ class DataCache:
             }
 
 
-class EnhancedDataManager:
+class EnhancedDataManager(DataManagerInterface if ADAPTIVE_AVAILABLE else object):
     """
     Enhanced data management system for multi-pair cryptocurrency trading.
-    Provides data synchronization, caching, indicator calculations, and quality validation.
+    Provides data synchronization, caching, indicator calculations, quality validation,
+    and adaptive data storage for regime detection, performance metrics, and adaptation events.
     """
     
     def __init__(self, pairs: List[str], cache_config: Optional[CacheConfig] = None):
@@ -408,7 +424,16 @@ class EnhancedDataManager:
         # Thread safety
         self._lock = threading.RLock()
         
-        log_info(f"Enhanced data manager initialized for {len(pairs)} pairs")    
+        # Adaptive data storage
+        if ADAPTIVE_AVAILABLE:
+            self._regime_data: Dict[str, deque] = {pair: deque(maxlen=500) for pair in pairs}
+            self._performance_data: Dict[str, deque] = defaultdict(lambda: deque(maxlen=200))
+            self._adaptation_events: deque = deque(maxlen=1000)
+            self._ml_features_cache: Dict[str, Dict[str, Any]] = {}
+            self._feature_cache_timestamps: Dict[str, datetime] = {}
+        
+        log_info(f"Enhanced data manager initialized for {len(pairs)} pairs"
+                f" with adaptive features {'enabled' if ADAPTIVE_AVAILABLE else 'disabled'}")    
 
     def add_market_data(self, pair: str, data: MarketData) -> None:
         """
@@ -853,3 +878,456 @@ class EnhancedDataManager:
                 results[pair] = False
         
         return results
+    
+    # Adaptive Data Management Methods
+    
+    def store_regime_data(self, regime: 'MarketRegime', pair: str) -> None:
+        """
+        Store regime detection data for a trading pair.
+        
+        Args:
+            regime: MarketRegime object containing regime information
+            pair: Trading pair symbol
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - regime data not stored")
+            return
+        
+        try:
+            with self._lock:
+                if pair not in self._regime_data:
+                    self._regime_data[pair] = deque(maxlen=500)
+                
+                self._regime_data[pair].append(regime)
+                
+                # Cache regime data for quick access
+                if self.cache:
+                    cache_key = f"current_regime"
+                    self.cache.set(pair, cache_key, regime)
+                
+                log_info(f"Stored regime data for {pair}: {regime.regime_type} (confidence: {regime.confidence:.3f})")
+                
+        except Exception as e:
+            log_error(f"Error storing regime data for {pair}: {str(e)}")
+    
+    def store_performance_data(self, metrics: 'AdaptivePerformanceMetrics', strategy_name: str) -> None:
+        """
+        Store performance metrics for a strategy.
+        
+        Args:
+            metrics: PerformanceMetrics object containing performance data
+            strategy_name: Name of the strategy
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - performance data not stored")
+            return
+        
+        try:
+            with self._lock:
+                if strategy_name not in self._performance_data:
+                    self._performance_data[strategy_name] = deque(maxlen=200)
+                
+                self._performance_data[strategy_name].append(metrics)
+                
+                # Cache latest performance data
+                if self.cache:
+                    cache_key = f"latest_performance"
+                    self.cache.set(strategy_name, cache_key, metrics)
+                
+                log_info(f"Stored performance data for {strategy_name}: "
+                        f"return={metrics.total_return:.4f}, sharpe={metrics.sharpe_ratio:.3f}")
+                
+        except Exception as e:
+            log_error(f"Error storing performance data for {strategy_name}: {str(e)}")
+    
+    def store_adaptation_event(self, event: 'AdaptationEvent') -> None:
+        """
+        Store adaptation event data.
+        
+        Args:
+            event: AdaptationEvent object containing adaptation information
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - adaptation event not stored")
+            return
+        
+        try:
+            with self._lock:
+                self._adaptation_events.append(event)
+                
+                # Cache recent adaptation events
+                if self.cache:
+                    cache_key = f"recent_adaptations"
+                    recent_events = list(self._adaptation_events)[-10:]  # Last 10 events
+                    self.cache.set("system", cache_key, recent_events)
+                
+                log_info(f"Stored adaptation event: {event.event_type} - {event.trigger_reason}")
+                
+        except Exception as e:
+            log_error(f"Error storing adaptation event: {str(e)}")
+    
+    def get_historical_regimes(self, pair: str, start_time: datetime, end_time: datetime) -> List['MarketRegime']:
+        """
+        Retrieve historical regime data for a trading pair.
+        
+        Args:
+            pair: Trading pair symbol
+            start_time: Start time for data retrieval
+            end_time: End time for data retrieval
+            
+        Returns:
+            List of MarketRegime objects within the time range
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - returning empty regime list")
+            return []
+        
+        try:
+            with self._lock:
+                if pair not in self._regime_data:
+                    return []
+                
+                # Filter regimes by time range
+                filtered_regimes = []
+                for regime in self._regime_data[pair]:
+                    if start_time <= regime.detected_at <= end_time:
+                        filtered_regimes.append(regime)
+                
+                log_info(f"Retrieved {len(filtered_regimes)} regime records for {pair} "
+                        f"between {start_time} and {end_time}")
+                
+                return filtered_regimes
+                
+        except Exception as e:
+            log_error(f"Error retrieving historical regimes for {pair}: {str(e)}")
+            return []
+    
+    def get_performance_history(self, strategy_name: str, days_back: int = 30) -> List['AdaptivePerformanceMetrics']:
+        """
+        Get performance history for a strategy.
+        
+        Args:
+            strategy_name: Name of the strategy
+            days_back: Number of days to look back
+            
+        Returns:
+            List of PerformanceMetrics objects
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - returning empty performance list")
+            return []
+        
+        try:
+            with self._lock:
+                if strategy_name not in self._performance_data:
+                    return []
+                
+                # Filter by time range
+                cutoff_time = datetime.now() - timedelta(days=days_back)
+                filtered_metrics = []
+                
+                for metrics in self._performance_data[strategy_name]:
+                    if metrics.last_updated >= cutoff_time:
+                        filtered_metrics.append(metrics)
+                
+                log_info(f"Retrieved {len(filtered_metrics)} performance records for {strategy_name} "
+                        f"from last {days_back} days")
+                
+                return filtered_metrics
+                
+        except Exception as e:
+            log_error(f"Error retrieving performance history for {strategy_name}: {str(e)}")
+            return []
+    
+    def cleanup_old_data(self, retention_days: int = 90) -> None:
+        """
+        Clean up old adaptive data beyond retention period.
+        
+        Args:
+            retention_days: Number of days to retain data
+        """
+        if not ADAPTIVE_AVAILABLE:
+            return
+        
+        try:
+            cutoff_time = datetime.now() - timedelta(days=retention_days)
+            
+            with self._lock:
+                # Clean up regime data
+                for pair in self._regime_data:
+                    original_count = len(self._regime_data[pair])
+                    self._regime_data[pair] = deque(
+                        [regime for regime in self._regime_data[pair] 
+                         if regime.detected_at >= cutoff_time],
+                        maxlen=500
+                    )
+                    cleaned_count = original_count - len(self._regime_data[pair])
+                    if cleaned_count > 0:
+                        log_info(f"Cleaned up {cleaned_count} old regime records for {pair}")
+                
+                # Clean up performance data
+                for strategy_name in self._performance_data:
+                    original_count = len(self._performance_data[strategy_name])
+                    self._performance_data[strategy_name] = deque(
+                        [metrics for metrics in self._performance_data[strategy_name]
+                         if metrics.last_updated >= cutoff_time],
+                        maxlen=200
+                    )
+                    cleaned_count = original_count - len(self._performance_data[strategy_name])
+                    if cleaned_count > 0:
+                        log_info(f"Cleaned up {cleaned_count} old performance records for {strategy_name}")
+                
+                # Clean up adaptation events
+                original_count = len(self._adaptation_events)
+                self._adaptation_events = deque(
+                    [event for event in self._adaptation_events
+                     if event.timestamp >= cutoff_time],
+                    maxlen=1000
+                )
+                cleaned_count = original_count - len(self._adaptation_events)
+                if cleaned_count > 0:
+                    log_info(f"Cleaned up {cleaned_count} old adaptation events")
+                
+        except Exception as e:
+            log_error(f"Error cleaning up old adaptive data: {str(e)}")
+    
+    def calculate_ml_features(self, pair: str, feature_set: List[str]) -> Dict[str, Any]:
+        """
+        Calculate ML features for a trading pair with caching.
+        
+        Args:
+            pair: Trading pair symbol
+            feature_set: List of features to calculate
+            
+        Returns:
+            Dictionary containing calculated features
+        """
+        if not ADAPTIVE_AVAILABLE:
+            log_warning("Adaptive features not available - returning empty features")
+            return {}
+        
+        try:
+            # Check cache first
+            cache_key = f"ml_features_{hash(tuple(sorted(feature_set)))}"
+            if (pair in self._feature_cache_timestamps and 
+                datetime.now() - self._feature_cache_timestamps[pair] < timedelta(minutes=5)):
+                
+                if pair in self._ml_features_cache and cache_key in self._ml_features_cache[pair]:
+                    log_info(f"Using cached ML features for {pair}")
+                    return self._ml_features_cache[pair][cache_key]
+            
+            # Calculate features
+            data = self.get_latest_data(pair, periods=200)  # Need more data for ML features
+            if data.empty:
+                return {}
+            
+            features = {}
+            
+            # Basic price features
+            if 'price_features' in feature_set:
+                features.update(self._calculate_price_features(data))
+            
+            # Technical indicator features
+            if 'technical_features' in feature_set:
+                features.update(self._calculate_technical_features(data))
+            
+            # Volume features
+            if 'volume_features' in feature_set:
+                features.update(self._calculate_volume_features(data))
+            
+            # Market microstructure features
+            if 'microstructure_features' in feature_set:
+                features.update(self._calculate_microstructure_features(data))
+            
+            # Time-based features
+            if 'time_features' in feature_set:
+                features.update(self._calculate_time_features())
+            
+            # Cache the results
+            if pair not in self._ml_features_cache:
+                self._ml_features_cache[pair] = {}
+            
+            self._ml_features_cache[pair][cache_key] = features
+            self._feature_cache_timestamps[pair] = datetime.now()
+            
+            log_info(f"Calculated {len(features)} ML features for {pair}")
+            return features
+            
+        except Exception as e:
+            log_error(f"Error calculating ML features for {pair}: {str(e)}")
+            return {}
+    
+    def get_adaptive_data_summary(self) -> Dict[str, Any]:
+        """
+        Get summary of adaptive data storage.
+        
+        Returns:
+            Dictionary containing adaptive data statistics
+        """
+        if not ADAPTIVE_AVAILABLE:
+            return {'adaptive_features': False}
+        
+        try:
+            with self._lock:
+                regime_counts = {pair: len(regimes) for pair, regimes in self._regime_data.items()}
+                performance_counts = {strategy: len(metrics) for strategy, metrics in self._performance_data.items()}
+                
+                return {
+                    'adaptive_features': True,
+                    'regime_data_points': sum(regime_counts.values()),
+                    'regime_data_by_pair': regime_counts,
+                    'performance_data_points': sum(performance_counts.values()),
+                    'performance_data_by_strategy': performance_counts,
+                    'adaptation_events': len(self._adaptation_events),
+                    'ml_features_cached_pairs': len(self._ml_features_cache),
+                    'last_regime_update': max([
+                        max([regime.detected_at for regime in regimes], default=datetime.min)
+                        for regimes in self._regime_data.values()
+                    ], default=datetime.min),
+                    'last_performance_update': max([
+                        max([metrics.last_updated for metrics in metrics_list], default=datetime.min)
+                        for metrics_list in self._performance_data.values()
+                    ], default=datetime.min),
+                    'last_adaptation_event': (
+                        self._adaptation_events[-1].timestamp 
+                        if self._adaptation_events else datetime.min
+                    )
+                }
+                
+        except Exception as e:
+            log_error(f"Error getting adaptive data summary: {str(e)}")
+            return {'adaptive_features': True, 'error': str(e)}
+    
+    # Helper methods for ML feature calculation
+    
+    def _calculate_price_features(self, data: pd.DataFrame) -> Dict[str, float]:
+        """Calculate price-based features for ML."""
+        features = {}
+        
+        try:
+            # Returns and volatility
+            returns = data['close'].pct_change().dropna()
+            features['return_mean'] = returns.mean()
+            features['return_std'] = returns.std()
+            features['return_skew'] = returns.skew()
+            features['return_kurt'] = returns.kurtosis()
+            
+            # Price levels
+            features['price_zscore'] = (data['close'].iloc[-1] - data['close'].mean()) / data['close'].std()
+            features['high_low_ratio'] = data['high'].iloc[-1] / data['low'].iloc[-1]
+            
+            # Trend features
+            features['price_trend_5'] = (data['close'].iloc[-1] - data['close'].iloc[-6]) / data['close'].iloc[-6]
+            features['price_trend_20'] = (data['close'].iloc[-1] - data['close'].iloc[-21]) / data['close'].iloc[-21]
+            
+        except Exception as e:
+            log_warning(f"Error calculating price features: {str(e)}")
+        
+        return features
+    
+    def _calculate_technical_features(self, data: pd.DataFrame) -> Dict[str, float]:
+        """Calculate technical indicator features for ML."""
+        features = {}
+        
+        try:
+            # RSI
+            rsi = self.indicator_engine._calculate_rsi(data)
+            if not rsi.empty:
+                features['rsi'] = rsi.iloc[-1]
+                features['rsi_oversold'] = 1.0 if rsi.iloc[-1] < 30 else 0.0
+                features['rsi_overbought'] = 1.0 if rsi.iloc[-1] > 70 else 0.0
+            
+            # MACD
+            macd_data = self.indicator_engine._calculate_macd(data)
+            if 'macd' in macd_data and not macd_data['macd'].empty:
+                features['macd'] = macd_data['macd'].iloc[-1]
+                features['macd_signal'] = macd_data['signal'].iloc[-1]
+                features['macd_histogram'] = macd_data['histogram'].iloc[-1]
+            
+            # Bollinger Bands
+            bb_data = self.indicator_engine._calculate_bollinger_bands(data)
+            if 'upper' in bb_data and not bb_data['upper'].empty:
+                current_price = data['close'].iloc[-1]
+                bb_upper = bb_data['upper'].iloc[-1]
+                bb_lower = bb_data['lower'].iloc[-1]
+                features['bb_position'] = (current_price - bb_lower) / (bb_upper - bb_lower)
+                features['bb_squeeze'] = (bb_upper - bb_lower) / bb_data['middle'].iloc[-1]
+            
+        except Exception as e:
+            log_warning(f"Error calculating technical features: {str(e)}")
+        
+        return features
+    
+    def _calculate_volume_features(self, data: pd.DataFrame) -> Dict[str, float]:
+        """Calculate volume-based features for ML."""
+        features = {}
+        
+        try:
+            # Volume statistics
+            volume_mean = data['volume'].mean()
+            features['volume_ratio'] = data['volume'].iloc[-1] / volume_mean if volume_mean > 0 else 1.0
+            features['volume_trend'] = (data['volume'].iloc[-5:].mean() - data['volume'].iloc[-20:-5].mean()) / data['volume'].iloc[-20:-5].mean()
+            
+            # Price-volume relationship
+            price_change = data['close'].pct_change()
+            volume_change = data['volume'].pct_change()
+            correlation = price_change.corr(volume_change)
+            features['price_volume_corr'] = correlation if not pd.isna(correlation) else 0.0
+            
+        except Exception as e:
+            log_warning(f"Error calculating volume features: {str(e)}")
+        
+        return features
+    
+    def _calculate_microstructure_features(self, data: pd.DataFrame) -> Dict[str, float]:
+        """Calculate market microstructure features for ML."""
+        features = {}
+        
+        try:
+            # Spread analysis (if bid/ask data available)
+            if 'bid' in data.columns and 'ask' in data.columns:
+                spread = data['ask'] - data['bid']
+                mid_price = (data['ask'] + data['bid']) / 2
+                features['spread_ratio'] = (spread / mid_price).mean()
+                features['spread_volatility'] = spread.std()
+            
+            # OHLC relationships
+            features['body_ratio'] = abs(data['close'] - data['open']) / (data['high'] - data['low'])
+            features['upper_shadow'] = (data['high'] - data[['open', 'close']].max(axis=1)) / (data['high'] - data['low'])
+            features['lower_shadow'] = (data[['open', 'close']].min(axis=1) - data['low']) / (data['high'] - data['low'])
+            
+            # Take the mean of the last few periods
+            features['body_ratio'] = features['body_ratio'].iloc[-10:].mean()
+            features['upper_shadow'] = features['upper_shadow'].iloc[-10:].mean()
+            features['lower_shadow'] = features['lower_shadow'].iloc[-10:].mean()
+            
+        except Exception as e:
+            log_warning(f"Error calculating microstructure features: {str(e)}")
+        
+        return features
+    
+    def _calculate_time_features(self) -> Dict[str, float]:
+        """Calculate time-based features for ML."""
+        features = {}
+        
+        try:
+            now = datetime.now()
+            
+            # Time of day features
+            features['hour_of_day'] = now.hour
+            features['day_of_week'] = now.weekday()
+            features['is_weekend'] = 1.0 if now.weekday() >= 5 else 0.0
+            
+            # Market session features (assuming UTC)
+            # US session: 13:30-20:00 UTC
+            # European session: 07:00-16:00 UTC
+            # Asian session: 23:00-08:00 UTC
+            hour = now.hour
+            features['us_session'] = 1.0 if 13 <= hour <= 20 else 0.0
+            features['eu_session'] = 1.0 if 7 <= hour <= 16 else 0.0
+            features['asia_session'] = 1.0 if hour >= 23 or hour <= 8 else 0.0
+            
+        except Exception as e:
+            log_warning(f"Error calculating time features: {str(e)}")
+        
+        return features

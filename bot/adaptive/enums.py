@@ -17,6 +17,7 @@ class RegimeType(Enum):
 class AdaptationType(Enum):
     """Types of adaptations the system can make."""
     STRATEGY_WEIGHT_CHANGE = "strategy_weight_change"
+    STRATEGY_REBALANCING = "strategy_rebalancing"
     PARAMETER_OPTIMIZATION = "parameter_optimization"
     REGIME_DETECTION_UPDATE = "regime_detection_update"
     RISK_PARAMETER_ADJUSTMENT = "risk_parameter_adjustment"

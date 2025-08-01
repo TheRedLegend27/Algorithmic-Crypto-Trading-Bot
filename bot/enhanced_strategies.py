@@ -19,6 +19,20 @@ from abc import ABC, abstractmethod
 from bot.strategy import BaseStrategy, TradingSignal, SignalType
 from bot.utils import log_info, log_warning, log_error
 
+# Adaptive components imports
+try:
+    from bot.adaptive.data_models import AdaptiveSignal, MarketRegime, PerformanceMetrics
+    from bot.adaptive.enums import RegimeType, SignalStrength
+    ADAPTIVE_AVAILABLE = True
+except ImportError:
+    # Fallback for when adaptive components are not available
+    ADAPTIVE_AVAILABLE = False
+    AdaptiveSignal = None
+    MarketRegime = None
+    PerformanceMetrics = None
+    RegimeType = None
+    SignalStrength = None
+
 
 @dataclass
 class StrategyParameters:
@@ -53,6 +67,187 @@ class BacktestResult:
             'total_trades': self.total_trades,
             'avg_trade_duration': self.avg_trade_duration,
             'volatility': self.volatility
+        }
+
+
+class AdaptiveStrategyWrapper:
+    """
+    Wrapper class to add adaptive capabilities to existing strategies.
+    Provides backward compatibility while enabling adaptive features.
+    """
+    
+    def __init__(self, base_strategy: BaseStrategy, adaptive_enabled: bool = True):
+        """
+        Initialize adaptive wrapper.
+        
+        Args:
+            base_strategy: The base strategy to wrap
+            adaptive_enabled: Whether to enable adaptive features
+        """
+        self.base_strategy = base_strategy
+        self.adaptive_enabled = adaptive_enabled and ADAPTIVE_AVAILABLE
+        
+        # Performance tracking
+        self.performance_history: List[Dict[str, Any]] = []
+        self.recent_signals: List[TradingSignal] = []
+        self.regime_performance: Dict[str, List[float]] = {}
+        
+        # Adaptive parameters
+        self.regime_adjustments: Dict[str, float] = {
+            'trending_bull': 1.2,
+            'trending_bear': 0.8,
+            'ranging': 1.0,
+            'high_volatility': 0.7,
+            'low_volatility': 1.1,
+            'uncertain': 0.6
+        }
+        
+        log_info(f"AdaptiveStrategyWrapper initialized for {base_strategy.name} "
+                f"with adaptive features {'enabled' if self.adaptive_enabled else 'disabled'}")
+    
+    def generate_signal(self, data: pd.DataFrame, regime: Optional['MarketRegime'] = None) -> TradingSignal:
+        """
+        Generate trading signal with optional adaptive enhancements.
+        
+        Args:
+            data: Market data
+            regime: Current market regime (optional)
+            
+        Returns:
+            TradingSignal or AdaptiveSignal
+        """
+        # Generate base signal
+        base_signal = self.base_strategy.generate_signal(data)
+        
+        if not self.adaptive_enabled or not regime:
+            return base_signal
+        
+        # Convert to adaptive signal
+        return self._create_adaptive_signal(base_signal, data, regime)
+    
+    def _create_adaptive_signal(self, base_signal: TradingSignal, 
+                               data: pd.DataFrame, regime: 'MarketRegime') -> 'AdaptiveSignal':
+        """Create adaptive signal from base signal."""
+        try:
+            # Adjust confidence based on regime
+            regime_key = (regime.regime_type.value 
+                         if hasattr(regime.regime_type, 'value') 
+                         else str(regime.regime_type))
+            
+            regime_multiplier = self.regime_adjustments.get(regime_key, 1.0)
+            adjusted_confidence = min(1.0, base_signal.confidence * regime_multiplier * regime.confidence)
+            
+            # Determine signal strength
+            if adjusted_confidence >= 0.8:
+                strength = SignalStrength.VERY_STRONG
+            elif adjusted_confidence >= 0.6:
+                strength = SignalStrength.STRONG
+            elif adjusted_confidence >= 0.4:
+                strength = SignalStrength.MODERATE
+            elif adjusted_confidence >= 0.2:
+                strength = SignalStrength.WEAK
+            else:
+                strength = SignalStrength.VERY_WEAK
+            
+            # Create adaptive signal
+            adaptive_signal = AdaptiveSignal(
+                pair=getattr(base_signal, 'pair', 'UNKNOWN'),
+                signal_type=base_signal.action.value if hasattr(base_signal.action, 'value') else str(base_signal.action),
+                strength=strength,
+                confidence=adjusted_confidence,
+                price=base_signal.price,
+                timestamp=base_signal.timestamp,
+                regime_context=regime,
+                ml_confidence=0.5,  # Default ML confidence
+                strategy_weights={self.base_strategy.name: 1.0},
+                parameter_adjustments={'regime_multiplier': regime_multiplier},
+                suggested_position_size=None,
+                stop_loss=None,
+                take_profit=None,
+                adaptation_metadata={
+                    'base_strategy': self.base_strategy.name,
+                    'base_confidence': base_signal.confidence,
+                    'regime_adjustment': regime_multiplier,
+                    'reasoning': base_signal.reasoning
+                },
+                contributing_indicators={}
+            )
+            
+            return adaptive_signal
+            
+        except Exception as e:
+            log_error(f"Error creating adaptive signal: {str(e)}")
+            return base_signal
+    
+    def update_performance(self, trade_result: Dict[str, Any]) -> None:
+        """
+        Update strategy performance with trade result.
+        
+        Args:
+            trade_result: Dictionary containing trade outcome data
+        """
+        try:
+            self.performance_history.append({
+                'timestamp': datetime.now(),
+                'result': trade_result,
+                'strategy': self.base_strategy.name
+            })
+            
+            # Keep only recent history
+            if len(self.performance_history) > 100:
+                self.performance_history = self.performance_history[-100:]
+            
+            # Update regime-specific performance if available
+            if 'regime' in trade_result and 'return' in trade_result:
+                regime_key = str(trade_result['regime'])
+                if regime_key not in self.regime_performance:
+                    self.regime_performance[regime_key] = []
+                
+                self.regime_performance[regime_key].append(trade_result['return'])
+                
+                # Keep only recent regime performance
+                if len(self.regime_performance[regime_key]) > 50:
+                    self.regime_performance[regime_key] = self.regime_performance[regime_key][-50:]
+            
+            log_info(f"Updated performance for {self.base_strategy.name}: "
+                    f"total_trades={len(self.performance_history)}")
+            
+        except Exception as e:
+            log_error(f"Error updating performance for {self.base_strategy.name}: {str(e)}")
+    
+    def get_regime_performance(self, regime_type: str) -> Dict[str, float]:
+        """Get performance statistics for a specific regime."""
+        if regime_type not in self.regime_performance or not self.regime_performance[regime_type]:
+            return {'avg_return': 0.0, 'win_rate': 0.0, 'trade_count': 0}
+        
+        returns = self.regime_performance[regime_type]
+        wins = [r for r in returns if r > 0]
+        
+        return {
+            'avg_return': np.mean(returns),
+            'win_rate': len(wins) / len(returns),
+            'trade_count': len(returns),
+            'total_return': sum(returns)
+        }
+    
+    def adjust_for_regime(self, regime_type: str, adjustment_factor: float) -> None:
+        """Adjust strategy parameters for a specific regime."""
+        if regime_type in self.regime_adjustments:
+            self.regime_adjustments[regime_type] = adjustment_factor
+            log_info(f"Adjusted {self.base_strategy.name} for regime {regime_type}: {adjustment_factor}")
+    
+    def get_adaptive_status(self) -> Dict[str, Any]:
+        """Get status of adaptive features."""
+        return {
+            'adaptive_enabled': self.adaptive_enabled,
+            'base_strategy': self.base_strategy.name,
+            'performance_history_size': len(self.performance_history),
+            'regime_adjustments': self.regime_adjustments.copy(),
+            'regime_performance_regimes': list(self.regime_performance.keys()),
+            'recent_performance': (
+                np.mean([r['result'].get('return', 0) for r in self.performance_history[-10:]])
+                if len(self.performance_history) >= 10 else 0.0
+            )
         }
 
 
@@ -1454,3 +1649,303 @@ class EnhancedStrategyEngine:
                 'volume_threshold': self.parameters.volume_threshold
             }
         }
+
+
+# Adaptive Strategy Factory Functions
+
+def create_adaptive_strategy(strategy_class, *args, adaptive_enabled: bool = True, **kwargs) -> AdaptiveStrategyWrapper:
+    """
+    Factory function to create adaptive-enabled strategies.
+    
+    Args:
+        strategy_class: Strategy class to instantiate
+        *args: Positional arguments for strategy constructor
+        adaptive_enabled: Whether to enable adaptive features
+        **kwargs: Keyword arguments for strategy constructor
+        
+    Returns:
+        AdaptiveStrategyWrapper instance
+    """
+    try:
+        base_strategy = strategy_class(*args, **kwargs)
+        return AdaptiveStrategyWrapper(base_strategy, adaptive_enabled)
+    except Exception as e:
+        log_error(f"Error creating adaptive strategy {strategy_class.__name__}: {str(e)}")
+        # Fallback to non-adaptive strategy
+        return strategy_class(*args, **kwargs)
+
+
+def create_adaptive_momentum_strategy(short_period: int = 3, medium_period: int = 8,
+                                    volume_threshold: float = 1.1, momentum_threshold: float = 0.003,
+                                    adaptive_enabled: bool = True) -> AdaptiveStrategyWrapper:
+    """Create adaptive-enabled momentum strategy."""
+    return create_adaptive_strategy(
+        EnhancedMomentumStrategy,
+        short_period=short_period,
+        medium_period=medium_period,
+        volume_threshold=volume_threshold,
+        momentum_threshold=momentum_threshold,
+        adaptive_enabled=adaptive_enabled
+    )
+
+
+def create_adaptive_price_action_strategy(pattern_sensitivity: float = 0.7, volume_confirmation: bool = True,
+                                        adaptive_enabled: bool = True) -> AdaptiveStrategyWrapper:
+    """Create adaptive-enabled price action strategy."""
+    return create_adaptive_strategy(
+        PriceActionStrategy,
+        pattern_sensitivity=pattern_sensitivity,
+        volume_confirmation=volume_confirmation,
+        adaptive_enabled=adaptive_enabled
+    )
+
+
+def create_adaptive_multi_timeframe_strategy(timeframes: List[str] = None, weight_distribution: List[float] = None,
+                                           adaptive_enabled: bool = True) -> AdaptiveStrategyWrapper:
+    """Create adaptive-enabled multi-timeframe strategy."""
+    if timeframes is None:
+        timeframes = ['5m', '15m', '1h']
+    if weight_distribution is None:
+        weight_distribution = [0.5, 0.3, 0.2]
+    
+    return create_adaptive_strategy(
+        MultiTimeframeStrategy,
+        timeframes=timeframes,
+        weight_distribution=weight_distribution,
+        adaptive_enabled=adaptive_enabled
+    )
+
+
+class AdaptiveStrategyMigrator:
+    """
+    Utility class to help migrate from enhanced strategies to adaptive strategies.
+    Provides backward compatibility and gradual migration path.
+    """
+    
+    def __init__(self):
+        self.migration_log: List[Dict[str, Any]] = []
+        self.compatibility_mode = True
+    
+    def migrate_strategy_engine(self, engine: 'EnhancedStrategyEngine', enable_adaptive: bool = True) -> 'AdaptiveStrategyEngine':
+        """
+        Migrate existing EnhancedStrategyEngine to adaptive version.
+        
+        Args:
+            engine: Existing EnhancedStrategyEngine instance
+            enable_adaptive: Whether to enable adaptive features
+            
+        Returns:
+            AdaptiveStrategyEngine instance (if available) or original engine
+        """
+        try:
+            if not ADAPTIVE_AVAILABLE:
+                log_warning("Adaptive components not available - returning original engine")
+                return engine
+            
+            # Import adaptive engine
+            from bot.adaptive.adaptive_strategy_engine import AdaptiveStrategyEngine
+            
+            # Create adaptive engine with similar configuration
+            adaptive_config = {
+                'hysteresis_threshold': 0.15,
+                'min_switch_interval_minutes': 30,
+                'min_strategies_for_ensemble': 2,
+                'confidence_decay_factor': 0.95,
+                'min_performance_threshold': -0.1,
+                'disable_threshold': -0.2,
+                'reenable_threshold': 0.05
+            }
+            
+            adaptive_engine = AdaptiveStrategyEngine(adaptive_config)
+            
+            # Migrate existing strategies
+            for strategy in engine.strategies:
+                adaptive_wrapper = AdaptiveStrategyWrapper(strategy, enable_adaptive)
+                adaptive_engine.add_strategy(
+                    strategy.name,
+                    adaptive_wrapper,
+                    {
+                        'base_weight': engine.strategy_weights.get(strategy.name, 1.0),
+                        'min_allocation': 0.0,
+                        'max_allocation': 1.0
+                    }
+                )
+            
+            # Transfer performance data if available
+            if hasattr(engine, 'strategy_performance'):
+                for strategy_name, perf_data in engine.strategy_performance.items():
+                    self.migration_log.append({
+                        'timestamp': datetime.now(),
+                        'action': 'performance_transfer',
+                        'strategy': strategy_name,
+                        'data': perf_data
+                    })
+            
+            log_info(f"Successfully migrated {len(engine.strategies)} strategies to adaptive engine")
+            return adaptive_engine
+            
+        except Exception as e:
+            log_error(f"Error migrating strategy engine: {str(e)}")
+            return engine
+    
+    def create_backward_compatible_signal(self, adaptive_signal: 'AdaptiveSignal') -> TradingSignal:
+        """
+        Convert adaptive signal to backward-compatible TradingSignal.
+        
+        Args:
+            adaptive_signal: AdaptiveSignal to convert
+            
+        Returns:
+            TradingSignal instance
+        """
+        try:
+            # Map signal types
+            signal_type_map = {
+                'buy': SignalType.BUY,
+                'sell': SignalType.SELL,
+                'hold': SignalType.HOLD
+            }
+            
+            signal_type = signal_type_map.get(adaptive_signal.signal_type, SignalType.HOLD)
+            
+            # Create backward-compatible signal
+            return TradingSignal(
+                action=signal_type,
+                confidence=adaptive_signal.confidence,
+                strategy=adaptive_signal.adaptation_metadata.get('base_strategy', 'adaptive'),
+                timestamp=adaptive_signal.timestamp,
+                price=adaptive_signal.price,
+                reasoning=adaptive_signal.adaptation_metadata.get('reasoning', 'Adaptive signal')
+            )
+            
+        except Exception as e:
+            log_error(f"Error creating backward compatible signal: {str(e)}")
+            return TradingSignal(
+                action=SignalType.HOLD,
+                confidence=0.0,
+                strategy='error',
+                timestamp=datetime.now(),
+                price=0.0,
+                reasoning=f"Error converting signal: {str(e)}"
+            )
+    
+    def validate_migration(self, original_engine: 'EnhancedStrategyEngine', 
+                          adaptive_engine: 'AdaptiveStrategyEngine') -> Dict[str, Any]:
+        """
+        Validate that migration was successful.
+        
+        Args:
+            original_engine: Original EnhancedStrategyEngine
+            adaptive_engine: Migrated AdaptiveStrategyEngine
+            
+        Returns:
+            Validation results
+        """
+        validation_results = {
+            'success': True,
+            'issues': [],
+            'strategy_count_match': False,
+            'strategies_migrated': [],
+            'migration_log': self.migration_log.copy()
+        }
+        
+        try:
+            # Check strategy count
+            original_count = len(original_engine.strategies)
+            adaptive_count = len(adaptive_engine.strategies) if hasattr(adaptive_engine, 'strategies') else 0
+            
+            validation_results['strategy_count_match'] = (original_count == adaptive_count)
+            
+            if not validation_results['strategy_count_match']:
+                validation_results['issues'].append(
+                    f"Strategy count mismatch: original={original_count}, adaptive={adaptive_count}"
+                )
+            
+            # Check strategy names
+            original_names = {s.name for s in original_engine.strategies}
+            adaptive_names = set(adaptive_engine.strategies.keys()) if hasattr(adaptive_engine, 'strategies') else set()
+            
+            missing_strategies = original_names - adaptive_names
+            if missing_strategies:
+                validation_results['issues'].append(f"Missing strategies: {missing_strategies}")
+                validation_results['success'] = False
+            
+            validation_results['strategies_migrated'] = list(adaptive_names)
+            
+            log_info(f"Migration validation: {'SUCCESS' if validation_results['success'] else 'FAILED'}")
+            
+        except Exception as e:
+            validation_results['success'] = False
+            validation_results['issues'].append(f"Validation error: {str(e)}")
+            log_error(f"Error validating migration: {str(e)}")
+        
+        return validation_results
+    
+    def get_migration_status(self) -> Dict[str, Any]:
+        """Get current migration status and statistics."""
+        return {
+            'adaptive_available': ADAPTIVE_AVAILABLE,
+            'compatibility_mode': self.compatibility_mode,
+            'migration_events': len(self.migration_log),
+            'last_migration': (
+                self.migration_log[-1]['timestamp'] 
+                if self.migration_log else None
+            ),
+            'migration_log': self.migration_log[-5:]  # Last 5 events
+        }
+
+
+# Backward Compatibility Functions
+
+def get_enhanced_strategies() -> List[BaseStrategy]:
+    """
+    Get list of all available enhanced strategies for backward compatibility.
+    
+    Returns:
+        List of strategy instances
+    """
+    strategies = [
+        EnhancedMomentumStrategy(),
+        PriceActionStrategy(),
+        MultiTimeframeStrategy(),
+        BollingerBandsRSIStrategy(),
+        MACDStrategy(),
+        VolumeWeightedStrategy()
+    ]
+    
+    log_info(f"Created {len(strategies)} enhanced strategies")
+    return strategies
+
+
+def create_strategy_engine_with_adaptive_support(strategies: List[BaseStrategy] = None,
+                                               enable_adaptive: bool = True) -> 'EnhancedStrategyEngine':
+    """
+    Create strategy engine with optional adaptive support.
+    
+    Args:
+        strategies: List of strategies to include
+        enable_adaptive: Whether to enable adaptive features
+        
+    Returns:
+        EnhancedStrategyEngine instance (adaptive if available)
+    """
+    if strategies is None:
+        strategies = get_enhanced_strategies()
+    
+    # Create base engine
+    engine = EnhancedStrategyEngine(strategies)
+    
+    # Attempt to migrate to adaptive if requested and available
+    if enable_adaptive and ADAPTIVE_AVAILABLE:
+        try:
+            migrator = AdaptiveStrategyMigrator()
+            adaptive_engine = migrator.migrate_strategy_engine(engine, enable_adaptive)
+            
+            if adaptive_engine != engine:  # Migration successful
+                log_info("Successfully created adaptive strategy engine")
+                return adaptive_engine
+        except Exception as e:
+            log_warning(f"Failed to create adaptive engine, using enhanced engine: {str(e)}")
+    
+    log_info("Created enhanced strategy engine")
+    return engine

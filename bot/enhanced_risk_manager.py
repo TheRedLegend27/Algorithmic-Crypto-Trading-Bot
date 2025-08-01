@@ -20,6 +20,21 @@ from bot.crypto_position_manager import CryptoPositionManager
 from bot.kraken_client import KrakenClient
 from bot.enhanced_data_manager import EnhancedDataManager
 
+# Adaptive components imports
+try:
+    from bot.adaptive.data_models import AdaptiveSignal, MarketRegime, PerformanceMetrics
+    from bot.adaptive.enums import RegimeType
+    from bot.adaptive.interfaces import RiskManagerInterface
+    ADAPTIVE_AVAILABLE = True
+except ImportError:
+    # Fallback for when adaptive components are not available
+    ADAPTIVE_AVAILABLE = False
+    AdaptiveSignal = None
+    MarketRegime = None
+    PerformanceMetrics = None
+    RegimeType = None
+    RiskManagerInterface = object
+
 
 class RiskLevel(Enum):
     """Risk level classifications."""
@@ -121,12 +136,26 @@ class EnhancedRiskSettings:
         'portfolio_exposure': 0.15,
         'drawdown': 0.15
     })
+    
+    # Adaptive risk management settings
+    enable_adaptive_risk: bool = True
+    ml_confidence_threshold: float = 0.5  # Minimum ML confidence for adaptive signals
+    regime_risk_multipliers: Dict[str, float] = field(default_factory=lambda: {
+        'trending_bull': 1.2,  # Increase risk in bull trends
+        'trending_bear': 0.8,  # Reduce risk in bear trends
+        'ranging': 1.0,        # Normal risk in ranging markets
+        'high_volatility': 0.6, # Reduce risk in high volatility
+        'low_volatility': 1.1,  # Slightly increase risk in low volatility
+        'uncertain': 0.7       # Reduce risk when uncertain
+    })
+    adaptation_failure_penalty: float = 0.5  # Risk reduction factor after adaptation failures
 
 
-class EnhancedRiskManager:
+class EnhancedRiskManager(RiskManagerInterface if ADAPTIVE_AVAILABLE else object):
     """
     Advanced risk management system with dynamic position sizing, portfolio-level
-    exposure limits, correlation analysis, and emergency stop mechanisms.
+    exposure limits, correlation analysis, emergency stop mechanisms, and adaptive
+    signal integration.
     """
     
     def __init__(self,
@@ -174,7 +203,13 @@ class EnhancedRiskManager:
         self.drawdown_history: List[Tuple[datetime, float]] = []
         self.portfolio_value_history: List[Tuple[datetime, float]] = []
         
-        self.logger.info(f"EnhancedRiskManager initialized for {len(trading_pairs)} trading pairs")
+        # Adaptive risk management state
+        self.current_regime: Optional[MarketRegime] = None if not ADAPTIVE_AVAILABLE else None
+        self.adaptation_failures: int = 0
+        self.regime_risk_adjustments: Dict[str, float] = {}
+        
+        self.logger.info(f"EnhancedRiskManager initialized for {len(trading_pairs)} trading pairs"
+                        f" with adaptive features {'enabled' if ADAPTIVE_AVAILABLE else 'disabled'}")
     
     def validate_trade(self, pair: str, side: str, quantity: float, 
                       price: float, signal_confidence: float) -> RiskAssessment:
@@ -1056,3 +1091,512 @@ class EnhancedRiskManager:
         except Exception as e:
             self.logger.error(f"Error generating risk summary: {str(e)}")
             return {'error': str(e), 'timestamp': datetime.now()}
+    
+    # Adaptive Risk Management Methods
+    
+    def validate_adaptive_signal(self, signal: 'AdaptiveSignal', current_positions: Dict[str, Any]) -> bool:
+        """
+        Validate an adaptive signal against risk parameters.
+        
+        Args:
+            signal: Adaptive signal to validate
+            current_positions: Current portfolio positions
+            
+        Returns:
+            bool: True if signal passes validation
+        """
+        if not ADAPTIVE_AVAILABLE or not self.settings.enable_adaptive_risk:
+            # Fall back to basic validation
+            return self.base_risk_manager.validate_position_size(
+                signal.pair.split('/')[0], 
+                signal.suggested_position_size or 0.01,
+                signal.price
+            )[0]
+        
+        try:
+            # Check ML confidence threshold
+            if signal.ml_confidence < self.settings.ml_confidence_threshold:
+                self.logger.warning(
+                    f"Adaptive signal for {signal.pair} rejected: "
+                    f"ML confidence {signal.ml_confidence:.3f} below threshold {self.settings.ml_confidence_threshold}"
+                )
+                return False
+            
+            # Check signal confidence with regime adjustment
+            regime_adjusted_threshold = self._get_regime_adjusted_confidence_threshold(signal.regime_context)
+            if signal.confidence < regime_adjusted_threshold:
+                self.logger.warning(
+                    f"Adaptive signal for {signal.pair} rejected: "
+                    f"Signal confidence {signal.confidence:.3f} below regime-adjusted threshold {regime_adjusted_threshold:.3f}"
+                )
+                return False
+            
+            # Validate position size with adaptive adjustments
+            suggested_size = signal.suggested_position_size or self._calculate_adaptive_position_size(signal)
+            
+            # Check against portfolio risk limits
+            portfolio_risk = self._assess_adaptive_portfolio_risk(signal, current_positions, suggested_size)
+            if portfolio_risk['risk_level'] == RiskLevel.EXTREME:
+                self.logger.warning(
+                    f"Adaptive signal for {signal.pair} rejected: Extreme portfolio risk"
+                )
+                return False
+            
+            # Check correlation with adaptive weighting
+            correlation_impact = self._calculate_adaptive_correlation_impact(signal, current_positions)
+            if correlation_impact > self.settings.correlation_threshold * 1.2:  # 20% higher threshold for adaptive
+                self.logger.warning(
+                    f"Adaptive signal for {signal.pair} rejected: "
+                    f"High correlation impact {correlation_impact:.3f}"
+                )
+                return False
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error validating adaptive signal: {str(e)}")
+            return False
+    
+    def calculate_adaptive_position_size(self, signal: 'AdaptiveSignal', account_balance: float) -> float:
+        """
+        Calculate appropriate position size for adaptive signal.
+        
+        Args:
+            signal: Adaptive signal
+            account_balance: Available account balance
+            
+        Returns:
+            float: Calculated position size
+        """
+        if not ADAPTIVE_AVAILABLE or not self.settings.enable_adaptive_risk:
+            return self.calculate_position_size(
+                signal.pair, signal.confidence, signal.price, account_balance
+            ).final_size
+        
+        try:
+            # Start with base calculation
+            base_calc = self.calculate_position_size(
+                signal.pair, signal.confidence, signal.price, account_balance
+            )
+            
+            # Apply regime-based adjustments
+            regime_multiplier = self._get_regime_risk_multiplier(signal.regime_context)
+            regime_adjusted_size = base_calc.final_size * regime_multiplier
+            
+            # Apply ML confidence scaling
+            ml_confidence_multiplier = 0.5 + (signal.ml_confidence * 0.5)  # Scale from 0.5 to 1.0
+            ml_adjusted_size = regime_adjusted_size * ml_confidence_multiplier
+            
+            # Apply strategy weight adjustments
+            strategy_weight_multiplier = self._calculate_strategy_weight_multiplier(signal)
+            final_size = ml_adjusted_size * strategy_weight_multiplier
+            
+            # Apply adaptation failure penalty if applicable
+            if self.adaptation_failures > 0:
+                penalty_factor = self.settings.adaptation_failure_penalty ** min(self.adaptation_failures, 3)
+                final_size *= penalty_factor
+            
+            # Ensure within bounds
+            min_size = base_calc.final_size * 0.1  # At least 10% of base size
+            max_size = base_calc.final_size * 2.0   # At most 200% of base size
+            final_size = max(min_size, min(final_size, max_size))
+            
+            self.logger.info(
+                f"Adaptive position size for {signal.pair}: "
+                f"base={base_calc.final_size:.6f}, "
+                f"regime_mult={regime_multiplier:.3f}, "
+                f"ml_mult={ml_confidence_multiplier:.3f}, "
+                f"strategy_mult={strategy_weight_multiplier:.3f}, "
+                f"final={final_size:.6f}"
+            )
+            
+            return final_size
+            
+        except Exception as e:
+            self.logger.error(f"Error calculating adaptive position size: {str(e)}")
+            # Fall back to base calculation
+            return self.calculate_position_size(
+                signal.pair, signal.confidence, signal.price, account_balance
+            ).final_size
+    
+    def update_risk_parameters(self, regime: 'MarketRegime', performance_metrics: 'PerformanceMetrics') -> None:
+        """
+        Update risk parameters based on market regime and performance.
+        
+        Args:
+            regime: Current market regime
+            performance_metrics: Recent performance metrics
+        """
+        if not ADAPTIVE_AVAILABLE or not self.settings.enable_adaptive_risk:
+            return
+        
+        try:
+            self.current_regime = regime
+            
+            # Update regime-specific risk adjustments
+            regime_key = regime.regime_type.value if hasattr(regime.regime_type, 'value') else str(regime.regime_type)
+            
+            # Adjust risk parameters based on regime confidence
+            confidence_factor = regime.confidence
+            base_multiplier = self.settings.regime_risk_multipliers.get(regime_key, 1.0)
+            
+            # Adjust multiplier based on regime confidence
+            adjusted_multiplier = base_multiplier * confidence_factor + (1.0 - confidence_factor)
+            self.regime_risk_adjustments[regime_key] = adjusted_multiplier
+            
+            # Adjust based on recent performance
+            if performance_metrics.sharpe_ratio < 0:
+                # Poor performance - reduce risk
+                performance_penalty = max(0.5, 1.0 + performance_metrics.sharpe_ratio * 0.2)
+                adjusted_multiplier *= performance_penalty
+            elif performance_metrics.sharpe_ratio > 1.0:
+                # Good performance - slightly increase risk
+                performance_bonus = min(1.2, 1.0 + (performance_metrics.sharpe_ratio - 1.0) * 0.1)
+                adjusted_multiplier *= performance_bonus
+            
+            # Update base risk per trade
+            original_base_risk = self.settings.base_risk_per_trade
+            self.settings.base_risk_per_trade = original_base_risk * adjusted_multiplier
+            
+            # Ensure within bounds
+            self.settings.base_risk_per_trade = max(
+                self.settings.min_risk_per_trade,
+                min(self.settings.base_risk_per_trade, self.settings.max_risk_per_trade)
+            )
+            
+            self.logger.info(
+                f"Updated risk parameters for regime {regime_key}: "
+                f"multiplier={adjusted_multiplier:.3f}, "
+                f"base_risk={self.settings.base_risk_per_trade:.4f}"
+            )
+            
+        except Exception as e:
+            self.logger.error(f"Error updating risk parameters: {str(e)}")
+    
+    def check_portfolio_risk_adaptive(self, proposed_signal: 'AdaptiveSignal', 
+                                    current_portfolio: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Check portfolio-level risk for a proposed adaptive trade.
+        
+        Args:
+            proposed_signal: Proposed adaptive signal
+            current_portfolio: Current portfolio state
+            
+        Returns:
+            Dict: Risk assessment results
+        """
+        if not ADAPTIVE_AVAILABLE:
+            return {'risk_level': 'unknown', 'adaptive_features': False}
+        
+        try:
+            # Get base portfolio risk
+            base_risk = self.check_portfolio_risk()
+            
+            # Calculate proposed position impact
+            proposed_size = proposed_signal.suggested_position_size or self._calculate_adaptive_position_size(proposed_signal)
+            position_value = proposed_size * proposed_signal.price
+            
+            # Assess regime-specific risks
+            regime_risks = self._assess_regime_specific_risks(proposed_signal.regime_context, position_value)
+            
+            # Calculate ML model risk contribution
+            ml_risk_factor = 1.0 - proposed_signal.ml_confidence  # Higher ML confidence = lower risk
+            
+            # Assess strategy diversification impact
+            strategy_concentration = self._calculate_strategy_concentration_risk(proposed_signal)
+            
+            return {
+                'base_portfolio_risk': base_risk,
+                'regime_risks': regime_risks,
+                'ml_risk_factor': ml_risk_factor,
+                'strategy_concentration': strategy_concentration,
+                'position_value': position_value,
+                'overall_risk_level': self._determine_overall_adaptive_risk_level(
+                    base_risk, regime_risks, ml_risk_factor, strategy_concentration
+                ),
+                'adaptive_features': True,
+                'recommendations': self._generate_risk_recommendations(
+                    proposed_signal, base_risk, regime_risks
+                )
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error checking adaptive portfolio risk: {str(e)}")
+            return {'error': str(e), 'adaptive_features': True}
+    
+    def get_emergency_stop_conditions_adaptive(self) -> Dict[str, Any]:
+        """
+        Get conditions that would trigger emergency stops with adaptive considerations.
+        
+        Returns:
+            Dict: Emergency stop conditions and thresholds
+        """
+        base_conditions = {
+            'max_drawdown': self.settings.max_portfolio_drawdown,
+            'volatility_spike': self.settings.volatility_spike_threshold,
+            'correlation_spike': self.settings.correlation_spike_threshold,
+            'consecutive_losses': self.settings.consecutive_loss_limit
+        }
+        
+        if not ADAPTIVE_AVAILABLE or not self.current_regime:
+            return base_conditions
+        
+        try:
+            # Adjust thresholds based on current regime
+            regime_key = (self.current_regime.regime_type.value 
+                         if hasattr(self.current_regime.regime_type, 'value') 
+                         else str(self.current_regime.regime_type))
+            
+            adaptive_conditions = base_conditions.copy()
+            
+            # Tighten emergency stops in uncertain or high volatility regimes
+            if regime_key in ['uncertain', 'high_volatility']:
+                adaptive_conditions['max_drawdown'] *= 0.8  # 20% tighter
+                adaptive_conditions['consecutive_losses'] = max(3, int(base_conditions['consecutive_losses'] * 0.6))
+            
+            # Relax slightly in stable trending markets
+            elif regime_key in ['trending_bull', 'trending_bear'] and self.current_regime.confidence > 0.8:
+                adaptive_conditions['max_drawdown'] *= 1.1  # 10% more lenient
+                adaptive_conditions['consecutive_losses'] = min(8, int(base_conditions['consecutive_losses'] * 1.2))
+            
+            # Add adaptive-specific conditions
+            adaptive_conditions.update({
+                'ml_confidence_degradation': 0.3,  # Stop if ML confidence drops below 30%
+                'adaptation_failure_limit': 3,     # Stop after 3 consecutive adaptation failures
+                'regime_confidence_collapse': 0.2  # Stop if regime confidence drops below 20%
+            })
+            
+            return adaptive_conditions
+            
+        except Exception as e:
+            self.logger.error(f"Error getting adaptive emergency stop conditions: {str(e)}")
+            return base_conditions
+    
+    def record_adaptation_failure(self) -> None:
+        """Record an adaptation failure for risk adjustment."""
+        self.adaptation_failures += 1
+        self.logger.warning(f"Adaptation failure recorded. Total failures: {self.adaptation_failures}")
+        
+        # Trigger emergency stop if too many failures
+        if self.adaptation_failures >= 3:
+            self.emergency_stops[EmergencyStopReason.SYSTEM_ERROR] = True
+            self.logger.error("Emergency stop triggered due to repeated adaptation failures")
+    
+    def reset_adaptation_failures(self) -> None:
+        """Reset adaptation failure counter after successful period."""
+        if self.adaptation_failures > 0:
+            self.logger.info(f"Resetting {self.adaptation_failures} adaptation failures")
+            self.adaptation_failures = 0
+    
+    # Helper methods for adaptive risk management
+    
+    def _get_regime_adjusted_confidence_threshold(self, regime: 'MarketRegime') -> float:
+        """Get confidence threshold adjusted for market regime."""
+        base_threshold = self.settings.confidence_threshold
+        
+        if not regime:
+            return base_threshold
+        
+        # Adjust threshold based on regime uncertainty
+        regime_confidence_factor = regime.confidence
+        adjusted_threshold = base_threshold * (2.0 - regime_confidence_factor)  # Higher threshold when regime uncertain
+        
+        return min(0.9, max(0.3, adjusted_threshold))  # Clamp between 30% and 90%
+    
+    def _get_regime_risk_multiplier(self, regime: 'MarketRegime') -> float:
+        """Get risk multiplier based on market regime."""
+        if not regime:
+            return 1.0
+        
+        regime_key = (regime.regime_type.value 
+                     if hasattr(regime.regime_type, 'value') 
+                     else str(regime.regime_type))
+        
+        base_multiplier = self.settings.regime_risk_multipliers.get(regime_key, 1.0)
+        
+        # Adjust based on regime confidence
+        confidence_adjustment = 0.5 + (regime.confidence * 0.5)  # Scale from 0.5 to 1.0
+        
+        return base_multiplier * confidence_adjustment
+    
+    def _calculate_adaptive_position_size(self, signal: 'AdaptiveSignal') -> float:
+        """Calculate position size for adaptive signal."""
+        if signal.suggested_position_size:
+            return signal.suggested_position_size
+        
+        # Use portfolio percentage approach
+        portfolio_value = self._get_portfolio_value()
+        if portfolio_value <= 0:
+            return 0.0
+        
+        risk_amount = portfolio_value * self.settings.base_risk_per_trade
+        return risk_amount / signal.price
+    
+    def _calculate_strategy_weight_multiplier(self, signal: 'AdaptiveSignal') -> float:
+        """Calculate position size multiplier based on strategy weights."""
+        if not signal.strategy_weights:
+            return 1.0
+        
+        # Use weighted average of strategy weights
+        total_weight = sum(signal.strategy_weights.values())
+        if total_weight == 0:
+            return 1.0
+        
+        # Normalize and use as multiplier (0.5 to 1.5 range)
+        normalized_weight = total_weight / len(signal.strategy_weights)
+        return 0.5 + normalized_weight
+    
+    def _assess_adaptive_portfolio_risk(self, signal: 'AdaptiveSignal', 
+                                      current_positions: Dict[str, Any], 
+                                      position_size: float) -> Dict[str, Any]:
+        """Assess portfolio risk for adaptive signal."""
+        # Get base portfolio risk
+        base_risk = self.check_portfolio_risk()
+        
+        # Add adaptive-specific risk factors
+        position_value = position_size * signal.price
+        portfolio_value = self._get_portfolio_value()
+        
+        if portfolio_value > 0:
+            position_impact = position_value / portfolio_value
+        else:
+            position_impact = 1.0
+        
+        # Determine risk level
+        if position_impact > 0.3 or base_risk.risk_level == RiskLevel.EXTREME:
+            risk_level = RiskLevel.EXTREME
+        elif position_impact > 0.2 or base_risk.risk_level == RiskLevel.HIGH:
+            risk_level = RiskLevel.HIGH
+        elif position_impact > 0.1 or base_risk.risk_level == RiskLevel.MEDIUM:
+            risk_level = RiskLevel.MEDIUM
+        else:
+            risk_level = RiskLevel.LOW
+        
+        return {
+            'risk_level': risk_level,
+            'position_impact': position_impact,
+            'base_risk': base_risk
+        }
+    
+    def _calculate_adaptive_correlation_impact(self, signal: 'AdaptiveSignal', 
+                                             current_positions: Dict[str, Any]) -> float:
+        """Calculate correlation impact with adaptive considerations."""
+        base_correlation = self._calculate_correlation_impact(
+            signal.pair, 
+            signal.suggested_position_size or self._calculate_adaptive_position_size(signal),
+            signal.price
+        )
+        
+        # Adjust based on regime - correlations may be higher in certain regimes
+        if signal.regime_context:
+            regime_key = (signal.regime_context.regime_type.value 
+                         if hasattr(signal.regime_context.regime_type, 'value') 
+                         else str(signal.regime_context.regime_type))
+            
+            if regime_key in ['high_volatility', 'uncertain']:
+                # Correlations tend to increase during stress
+                base_correlation *= 1.2
+        
+        return base_correlation
+    
+    def _assess_regime_specific_risks(self, regime: 'MarketRegime', position_value: float) -> Dict[str, float]:
+        """Assess risks specific to the current market regime."""
+        if not regime:
+            return {}
+        
+        risks = {}
+        
+        # Volatility risk
+        if regime.volatility_level > 2.0:  # High volatility
+            risks['volatility_risk'] = min(1.0, regime.volatility_level / 3.0)
+        
+        # Trend reversal risk
+        if abs(regime.trend_strength) > 0.8 and regime.confidence < 0.6:
+            risks['trend_reversal_risk'] = (abs(regime.trend_strength) * (1.0 - regime.confidence))
+        
+        # Momentum divergence risk
+        if abs(regime.momentum - regime.trend_strength) > 0.5:
+            risks['momentum_divergence_risk'] = abs(regime.momentum - regime.trend_strength)
+        
+        return risks
+    
+    def _calculate_strategy_concentration_risk(self, signal: 'AdaptiveSignal') -> float:
+        """Calculate risk from strategy concentration."""
+        if not signal.strategy_weights:
+            return 0.0
+        
+        # Calculate Herfindahl index for strategy concentration
+        total_weight = sum(signal.strategy_weights.values())
+        if total_weight == 0:
+            return 0.0
+        
+        normalized_weights = [w / total_weight for w in signal.strategy_weights.values()]
+        herfindahl_index = sum(w ** 2 for w in normalized_weights)
+        
+        return herfindahl_index  # Higher values indicate more concentration
+    
+    def _determine_overall_adaptive_risk_level(self, base_risk: PortfolioRisk, 
+                                             regime_risks: Dict[str, float],
+                                             ml_risk_factor: float,
+                                             strategy_concentration: float) -> str:
+        """Determine overall risk level for adaptive trading."""
+        # Start with base risk level
+        risk_score = 0.0
+        
+        if base_risk.risk_level == RiskLevel.LOW:
+            risk_score = 0.25
+        elif base_risk.risk_level == RiskLevel.MEDIUM:
+            risk_score = 0.5
+        elif base_risk.risk_level == RiskLevel.HIGH:
+            risk_score = 0.75
+        else:  # EXTREME
+            risk_score = 1.0
+        
+        # Add regime-specific risks
+        regime_risk_contribution = sum(regime_risks.values()) * 0.2  # 20% weight
+        risk_score += regime_risk_contribution
+        
+        # Add ML uncertainty risk
+        ml_risk_contribution = ml_risk_factor * 0.15  # 15% weight
+        risk_score += ml_risk_contribution
+        
+        # Add strategy concentration risk
+        concentration_risk_contribution = strategy_concentration * 0.1  # 10% weight
+        risk_score += concentration_risk_contribution
+        
+        # Determine final risk level
+        if risk_score >= 0.8:
+            return 'extreme'
+        elif risk_score >= 0.6:
+            return 'high'
+        elif risk_score >= 0.4:
+            return 'medium'
+        else:
+            return 'low'
+    
+    def _generate_risk_recommendations(self, signal: 'AdaptiveSignal', 
+                                     base_risk: PortfolioRisk,
+                                     regime_risks: Dict[str, float]) -> List[str]:
+        """Generate risk management recommendations."""
+        recommendations = []
+        
+        # Base risk recommendations
+        if base_risk.risk_level in [RiskLevel.HIGH, RiskLevel.EXTREME]:
+            recommendations.append("Consider reducing overall portfolio exposure")
+        
+        # Regime-specific recommendations
+        if 'volatility_risk' in regime_risks and regime_risks['volatility_risk'] > 0.5:
+            recommendations.append("High volatility detected - consider tighter stop losses")
+        
+        if 'trend_reversal_risk' in regime_risks and regime_risks['trend_reversal_risk'] > 0.4:
+            recommendations.append("Trend reversal risk - consider taking profits on existing positions")
+        
+        # ML confidence recommendations
+        if signal.ml_confidence < 0.7:
+            recommendations.append("Low ML confidence - consider reducing position size")
+        
+        # Strategy diversification recommendations
+        if len(signal.strategy_weights) < 2:
+            recommendations.append("Single strategy signal - consider waiting for ensemble confirmation")
+        
+        return recommendations

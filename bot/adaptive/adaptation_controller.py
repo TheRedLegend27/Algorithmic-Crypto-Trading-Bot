@@ -103,6 +103,19 @@ class AdaptationController(AdaptationControllerInterface):
         self.staged_adaptations: Dict[str, AdaptationEvent] = {}
         self.rollback_history: List[Dict[str, Any]] = []
         
+        # Enhanced validation system
+        self.validation_queue: List[AdaptationEvent] = []
+        self.validation_in_progress: Dict[str, Dict[str, Any]] = {}
+        
+        # A/B testing configuration
+        self.ab_test_config = {
+            'default_test_duration': timedelta(hours=12),
+            'min_sample_size': 50,
+            'significance_threshold': 0.05,
+            'control_group_ratio': 0.5,
+            'max_concurrent_tests': 3
+        }
+        
         self.logger.info("AdaptationController initialized with limits: %s", self.limits)
     
     def should_adapt(self, performance_metrics: PerformanceMetrics, strategy_name: str) -> bool:
@@ -971,3 +984,1321 @@ class AdaptationController(AdaptationControllerInterface):
         # This is a placeholder implementation
         # In practice, you'd compare performance before and after the adaptation
         return np.random.normal(0.02, 0.05)  # Simulate small positive impact with noise
+    
+    # Enhanced validation and A/B testing methods
+    
+    def validate_adaptation_impact(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """
+        Validate adaptation impact before full deployment.
+        
+        This method implements comprehensive pre-deployment validation including:
+        - Risk assessment of proposed changes
+        - Performance simulation
+        - Resource impact analysis
+        - Conflict detection with existing adaptations
+        
+        Args:
+            adaptation_event: The adaptation event to validate
+            
+        Returns:
+            Dict containing validation results and recommendations
+        """
+        try:
+            validation_id = f"validation_{adaptation_event.event_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            
+            validation_result = {
+                'validation_id': validation_id,
+                'adaptation_id': adaptation_event.event_id,
+                'timestamp': datetime.now(),
+                'status': 'in_progress',
+                'checks': {},
+                'overall_score': 0.0,
+                'recommendation': 'pending',
+                'risk_level': 'unknown',
+                'estimated_impact': 0.0
+            }
+            
+            # 1. Risk Assessment
+            risk_assessment = self._assess_adaptation_risk(adaptation_event)
+            validation_result['checks']['risk_assessment'] = risk_assessment
+            
+            # 2. Performance Simulation
+            performance_simulation = self._simulate_adaptation_performance(adaptation_event)
+            validation_result['checks']['performance_simulation'] = performance_simulation
+            
+            # 3. Resource Impact Analysis
+            resource_impact = self._analyze_resource_impact(adaptation_event)
+            validation_result['checks']['resource_impact'] = resource_impact
+            
+            # 4. Conflict Detection
+            conflict_check = self._check_adaptation_conflicts(adaptation_event)
+            validation_result['checks']['conflict_detection'] = conflict_check
+            
+            # 5. Market Condition Suitability
+            market_suitability = self._assess_market_condition_suitability(adaptation_event)
+            validation_result['checks']['market_suitability'] = market_suitability
+            
+            # 6. Historical Pattern Analysis
+            historical_analysis = self._analyze_historical_patterns(adaptation_event)
+            validation_result['checks']['historical_analysis'] = historical_analysis
+            
+            # Calculate overall validation score
+            validation_result['overall_score'] = self._calculate_validation_score(validation_result['checks'])
+            validation_result['risk_level'] = self._determine_risk_level(validation_result['overall_score'])
+            validation_result['estimated_impact'] = performance_simulation.get('estimated_impact', 0.0)
+            
+            # Make recommendation
+            validation_result['recommendation'] = self._make_validation_recommendation(validation_result)
+            validation_result['status'] = 'completed'
+            
+            # Store validation result
+            self.validation_results[validation_id] = validation_result
+            
+            self.logger.info("Adaptation validation completed for %s: score=%.3f, recommendation=%s",
+                           adaptation_event.event_id, validation_result['overall_score'], 
+                           validation_result['recommendation'])
+            
+            return validation_result
+            
+        except Exception as e:
+            self.logger.error("Error validating adaptation impact for %s: %s", 
+                            adaptation_event.event_id, str(e))
+            return {
+                'validation_id': f"error_{adaptation_event.event_id}",
+                'status': 'error',
+                'error': str(e),
+                'recommendation': 'reject'
+            }
+    
+    def create_ab_test(self, adaptation_event: AdaptationEvent, test_config: Optional[Dict[str, Any]] = None) -> str:
+        """
+        Create an A/B test for gradual adaptation rollout.
+        
+        Args:
+            adaptation_event: The adaptation to test
+            test_config: Optional configuration for the test
+            
+        Returns:
+            str: A/B test ID
+        """
+        try:
+            # Check if we can create a new A/B test
+            if len(self.ab_tests) >= self.ab_test_config['max_concurrent_tests']:
+                raise ValueError(f"Maximum concurrent A/B tests ({self.ab_test_config['max_concurrent_tests']}) reached")
+            
+            test_id = f"ab_test_{adaptation_event.event_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            
+            # Merge default config with provided config
+            config = self.ab_test_config.copy()
+            if test_config:
+                config.update(test_config)
+            
+            ab_test = {
+                'test_id': test_id,
+                'adaptation_id': adaptation_event.event_id,
+                'adaptation_event': adaptation_event,
+                'status': 'created',
+                'created_at': datetime.now(),
+                'started_at': None,
+                'ended_at': None,
+                
+                # Test configuration
+                'duration': config['default_test_duration'],
+                'control_group_ratio': config['control_group_ratio'],
+                'min_sample_size': config['min_sample_size'],
+                'significance_threshold': config['significance_threshold'],
+                
+                # Test groups
+                'control_group': {
+                    'size': 0,
+                    'performance_metrics': [],
+                    'trades': []
+                },
+                'treatment_group': {
+                    'size': 0,
+                    'performance_metrics': [],
+                    'trades': []
+                },
+                
+                # Results
+                'results': {
+                    'statistical_significance': None,
+                    'effect_size': None,
+                    'confidence_interval': None,
+                    'p_value': None,
+                    'winner': None,
+                    'recommendation': None
+                },
+                
+                # Monitoring
+                'interim_analyses': [],
+                'early_stopping_triggered': False,
+                'safety_checks': []
+            }
+            
+            self.ab_tests[test_id] = ab_test
+            
+            self.logger.info("Created A/B test %s for adaptation %s", test_id, adaptation_event.event_id)
+            return test_id
+            
+        except Exception as e:
+            self.logger.error("Error creating A/B test for adaptation %s: %s", 
+                            adaptation_event.event_id, str(e))
+            raise
+    
+    def start_ab_test(self, test_id: str) -> bool:
+        """
+        Start an A/B test.
+        
+        Args:
+            test_id: ID of the test to start
+            
+        Returns:
+            bool: True if test started successfully
+        """
+        try:
+            if test_id not in self.ab_tests:
+                self.logger.error("A/B test %s not found", test_id)
+                return False
+            
+            ab_test = self.ab_tests[test_id]
+            
+            if ab_test['status'] != 'created':
+                self.logger.error("A/B test %s cannot be started (status: %s)", test_id, ab_test['status'])
+                return False
+            
+            # Start the test
+            ab_test['status'] = 'running'
+            ab_test['started_at'] = datetime.now()
+            
+            # Initialize control and treatment groups
+            self._initialize_ab_test_groups(ab_test)
+            
+            self.logger.info("Started A/B test %s", test_id)
+            return True
+            
+        except Exception as e:
+            self.logger.error("Error starting A/B test %s: %s", test_id, str(e))
+            return False
+    
+    def update_ab_test(self, test_id: str, trade_data: Dict[str, Any]) -> None:
+        """
+        Update A/B test with new trade data.
+        
+        Args:
+            test_id: ID of the test to update
+            trade_data: Trade data to add to the test
+        """
+        try:
+            if test_id not in self.ab_tests:
+                return
+            
+            ab_test = self.ab_tests[test_id]
+            
+            if ab_test['status'] != 'running':
+                return
+            
+            # Determine which group this trade belongs to
+            group = self._assign_trade_to_group(ab_test, trade_data)
+            
+            if group:
+                ab_test[f'{group}_group']['trades'].append(trade_data)
+                ab_test[f'{group}_group']['size'] += 1
+                
+                # Update performance metrics
+                self._update_group_performance(ab_test, group)
+                
+                # Check for interim analysis
+                if self._should_perform_interim_analysis(ab_test):
+                    self._perform_interim_analysis(ab_test)
+                
+                # Check for early stopping
+                if self._should_stop_test_early(ab_test):
+                    self._stop_ab_test_early(ab_test)
+            
+        except Exception as e:
+            self.logger.error("Error updating A/B test %s: %s", test_id, str(e))
+    
+    def analyze_ab_test(self, test_id: str) -> Dict[str, Any]:
+        """
+        Analyze A/B test results.
+        
+        Args:
+            test_id: ID of the test to analyze
+            
+        Returns:
+            Dict containing analysis results
+        """
+        try:
+            if test_id not in self.ab_tests:
+                raise ValueError(f"A/B test {test_id} not found")
+            
+            ab_test = self.ab_tests[test_id]
+            
+            # Perform statistical analysis
+            analysis_result = self._perform_statistical_analysis(ab_test)
+            
+            # Update test results
+            ab_test['results'].update(analysis_result)
+            
+            # Make recommendation
+            recommendation = self._make_ab_test_recommendation(ab_test)
+            ab_test['results']['recommendation'] = recommendation
+            
+            self.logger.info("A/B test analysis completed for %s: winner=%s, p_value=%.4f",
+                           test_id, analysis_result.get('winner', 'none'), 
+                           analysis_result.get('p_value', 1.0))
+            
+            return ab_test['results']
+            
+        except Exception as e:
+            self.logger.error("Error analyzing A/B test %s: %s", test_id, str(e))
+            return {'error': str(e)}
+    
+    def rollback_failed_adaptation(self, adaptation_id: str, reason: str = "Performance degradation") -> bool:
+        """
+        Automatically rollback a failed adaptation.
+        
+        Args:
+            adaptation_id: ID of the adaptation to rollback
+            reason: Reason for the rollback
+            
+        Returns:
+            bool: True if rollback was successful
+        """
+        try:
+            # Find the adaptation event
+            adaptation_event = None
+            for event in self.adaptation_history:
+                if event.event_id == adaptation_id:
+                    adaptation_event = event
+                    break
+            
+            if not adaptation_event:
+                self.logger.error("Adaptation %s not found for rollback", adaptation_id)
+                return False
+            
+            if not adaptation_event.rollback_available:
+                self.logger.error("Adaptation %s is not available for rollback", adaptation_id)
+                return False
+            
+            # Create rollback record
+            rollback_record = {
+                'rollback_id': str(uuid.uuid4()),
+                'adaptation_id': adaptation_id,
+                'reason': reason,
+                'timestamp': datetime.now(),
+                'rollback_data': adaptation_event.rollback_data,
+                'success': False,
+                'impact_before_rollback': adaptation_event.actual_impact,
+                'impact_after_rollback': None
+            }
+            
+            # Perform the rollback
+            rollback_success = self._execute_rollback(adaptation_event, rollback_record)
+            
+            if rollback_success:
+                # Update adaptation event
+                adaptation_event.success = False
+                adaptation_event.rollback_available = False
+                
+                # Remove from pending adaptations
+                if adaptation_id in self.pending_adaptations:
+                    del self.pending_adaptations[adaptation_id]
+                
+                # Record rollback
+                rollback_record['success'] = True
+                self.rollback_history.append(rollback_record)
+                
+                # Create rollback adaptation event
+                rollback_event = AdaptationEvent(
+                    event_id=rollback_record['rollback_id'],
+                    event_type=AdaptationType.EMERGENCY_ADAPTATION,
+                    trigger_reason=f"Automatic rollback: {reason}",
+                    changes_made=rollback_record['rollback_data'] or {},
+                    expected_impact=0.0,
+                    rollback_available=False,
+                    rollback_data=None
+                )
+                
+                self.adaptation_history.append(rollback_event)
+                
+                self.logger.info("Successfully rolled back adaptation %s: %s", adaptation_id, reason)
+                return True
+            else:
+                rollback_record['success'] = False
+                self.rollback_history.append(rollback_record)
+                self.logger.error("Failed to rollback adaptation %s", adaptation_id)
+                return False
+                
+        except Exception as e:
+            self.logger.error("Error rolling back adaptation %s: %s", adaptation_id, str(e))
+            return False
+    
+    def get_adaptation_history_analysis(self, days_back: int = 30) -> Dict[str, Any]:
+        """
+        Analyze adaptation history for patterns and insights.
+        
+        Args:
+            days_back: Number of days to analyze
+            
+        Returns:
+            Dict containing historical analysis
+        """
+        try:
+            cutoff_time = datetime.now() - timedelta(days=days_back)
+            
+            # Filter relevant adaptations
+            relevant_adaptations = [
+                event for event in self.adaptation_history
+                if event.timestamp >= cutoff_time
+            ]
+            
+            if not relevant_adaptations:
+                return {
+                    'period_days': days_back,
+                    'total_adaptations': 0,
+                    'analysis': 'No adaptations in the specified period'
+                }
+            
+            analysis = {
+                'period_days': days_back,
+                'total_adaptations': len(relevant_adaptations),
+                'successful_adaptations': 0,
+                'failed_adaptations': 0,
+                'pending_adaptations': 0,
+                'rollbacks': len([r for r in self.rollback_history if r['timestamp'] >= cutoff_time]),
+                
+                # Performance metrics
+                'average_impact': 0.0,
+                'total_impact': 0.0,
+                'best_adaptation': None,
+                'worst_adaptation': None,
+                
+                # Patterns
+                'adaptation_types': {},
+                'trigger_reasons': {},
+                'success_rate_by_type': {},
+                'temporal_patterns': {},
+                
+                # Insights
+                'insights': [],
+                'recommendations': []
+            }
+            
+            # Analyze adaptations
+            impacts = []
+            for event in relevant_adaptations:
+                # Count by status
+                if event.success is True:
+                    analysis['successful_adaptations'] += 1
+                elif event.success is False:
+                    analysis['failed_adaptations'] += 1
+                else:
+                    analysis['pending_adaptations'] += 1
+                
+                # Track impacts
+                if event.actual_impact is not None:
+                    impacts.append(event.actual_impact)
+                    analysis['total_impact'] += event.actual_impact
+                
+                # Count by type
+                event_type = event.event_type.value if hasattr(event.event_type, 'value') else str(event.event_type)
+                analysis['adaptation_types'][event_type] = analysis['adaptation_types'].get(event_type, 0) + 1
+                
+                # Count by trigger reason
+                trigger = event.trigger_reason[:50]  # Truncate for grouping
+                analysis['trigger_reasons'][trigger] = analysis['trigger_reasons'].get(trigger, 0) + 1
+            
+            # Calculate averages
+            if impacts:
+                analysis['average_impact'] = sum(impacts) / len(impacts)
+                analysis['best_adaptation'] = max(impacts)
+                analysis['worst_adaptation'] = min(impacts)
+            
+            # Calculate success rates by type
+            for adaptation_type in analysis['adaptation_types']:
+                type_events = [e for e in relevant_adaptations 
+                             if (e.event_type.value if hasattr(e.event_type, 'value') else str(e.event_type)) == adaptation_type]
+                successful = sum(1 for e in type_events if e.success is True)
+                total = len(type_events)
+                analysis['success_rate_by_type'][adaptation_type] = successful / total if total > 0 else 0.0
+            
+            # Temporal patterns
+            analysis['temporal_patterns'] = self._analyze_temporal_patterns(relevant_adaptations)
+            
+            # Generate insights
+            analysis['insights'] = self._generate_adaptation_insights(analysis, relevant_adaptations)
+            analysis['recommendations'] = self._generate_adaptation_recommendations(analysis)
+            
+            return analysis
+            
+        except Exception as e:
+            self.logger.error("Error analyzing adaptation history: %s", str(e))
+            return {'error': str(e)}
+    
+    def get_rollback_history(self, days_back: int = 30) -> List[Dict[str, Any]]:
+        """
+        Get rollback history for analysis.
+        
+        Args:
+            days_back: Number of days to look back
+            
+        Returns:
+            List of rollback records
+        """
+        cutoff_time = datetime.now() - timedelta(days=days_back)
+        return [
+            rollback for rollback in self.rollback_history
+            if rollback['timestamp'] >= cutoff_time
+        ]    
+
+    # Private helper methods for validation and A/B testing
+    
+    def _assess_adaptation_risk(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Assess the risk level of an adaptation."""
+        try:
+            risk_factors = []
+            risk_score = 0.0
+            
+            # Change magnitude risk
+            change_magnitude = self._calculate_change_magnitude(adaptation_event.changes_made)
+            if change_magnitude > 0.2:  # 20% change
+                risk_factors.append("large_change_magnitude")
+                risk_score += 0.3
+            elif change_magnitude > 0.1:  # 10% change
+                risk_factors.append("moderate_change_magnitude")
+                risk_score += 0.1
+            
+            # Strategy impact risk
+            if len(adaptation_event.affected_strategies) > 3:
+                risk_factors.append("multiple_strategies_affected")
+                risk_score += 0.2
+            
+            # Market condition risk
+            if adaptation_event.market_conditions:
+                volatility = adaptation_event.market_conditions.get('volatility', 0.0)
+                if volatility > 0.3:  # High volatility
+                    risk_factors.append("high_market_volatility")
+                    risk_score += 0.2
+            
+            # Historical failure risk
+            recent_failures = self._get_recent_adaptation_failures()
+            if recent_failures > 2:
+                risk_factors.append("recent_adaptation_failures")
+                risk_score += 0.3
+            
+            # Emergency adaptation risk
+            if adaptation_event.event_type == AdaptationType.EMERGENCY_ADAPTATION:
+                risk_factors.append("emergency_adaptation")
+                risk_score += 0.4
+            
+            return {
+                'risk_score': min(risk_score, 1.0),
+                'risk_factors': risk_factors,
+                'risk_level': 'high' if risk_score > 0.7 else 'medium' if risk_score > 0.3 else 'low',
+                'passed': risk_score <= 0.8
+            }
+            
+        except Exception as e:
+            self.logger.error("Error assessing adaptation risk: %s", str(e))
+            return {'risk_score': 1.0, 'risk_factors': ['assessment_error'], 'risk_level': 'high', 'passed': False}
+    
+    def _simulate_adaptation_performance(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Simulate the expected performance impact of an adaptation."""
+        try:
+            # This is a simplified simulation - in practice, you'd use historical data
+            # and more sophisticated modeling
+            
+            base_impact = adaptation_event.expected_impact
+            
+            # Adjust based on confidence and risk factors
+            confidence_adjustment = 0.0
+            if 'confidence' in adaptation_event.changes_made:
+                confidence = adaptation_event.changes_made['confidence']
+                confidence_adjustment = (confidence - 0.5) * 0.1  # -0.05 to +0.05
+            
+            # Market condition adjustment
+            market_adjustment = 0.0
+            if adaptation_event.market_conditions:
+                # Favorable conditions boost expected impact
+                trend_strength = adaptation_event.market_conditions.get('trend_strength', 0.0)
+                market_adjustment = trend_strength * 0.02
+            
+            # Historical pattern adjustment
+            historical_success_rate = self._get_recent_adaptation_success_rate()
+            historical_adjustment = (historical_success_rate - 0.5) * 0.05
+            
+            estimated_impact = base_impact + confidence_adjustment + market_adjustment + historical_adjustment
+            
+            # Calculate confidence interval
+            uncertainty = 0.02  # 2% uncertainty
+            confidence_interval = (estimated_impact - uncertainty, estimated_impact + uncertainty)
+            
+            return {
+                'estimated_impact': estimated_impact,
+                'confidence_interval': confidence_interval,
+                'base_impact': base_impact,
+                'adjustments': {
+                    'confidence': confidence_adjustment,
+                    'market': market_adjustment,
+                    'historical': historical_adjustment
+                },
+                'uncertainty': uncertainty,
+                'passed': estimated_impact > -0.02  # Accept if expected loss < 2%
+            }
+            
+        except Exception as e:
+            self.logger.error("Error simulating adaptation performance: %s", str(e))
+            return {'estimated_impact': -0.1, 'passed': False, 'error': str(e)}
+    
+    def _analyze_resource_impact(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Analyze the resource impact of an adaptation."""
+        try:
+            resource_impact = {
+                'cpu_impact': 0.0,
+                'memory_impact': 0.0,
+                'network_impact': 0.0,
+                'storage_impact': 0.0,
+                'total_impact': 0.0,
+                'passed': True
+            }
+            
+            # Estimate resource impact based on adaptation type and changes
+            if 'ml_models' in adaptation_event.changes_made:
+                resource_impact['cpu_impact'] += 0.2  # ML models are CPU intensive
+                resource_impact['memory_impact'] += 0.1
+            
+            if 'parameters' in adaptation_event.changes_made:
+                param_count = len(adaptation_event.changes_made['parameters'])
+                resource_impact['cpu_impact'] += param_count * 0.01
+            
+            if 'strategy_weights' in adaptation_event.changes_made:
+                strategy_count = len(adaptation_event.changes_made['strategy_weights'])
+                resource_impact['cpu_impact'] += strategy_count * 0.02
+                resource_impact['memory_impact'] += strategy_count * 0.01
+            
+            # Calculate total impact
+            resource_impact['total_impact'] = (
+                resource_impact['cpu_impact'] + 
+                resource_impact['memory_impact'] + 
+                resource_impact['network_impact'] + 
+                resource_impact['storage_impact']
+            ) / 4
+            
+            # Check if impact is acceptable
+            resource_impact['passed'] = resource_impact['total_impact'] <= 0.3  # 30% max impact
+            
+            return resource_impact
+            
+        except Exception as e:
+            self.logger.error("Error analyzing resource impact: %s", str(e))
+            return {'total_impact': 1.0, 'passed': False, 'error': str(e)}
+    
+    def _check_adaptation_conflicts(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Check for conflicts with pending adaptations."""
+        try:
+            conflicts = []
+            conflict_severity = 0.0
+            
+            for pending_id, pending_event in self.pending_adaptations.items():
+                # Check for strategy conflicts
+                if adaptation_event.affected_strategies and pending_event.affected_strategies:
+                    strategy_overlap = set(adaptation_event.affected_strategies) & set(pending_event.affected_strategies)
+                    if strategy_overlap:
+                        conflicts.append({
+                            'type': 'strategy_overlap',
+                            'pending_adaptation': pending_id,
+                            'overlapping_strategies': list(strategy_overlap)
+                        })
+                        conflict_severity += 0.3
+                
+                # Check for parameter conflicts
+                if ('parameters' in adaptation_event.changes_made and 
+                    'parameters' in pending_event.changes_made):
+                    param_overlap = (set(adaptation_event.changes_made['parameters'].keys()) & 
+                                   set(pending_event.changes_made['parameters'].keys()))
+                    if param_overlap:
+                        conflicts.append({
+                            'type': 'parameter_overlap',
+                            'pending_adaptation': pending_id,
+                            'overlapping_parameters': list(param_overlap)
+                        })
+                        conflict_severity += 0.4
+                
+                # Check for timing conflicts
+                time_diff = abs((adaptation_event.timestamp - pending_event.timestamp).total_seconds())
+                if time_diff < 1800:  # 30 minutes
+                    conflicts.append({
+                        'type': 'timing_conflict',
+                        'pending_adaptation': pending_id,
+                        'time_difference_seconds': time_diff
+                    })
+                    conflict_severity += 0.2
+            
+            return {
+                'conflicts': conflicts,
+                'conflict_count': len(conflicts),
+                'conflict_severity': min(conflict_severity, 1.0),
+                'passed': len(conflicts) == 0 or conflict_severity <= 0.5
+            }
+            
+        except Exception as e:
+            self.logger.error("Error checking adaptation conflicts: %s", str(e))
+            return {'conflicts': [], 'conflict_count': 0, 'passed': True}
+    
+    def _assess_market_condition_suitability(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Assess if current market conditions are suitable for the adaptation."""
+        try:
+            if not adaptation_event.market_conditions:
+                return {'suitability_score': 0.5, 'passed': True, 'reason': 'no_market_data'}
+            
+            conditions = adaptation_event.market_conditions
+            suitability_factors = []
+            suitability_score = 0.5  # Neutral baseline
+            
+            # Volatility suitability
+            volatility = conditions.get('volatility', 0.0)
+            if adaptation_event.event_type == AdaptationType.PARAMETER_OPTIMIZATION:
+                # Parameter optimization works better in stable conditions
+                if volatility < 0.2:  # Low volatility
+                    suitability_factors.append('favorable_volatility')
+                    suitability_score += 0.2
+                elif volatility > 0.4:  # High volatility
+                    suitability_factors.append('unfavorable_volatility')
+                    suitability_score -= 0.3
+            
+            # Trend suitability
+            trend_strength = conditions.get('trend_strength', 0.0)
+            if adaptation_event.event_type == AdaptationType.STRATEGY_REBALANCING:
+                # Strategy rebalancing works better in trending markets
+                if abs(trend_strength) > 0.3:
+                    suitability_factors.append('favorable_trend')
+                    suitability_score += 0.2
+                else:
+                    suitability_factors.append('weak_trend')
+                    suitability_score -= 0.1
+            
+            # Liquidity suitability
+            liquidity = conditions.get('liquidity', 1.0)
+            if liquidity < 0.5:  # Low liquidity
+                suitability_factors.append('low_liquidity_risk')
+                suitability_score -= 0.2
+            
+            # Market regime suitability
+            regime = conditions.get('regime', 'unknown')
+            if regime == 'high_volatility' and adaptation_event.event_type != AdaptationType.EMERGENCY_ADAPTATION:
+                suitability_factors.append('unsuitable_regime')
+                suitability_score -= 0.3
+            
+            suitability_score = max(0.0, min(1.0, suitability_score))
+            
+            return {
+                'suitability_score': suitability_score,
+                'suitability_factors': suitability_factors,
+                'market_conditions': conditions,
+                'passed': suitability_score >= 0.4
+            }
+            
+        except Exception as e:
+            self.logger.error("Error assessing market condition suitability: %s", str(e))
+            return {'suitability_score': 0.0, 'passed': False, 'error': str(e)}
+    
+    def _analyze_historical_patterns(self, adaptation_event: AdaptationEvent) -> Dict[str, Any]:
+        """Analyze historical patterns for similar adaptations."""
+        try:
+            # Find similar historical adaptations
+            similar_adaptations = []
+            for historical_event in self.adaptation_history:
+                if (historical_event.event_type == adaptation_event.event_type and
+                    historical_event.success is not None):
+                    
+                    # Calculate similarity score
+                    similarity = self._calculate_adaptation_similarity(adaptation_event, historical_event)
+                    if similarity > 0.5:  # 50% similarity threshold
+                        similar_adaptations.append({
+                            'event': historical_event,
+                            'similarity': similarity
+                        })
+            
+            if not similar_adaptations:
+                return {
+                    'historical_success_rate': 0.5,  # Neutral when no history
+                    'similar_adaptations_count': 0,
+                    'pattern_confidence': 0.0,
+                    'passed': True,
+                    'insights': ['no_historical_data']
+                }
+            
+            # Analyze patterns
+            successful_count = sum(1 for item in similar_adaptations if item['event'].success)
+            total_count = len(similar_adaptations)
+            success_rate = successful_count / total_count
+            
+            # Calculate average impact of similar adaptations
+            impacts = [item['event'].actual_impact for item in similar_adaptations 
+                      if item['event'].actual_impact is not None]
+            avg_impact = sum(impacts) / len(impacts) if impacts else 0.0
+            
+            # Generate insights
+            insights = []
+            if success_rate > 0.7:
+                insights.append('high_historical_success_rate')
+            elif success_rate < 0.3:
+                insights.append('low_historical_success_rate')
+            
+            if avg_impact > 0.05:
+                insights.append('historically_positive_impact')
+            elif avg_impact < -0.05:
+                insights.append('historically_negative_impact')
+            
+            pattern_confidence = min(total_count / 10.0, 1.0)  # More data = higher confidence
+            
+            return {
+                'historical_success_rate': success_rate,
+                'similar_adaptations_count': total_count,
+                'average_historical_impact': avg_impact,
+                'pattern_confidence': pattern_confidence,
+                'insights': insights,
+                'passed': success_rate >= 0.4 or total_count < 3  # Pass if good history or insufficient data
+            }
+            
+        except Exception as e:
+            self.logger.error("Error analyzing historical patterns: %s", str(e))
+            return {'historical_success_rate': 0.0, 'passed': False, 'error': str(e)}
+    
+    def _calculate_adaptation_similarity(self, event1: AdaptationEvent, event2: AdaptationEvent) -> float:
+        """Calculate similarity between two adaptation events."""
+        try:
+            similarity_factors = []
+            
+            # Event type similarity
+            if event1.event_type == event2.event_type:
+                similarity_factors.append(1.0)
+            else:
+                similarity_factors.append(0.0)
+            
+            # Strategy overlap similarity
+            if event1.affected_strategies and event2.affected_strategies:
+                overlap = len(set(event1.affected_strategies) & set(event2.affected_strategies))
+                total = len(set(event1.affected_strategies) | set(event2.affected_strategies))
+                similarity_factors.append(overlap / total if total > 0 else 0.0)
+            
+            # Change magnitude similarity
+            mag1 = self._calculate_change_magnitude(event1.changes_made)
+            mag2 = self._calculate_change_magnitude(event2.changes_made)
+            if mag1 > 0 and mag2 > 0:
+                mag_similarity = 1.0 - abs(mag1 - mag2) / max(mag1, mag2)
+                similarity_factors.append(mag_similarity)
+            
+            # Market condition similarity (if available)
+            if (event1.market_conditions and event2.market_conditions):
+                market_similarity = self._calculate_market_condition_similarity(
+                    event1.market_conditions, event2.market_conditions)
+                similarity_factors.append(market_similarity)
+            
+            return sum(similarity_factors) / len(similarity_factors) if similarity_factors else 0.0
+            
+        except Exception as e:
+            self.logger.error("Error calculating adaptation similarity: %s", str(e))
+            return 0.0
+    
+    def _calculate_market_condition_similarity(self, conditions1: Dict, conditions2: Dict) -> float:
+        """Calculate similarity between market conditions."""
+        try:
+            similarities = []
+            
+            # Compare common metrics
+            common_metrics = ['volatility', 'trend_strength', 'liquidity']
+            for metric in common_metrics:
+                if metric in conditions1 and metric in conditions2:
+                    val1, val2 = conditions1[metric], conditions2[metric]
+                    if val1 != 0 or val2 != 0:
+                        similarity = 1.0 - abs(val1 - val2) / max(abs(val1), abs(val2), 1.0)
+                        similarities.append(similarity)
+            
+            # Compare regime if available
+            if 'regime' in conditions1 and 'regime' in conditions2:
+                regime_similarity = 1.0 if conditions1['regime'] == conditions2['regime'] else 0.0
+                similarities.append(regime_similarity)
+            
+            return sum(similarities) / len(similarities) if similarities else 0.5
+            
+        except Exception as e:
+            self.logger.error("Error calculating market condition similarity: %s", str(e))
+            return 0.5
+    
+    def _calculate_validation_score(self, checks: Dict[str, Dict[str, Any]]) -> float:
+        """Calculate overall validation score from individual checks."""
+        try:
+            scores = []
+            weights = {
+                'risk_assessment': 0.25,
+                'performance_simulation': 0.25,
+                'resource_impact': 0.15,
+                'conflict_detection': 0.15,
+                'market_suitability': 0.10,
+                'historical_analysis': 0.10
+            }
+            
+            for check_name, check_result in checks.items():
+                weight = weights.get(check_name, 0.1)
+                
+                if check_result.get('passed', False):
+                    # Extract score from different check types
+                    if 'risk_score' in check_result:
+                        score = 1.0 - check_result['risk_score']  # Invert risk score
+                    elif 'suitability_score' in check_result:
+                        score = check_result['suitability_score']
+                    elif 'historical_success_rate' in check_result:
+                        score = check_result['historical_success_rate']
+                    elif 'total_impact' in check_result:
+                        score = max(0.0, 1.0 - check_result['total_impact'])
+                    else:
+                        score = 1.0  # Default for passed checks
+                else:
+                    score = 0.0  # Failed checks get 0 score
+                
+                scores.append(score * weight)
+            
+            return sum(scores)
+            
+        except Exception as e:
+            self.logger.error("Error calculating validation score: %s", str(e))
+            return 0.0
+    
+    def _determine_risk_level(self, validation_score: float) -> str:
+        """Determine risk level based on validation score."""
+        if validation_score >= 0.8:
+            return 'low'
+        elif validation_score >= 0.6:
+            return 'medium'
+        elif validation_score >= 0.4:
+            return 'high'
+        else:
+            return 'critical'
+    
+    def _make_validation_recommendation(self, validation_result: Dict[str, Any]) -> str:
+        """Make a recommendation based on validation results."""
+        try:
+            score = validation_result['overall_score']
+            risk_level = validation_result['risk_level']
+            
+            # Check for critical failures
+            critical_failures = []
+            for check_name, check_result in validation_result['checks'].items():
+                if not check_result.get('passed', True):
+                    if check_name in ['risk_assessment', 'performance_simulation']:
+                        critical_failures.append(check_name)
+            
+            if critical_failures:
+                return 'reject'
+            
+            # Make recommendation based on score and risk
+            if score >= 0.8 and risk_level in ['low', 'medium']:
+                return 'approve'
+            elif score >= 0.6 and risk_level != 'critical':
+                return 'approve_with_monitoring'
+            elif score >= 0.4:
+                return 'approve_with_ab_test'
+            else:
+                return 'reject'
+                
+        except Exception as e:
+            self.logger.error("Error making validation recommendation: %s", str(e))
+            return 'reject'
+    
+    # A/B testing helper methods
+    
+    def _initialize_ab_test_groups(self, ab_test: Dict[str, Any]) -> None:
+        """Initialize control and treatment groups for A/B test."""
+        try:
+            # Reset group data
+            ab_test['control_group'] = {
+                'size': 0,
+                'performance_metrics': [],
+                'trades': [],
+                'allocation_ratio': ab_test['control_group_ratio']
+            }
+            
+            ab_test['treatment_group'] = {
+                'size': 0,
+                'performance_metrics': [],
+                'trades': [],
+                'allocation_ratio': 1.0 - ab_test['control_group_ratio']
+            }
+            
+            self.logger.info("Initialized A/B test groups for test %s", ab_test['test_id'])
+            
+        except Exception as e:
+            self.logger.error("Error initializing A/B test groups: %s", str(e))
+    
+    def _assign_trade_to_group(self, ab_test: Dict[str, Any], trade_data: Dict[str, Any]) -> Optional[str]:
+        """Assign a trade to control or treatment group."""
+        try:
+            # Simple random assignment based on control group ratio
+            import random
+            if random.random() < ab_test['control_group_ratio']:
+                return 'control'
+            else:
+                return 'treatment'
+                
+        except Exception as e:
+            self.logger.error("Error assigning trade to group: %s", str(e))
+            return None
+    
+    def _update_group_performance(self, ab_test: Dict[str, Any], group: str) -> None:
+        """Update performance metrics for a group."""
+        try:
+            group_data = ab_test[f'{group}_group']
+            trades = group_data['trades']
+            
+            if not trades:
+                return
+            
+            # Calculate basic performance metrics
+            total_return = sum(trade.get('return', 0.0) for trade in trades)
+            win_count = sum(1 for trade in trades if trade.get('return', 0.0) > 0)
+            win_rate = win_count / len(trades) if trades else 0.0
+            
+            # Calculate other metrics as needed
+            performance_metrics = {
+                'total_return': total_return,
+                'average_return': total_return / len(trades) if trades else 0.0,
+                'win_rate': win_rate,
+                'trade_count': len(trades),
+                'timestamp': datetime.now()
+            }
+            
+            group_data['performance_metrics'].append(performance_metrics)
+            
+        except Exception as e:
+            self.logger.error("Error updating group performance: %s", str(e))
+    
+    def _should_perform_interim_analysis(self, ab_test: Dict[str, Any]) -> bool:
+        """Check if interim analysis should be performed."""
+        try:
+            # Perform interim analysis every 25% of minimum sample size
+            total_trades = ab_test['control_group']['size'] + ab_test['treatment_group']['size']
+            interim_threshold = ab_test['min_sample_size'] * 0.25
+            
+            # Check if we've reached an interim milestone
+            last_interim = len(ab_test['interim_analyses'])
+            expected_interims = int(total_trades / interim_threshold)
+            
+            return expected_interims > last_interim
+            
+        except Exception as e:
+            self.logger.error("Error checking interim analysis: %s", str(e))
+            return False
+    
+    def _perform_interim_analysis(self, ab_test: Dict[str, Any]) -> None:
+        """Perform interim analysis of A/B test."""
+        try:
+            analysis_result = self._perform_statistical_analysis(ab_test)
+            
+            interim_analysis = {
+                'timestamp': datetime.now(),
+                'analysis_number': len(ab_test['interim_analyses']) + 1,
+                'results': analysis_result,
+                'recommendation': 'continue'  # Default to continue
+            }
+            
+            # Check for early stopping conditions
+            if analysis_result.get('statistical_significance', False):
+                p_value = analysis_result.get('p_value', 1.0)
+                if p_value < ab_test['significance_threshold'] / 2:  # Bonferroni correction
+                    interim_analysis['recommendation'] = 'stop_early'
+            
+            ab_test['interim_analyses'].append(interim_analysis)
+            
+            self.logger.info("Performed interim analysis for A/B test %s: %s", 
+                           ab_test['test_id'], interim_analysis['recommendation'])
+            
+        except Exception as e:
+            self.logger.error("Error performing interim analysis: %s", str(e))
+    
+    def _should_stop_test_early(self, ab_test: Dict[str, Any]) -> bool:
+        """Check if A/B test should be stopped early."""
+        try:
+            # Check if test duration has been reached
+            if ab_test['started_at']:
+                elapsed = datetime.now() - ab_test['started_at']
+                if elapsed >= ab_test['duration']:
+                    return True
+            
+            # Check interim analysis recommendations
+            if ab_test['interim_analyses']:
+                latest_interim = ab_test['interim_analyses'][-1]
+                if latest_interim['recommendation'] == 'stop_early':
+                    return True
+            
+            # Check safety conditions
+            for safety_check in ab_test['safety_checks']:
+                if safety_check.get('triggered', False):
+                    return True
+            
+            return False
+            
+        except Exception as e:
+            self.logger.error("Error checking early stopping: %s", str(e))
+            return False
+    
+    def _stop_ab_test_early(self, ab_test: Dict[str, Any]) -> None:
+        """Stop A/B test early."""
+        try:
+            ab_test['status'] = 'stopped_early'
+            ab_test['ended_at'] = datetime.now()
+            ab_test['early_stopping_triggered'] = True
+            
+            # Perform final analysis
+            final_results = self._perform_statistical_analysis(ab_test)
+            ab_test['results'].update(final_results)
+            
+            self.logger.info("Stopped A/B test %s early", ab_test['test_id'])
+            
+        except Exception as e:
+            self.logger.error("Error stopping A/B test early: %s", str(e))
+    
+    def _perform_statistical_analysis(self, ab_test: Dict[str, Any]) -> Dict[str, Any]:
+        """Perform statistical analysis of A/B test results."""
+        try:
+            control_group = ab_test['control_group']
+            treatment_group = ab_test['treatment_group']
+            
+            # Get performance data
+            control_returns = [trade.get('return', 0.0) for trade in control_group['trades']]
+            treatment_returns = [trade.get('return', 0.0) for trade in treatment_group['trades']]
+            
+            if not control_returns or not treatment_returns:
+                return {
+                    'statistical_significance': False,
+                    'p_value': 1.0,
+                    'effect_size': 0.0,
+                    'confidence_interval': (0.0, 0.0),
+                    'winner': 'inconclusive',
+                    'error': 'insufficient_data'
+                }
+            
+            # Calculate basic statistics
+            control_mean = np.mean(control_returns)
+            treatment_mean = np.mean(treatment_returns)
+            effect_size = treatment_mean - control_mean
+            
+            # Perform t-test (simplified)
+            control_std = np.std(control_returns, ddof=1) if len(control_returns) > 1 else 0.0
+            treatment_std = np.std(treatment_returns, ddof=1) if len(treatment_returns) > 1 else 0.0
+            
+            # Pooled standard error
+            n1, n2 = len(control_returns), len(treatment_returns)
+            pooled_se = np.sqrt((control_std**2 / n1) + (treatment_std**2 / n2)) if n1 > 0 and n2 > 0 else 1.0
+            
+            # T-statistic and p-value (simplified)
+            t_stat = effect_size / pooled_se if pooled_se > 0 else 0.0
+            
+            # Simplified p-value calculation (in practice, use scipy.stats)
+            p_value = 2 * (1 - abs(t_stat) / (abs(t_stat) + 1))  # Rough approximation
+            
+            # Confidence interval (simplified)
+            margin_of_error = 1.96 * pooled_se  # 95% CI
+            confidence_interval = (effect_size - margin_of_error, effect_size + margin_of_error)
+            
+            # Determine winner
+            winner = 'inconclusive'
+            if p_value < ab_test['significance_threshold']:
+                winner = 'treatment' if effect_size > 0 else 'control'
+            
+            return {
+                'statistical_significance': p_value < ab_test['significance_threshold'],
+                'p_value': p_value,
+                'effect_size': effect_size,
+                'confidence_interval': confidence_interval,
+                'winner': winner,
+                'control_mean': control_mean,
+                'treatment_mean': treatment_mean,
+                'control_sample_size': n1,
+                'treatment_sample_size': n2
+            }
+            
+        except Exception as e:
+            self.logger.error("Error performing statistical analysis: %s", str(e))
+            return {
+                'statistical_significance': False,
+                'p_value': 1.0,
+                'effect_size': 0.0,
+                'winner': 'error',
+                'error': str(e)
+            }
+    
+    def _make_ab_test_recommendation(self, ab_test: Dict[str, Any]) -> str:
+        """Make recommendation based on A/B test results."""
+        try:
+            results = ab_test['results']
+            
+            if results.get('error'):
+                return 'inconclusive'
+            
+            if not results.get('statistical_significance', False):
+                return 'no_significant_difference'
+            
+            winner = results.get('winner', 'inconclusive')
+            effect_size = results.get('effect_size', 0.0)
+            
+            if winner == 'treatment' and effect_size > 0.01:  # 1% improvement
+                return 'deploy_treatment'
+            elif winner == 'control':
+                return 'keep_control'
+            else:
+                return 'inconclusive'
+                
+        except Exception as e:
+            self.logger.error("Error making A/B test recommendation: %s", str(e))
+            return 'error'
+    
+    def _execute_rollback(self, adaptation_event: AdaptationEvent, rollback_record: Dict[str, Any]) -> bool:
+        """Execute the actual rollback of an adaptation."""
+        try:
+            # This is where you would implement the actual rollback logic
+            # For now, we'll simulate a successful rollback
+            
+            rollback_data = rollback_record['rollback_data']
+            if not rollback_data:
+                self.logger.error("No rollback data available for adaptation %s", adaptation_event.event_id)
+                return False
+            
+            # Simulate rollback operations
+            self.logger.info("Executing rollback for adaptation %s", adaptation_event.event_id)
+            
+            # In a real implementation, you would:
+            # 1. Restore previous parameter values
+            # 2. Revert strategy weights
+            # 3. Reset ML model states
+            # 4. Clear any cached data
+            # 5. Notify other system components
+            
+            return True  # Simulate successful rollback
+            
+        except Exception as e:
+            self.logger.error("Error executing rollback: %s", str(e))
+            return False
+    
+    def _analyze_temporal_patterns(self, adaptations: List[AdaptationEvent]) -> Dict[str, Any]:
+        """Analyze temporal patterns in adaptations."""
+        try:
+            patterns = {
+                'hourly_distribution': {},
+                'daily_distribution': {},
+                'weekly_distribution': {},
+                'success_by_hour': {},
+                'success_by_day': {}
+            }
+            
+            for event in adaptations:
+                hour = event.timestamp.hour
+                day = event.timestamp.strftime('%A')
+                
+                # Count by hour
+                patterns['hourly_distribution'][hour] = patterns['hourly_distribution'].get(hour, 0) + 1
+                
+                # Count by day
+                patterns['daily_distribution'][day] = patterns['daily_distribution'].get(day, 0) + 1
+                
+                # Success rates by time
+                if event.success is not None:
+                    if hour not in patterns['success_by_hour']:
+                        patterns['success_by_hour'][hour] = {'total': 0, 'successful': 0}
+                    patterns['success_by_hour'][hour]['total'] += 1
+                    if event.success:
+                        patterns['success_by_hour'][hour]['successful'] += 1
+                    
+                    if day not in patterns['success_by_day']:
+                        patterns['success_by_day'][day] = {'total': 0, 'successful': 0}
+                    patterns['success_by_day'][day]['total'] += 1
+                    if event.success:
+                        patterns['success_by_day'][day]['successful'] += 1
+            
+            # Calculate success rates
+            for hour_data in patterns['success_by_hour'].values():
+                hour_data['success_rate'] = hour_data['successful'] / hour_data['total'] if hour_data['total'] > 0 else 0.0
+            
+            for day_data in patterns['success_by_day'].values():
+                day_data['success_rate'] = day_data['successful'] / day_data['total'] if day_data['total'] > 0 else 0.0
+            
+            return patterns
+            
+        except Exception as e:
+            self.logger.error("Error analyzing temporal patterns: %s", str(e))
+            return {}
+    
+    def _generate_adaptation_insights(self, analysis: Dict[str, Any], adaptations: List[AdaptationEvent]) -> List[str]:
+        """Generate insights from adaptation analysis."""
+        try:
+            insights = []
+            
+            # Success rate insights
+            total_adaptations = analysis['total_adaptations']
+            if total_adaptations > 0:
+                success_rate = analysis['successful_adaptations'] / total_adaptations
+                if success_rate > 0.8:
+                    insights.append("High adaptation success rate indicates effective decision-making")
+                elif success_rate < 0.4:
+                    insights.append("Low adaptation success rate suggests need for improved validation")
+            
+            # Impact insights
+            if analysis['average_impact'] > 0.05:
+                insights.append("Adaptations are generating significant positive impact")
+            elif analysis['average_impact'] < -0.02:
+                insights.append("Adaptations are causing negative impact - review criteria")
+            
+            # Rollback insights
+            if analysis['rollbacks'] > analysis['successful_adaptations']:
+                insights.append("High rollback rate indicates need for better pre-deployment validation")
+            
+            # Type-specific insights
+            for adaptation_type, success_rate in analysis['success_rate_by_type'].items():
+                if success_rate > 0.9:
+                    insights.append(f"{adaptation_type} adaptations are highly successful")
+                elif success_rate < 0.3:
+                    insights.append(f"{adaptation_type} adaptations have low success rate")
+            
+            return insights
+            
+        except Exception as e:
+            self.logger.error("Error generating adaptation insights: %s", str(e))
+            return []
+    
+    def _generate_adaptation_recommendations(self, analysis: Dict[str, Any]) -> List[str]:
+        """Generate recommendations based on adaptation analysis."""
+        try:
+            recommendations = []
+            
+            # Success rate recommendations
+            total_adaptations = analysis['total_adaptations']
+            if total_adaptations > 0:
+                success_rate = analysis['successful_adaptations'] / total_adaptations
+                if success_rate < 0.5:
+                    recommendations.append("Increase validation thresholds to improve success rate")
+                    recommendations.append("Consider longer evaluation periods before adaptations")
+            
+            # Rollback recommendations
+            if analysis['rollbacks'] > 3:
+                recommendations.append("Implement more rigorous pre-deployment testing")
+                recommendations.append("Consider A/B testing for all significant adaptations")
+            
+            # Impact recommendations
+            if analysis['average_impact'] < 0:
+                recommendations.append("Review adaptation triggers - may be too aggressive")
+                recommendations.append("Increase confidence thresholds for adaptations")
+            
+            # Frequency recommendations
+            adaptation_rate = total_adaptations / analysis['period_days'] if analysis['period_days'] > 0 else 0
+            if adaptation_rate > 2:  # More than 2 per day
+                recommendations.append("Consider reducing adaptation frequency to allow proper evaluation")
+            elif adaptation_rate < 0.1:  # Less than 1 per 10 days
+                recommendations.append("System may be too conservative - consider lowering thresholds")
+            
+            return recommendations
+            
+        except Exception as e:
+            self.logger.error("Error generating adaptation recommendations: %s", str(e))
+            return []
