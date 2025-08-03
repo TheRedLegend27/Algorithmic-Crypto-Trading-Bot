@@ -32,9 +32,24 @@ env/
 .vscode/
 .idea/
 
+# Kiro AI assistant files
+.kiro/
+
+# Environment variables (contains API keys)
+.env
+.env.local
+.env.production
+.env.staging
+
+# Web frontend (separate repo)
+Web/
+
 # Logs
 *.log
 logs/
+bot.log
+adaptive_bot.log
+test.log
 
 # OS
 .DS_Store
@@ -42,5 +57,22 @@ Thumbs.db
 
 # Pytest
 .pytest_cache/
-.env
-bot.log
+
+# Cache directories
+cache/
+__pycache__/
+
+# Performance and analysis files
+performance_analysis.json
+performance_report_demo.json
+sample_performance_report.json
+trading_readiness_assessment.json
+
+# Demo and temporary files
+demo_exports/
+demo_reports/
+final_integration_report.txt
+performance_validation_report.txt
+
+# Archive folder (old/unused code)
+archive/
