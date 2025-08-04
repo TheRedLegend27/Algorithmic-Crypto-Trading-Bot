@@ -1324,6 +1324,16 @@ class EnhancedRiskManager(RiskManagerInterface if ADAPTIVE_AVAILABLE else object
             self.logger.error(f"Error checking adaptive portfolio risk: {str(e)}")
             return {'error': str(e), 'adaptive_features': True}
     
+    def get_emergency_stop_conditions(self) -> Dict[str, Any]:
+        """
+        Get conditions that would trigger emergency stops.
+        Required by RiskManagerInterface.
+        
+        Returns:
+            Dict: Emergency stop conditions and thresholds
+        """
+        return self.get_emergency_stop_conditions_adaptive()
+    
     def get_emergency_stop_conditions_adaptive(self) -> Dict[str, Any]:
         """
         Get conditions that would trigger emergency stops with adaptive considerations.

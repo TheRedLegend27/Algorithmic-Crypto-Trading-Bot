@@ -1,0 +1,15 @@
+{
+  "start_date": "2025-08-03",
+  "daily_records": {
+    "2025-08-03": {
+      "date": "2025-08-03",
+      "trades": 0,
+      "adaptations": 4,
+      "signals": 0,
+      "errors": 2,
+      "warnings": 5,
+      "capital": 480.0,
+      "notes": "Aggressive $480 configuration"
+    }
+  }
+}

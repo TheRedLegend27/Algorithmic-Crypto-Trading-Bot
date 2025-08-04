@@ -144,8 +144,9 @@ def validate_requirements():
     
     # Test optimization result tracking
     opt_result = OptimizationResult(
+        optimization_id="opt_001",
         strategy_name="adaptive_momentum",
-        optimization_method=OptimizationMethod.BAYESIAN,
+        optimization_method="bayesian",
         old_parameters={
             "rsi_period": 14,
             "rsi_oversold": 30,
@@ -160,9 +161,9 @@ def validate_requirements():
         },
         performance_improvement=0.08,
         confidence_score=0.85,
-        validation_score=0.79,
-        iterations_performed=150,
-        optimization_time=timedelta(minutes=45)
+        validation_period=timedelta(days=7),
+        applied_at=datetime.now(),
+        out_of_sample_performance=0.79
     )
     changes = opt_result.get_parameter_changes()
     print(f"✓ Parameter optimization: {opt_result.performance_improvement:.1%} improvement expected")

@@ -113,23 +113,17 @@ class AdaptiveStrategyEngine(AdaptiveStrategyEngineInterface):
             
             # Multi-Timeframe Strategy
             mtf_strategy = MultiTimeframeStrategy(
-                timeframes=['5m', '15m', '1h'],
-                agreement_threshold=0.6
+                fast_ma=5,
+                slow_ma=15,
+                trend_ma=50
             )
             self.add_strategy("multi_timeframe", mtf_strategy, {
                 'base_weight': 0.25,
                 'regime_preferences': [RegimeType.HIGH_VOLATILITY, RegimeType.UNCERTAIN]
             })
             
-            # Volatility Adjusted Strategy
-            vol_strategy = VolatilityAdjustedStrategy(
-                name="volatility_adjusted",
-                volatility_lookback=20
-            )
-            self.add_strategy("volatility_adjusted", vol_strategy, {
-                'base_weight': 0.2,
-                'regime_preferences': [RegimeType.HIGH_VOLATILITY, RegimeType.LOW_VOLATILITY]
-            })
+            # Note: VolatilityAdjustedStrategy is abstract, skipping for now
+            # TODO: Implement a concrete volatility-adjusted strategy
             
         except Exception as e:
             logger.error("Error initializing default strategies: %s", str(e))

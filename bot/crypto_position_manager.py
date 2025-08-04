@@ -196,6 +196,38 @@ class CryptoPositionManager:
             bool: True if successful
         """
         try:
+            # Check if we're in paper trading mode (client is None)
+            if self.client is None:
+                # In paper trading mode, use mock balances
+                self.balances = {
+                    'USD': CryptoBalance(
+                        currency='USD',
+                        balance=480.0,
+                        available=480.0,
+                        hold=0.0,
+                        profile_id='',
+                        trading_enabled=True
+                    ),
+                    'BTC': CryptoBalance(
+                        currency='BTC',
+                        balance=0.0,
+                        available=0.0,
+                        hold=0.0,
+                        profile_id='',
+                        trading_enabled=True
+                    ),
+                    'ETH': CryptoBalance(
+                        currency='ETH',
+                        balance=0.0,
+                        available=0.0,
+                        hold=0.0,
+                        profile_id='',
+                        trading_enabled=True
+                    )
+                }
+                self.logger.info("Using mock balances for paper trading mode")
+                return True
+            
             # Kraken client returns balance data directly (not wrapped in 'result')
             balances = self.client.get_account_balance()
             

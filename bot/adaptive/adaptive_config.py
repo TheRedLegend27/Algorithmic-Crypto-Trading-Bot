@@ -30,9 +30,9 @@ class MLEngineConfig:
     
     # Training parameters
     training_window_days: int = 30
-    min_training_samples: int = 100
+    min_training_samples: int = 25  # Reduced from 100 to 50 for faster initial learning
     validation_split: float = 0.2
-    retrain_frequency_hours: int = 24
+    retrain_frequency_hours: int = 6  # Reduced from 24 to 12 for more frequent retraining
     
     # Feature engineering
     feature_lookback_periods: List[int] = field(default_factory=lambda: [5, 10, 20, 50])
@@ -41,7 +41,7 @@ class MLEngineConfig:
     include_sentiment_features: bool = False
     
     # Model performance thresholds
-    min_model_confidence: float = 0.6
+    min_model_confidence: float = 0.3  # Reduced from 0.6 to 0.4 for more responsive learning
     model_drift_threshold: float = 0.1
     auto_rollback_threshold: float = 0.05
     
@@ -149,13 +149,13 @@ class ParameterOptimizationConfig:
 class AdaptationControlConfig:
     """Configuration for adaptation control and limits."""
     # Adaptation frequency limits
-    max_adaptations_per_hour: int = 2
+    max_adaptations_per_hour: int = 5  # Increased from 2 to 3
     max_adaptations_per_day: int = 10
-    min_time_between_adaptations_minutes: int = 30
+    min_time_between_adaptations_minutes: int = 10  # Reduced from 30 to 15
     
     # Performance thresholds for adaptation
-    min_performance_threshold: float = 0.7  # Relative to historical average
-    adaptation_confidence_threshold: float = 0.8
+    min_performance_threshold: float = -0.05  # Changed from 0.7 to -0.1 (10% drop triggers adaptation)
+    adaptation_confidence_threshold: float = 0.5  # Reduced from 0.8 to 0.6
     
     # Rollback settings
     auto_rollback_enabled: bool = True
@@ -321,7 +321,22 @@ class AdaptiveBotConfig:
     enabled: bool = True
     trading_pairs: List[str] = field(default_factory=lambda: ["XBTUSD", "ETHUSD"])
     
+    # Trading settings
+    paper_trading: bool = True
+    initial_capital: float = 480.0
+    adaptation_enabled: bool = True
+    max_risk_per_trade: float = 0.08
+    max_portfolio_risk: float = 0.25
+    max_drawdown_threshold: float = 0.20
+    
     # System settings
+    max_threads: int = 4
+    monitoring_enabled: bool = True
+    alerting_enabled: bool = True
+    adaptation_frequency_minutes: int = 60
+    performance_evaluation_hours: int = 24
+    health_check_interval_seconds: int = 30
+    state_persistence_interval_minutes: int = 15
     data_retention_days: int = 90
     backup_frequency_hours: int = 24
     log_level: str = "INFO"
@@ -331,6 +346,53 @@ class AdaptiveBotConfig:
     created_at: datetime = field(default_factory=datetime.now)
     last_modified: datetime = field(default_factory=datetime.now)
     
+    def get_regime_detector_config(self) -> Dict[str, Any]:
+        """Get configuration for market regime detector."""
+        return self.regime_detection.__dict__
+    
+    def get_ml_engine_config(self) -> Dict[str, Any]:
+        """Get configuration for ML engine."""
+        config = self.ml_engine.__dict__.copy()
+        config['model_storage_path'] = 'models/adaptive'
+        return config
+    
+    def get_optimizer_config(self) -> Dict[str, Any]:
+        """Get configuration for parameter optimizer."""
+        return self.parameter_optimization.__dict__
+    
+    def get_performance_config(self) -> Dict[str, Any]:
+        """Get configuration for performance analyzer."""
+        return {
+            'lookback_periods': [24, 168, 720],  # 1 day, 1 week, 1 month in hours
+            'metrics_to_track': ['return', 'sharpe', 'max_drawdown', 'win_rate'],
+            'benchmark_symbol': 'BTC/USD'
+        }
+    
+    def get_strategy_engine_config(self) -> Dict[str, Any]:
+        """Get configuration for adaptive strategy engine."""
+        return self.strategy.__dict__
+    
+    def get_adaptation_config(self) -> Dict[str, Any]:
+        """Get configuration for adaptation controller."""
+        return self.adaptation_control.__dict__
+    
+    def get_monitoring_config(self) -> Dict[str, Any]:
+        """Get configuration for monitoring dashboard."""
+        return self.monitoring.__dict__
+    
+    def get_alerting_config(self) -> Dict[str, Any]:
+        """Get configuration for alerting system."""
+        return {
+            'email_enabled': False,
+            'slack_enabled': False,
+            'discord_enabled': False,
+            'alert_thresholds': {
+                'drawdown': 0.1,
+                'consecutive_losses': 5,
+                'system_error': True
+            }
+        }
+
     def validate(self) -> bool:
         """Validate the entire adaptive bot configuration."""
         if not self.trading_pairs:

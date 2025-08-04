@@ -27,7 +27,7 @@ from .adaptive_strategy_engine import AdaptiveStrategyEngine
 from .ml_engine import MLEngine
 from .parameter_optimizer import ParameterOptimizer
 from .performance_analyzer import PerformanceAnalyzer
-from .adaptation_controller import AdaptationController
+from .adaptation_controller import AdaptationController, AdaptationLimits
 from .monitoring_dashboard import MonitoringDashboard
 from .alerting_system import AlertingSystem
 from .adaptive_config import AdaptiveBotConfig as AdaptiveConfig
@@ -55,27 +55,27 @@ from ..utils import setup_logging, log_info, log_warning, log_error
 
 @dataclass
 class AdaptiveBotConfig:
-    """Configuration for the adaptive bot."""
+    """Configuration for the adaptive bot - AGGRESSIVE $480 SETUP."""
     # Trading configuration
     trading_pairs: List[str] = field(default_factory=lambda: ["BTC/USD", "ETH/USD"])
     paper_trading: bool = True
-    initial_capital: float = 10000.0
-    max_positions: int = 5
+    initial_capital: float = 480.0
+    max_positions: int = 3  # Reduced for aggressive focus
     
-    # Adaptive behavior configuration
+    # Adaptive behavior configuration - AGGRESSIVE
     adaptation_enabled: bool = True
-    adaptation_frequency_minutes: int = 60
-    min_adaptation_confidence: float = 0.7
-    max_adaptations_per_day: int = 10
+    adaptation_frequency_minutes: int = 30  # More frequent adaptations
+    min_adaptation_confidence: float = 0.5  # Lower threshold for more adaptations
+    max_adaptations_per_day: int = 15  # More adaptations allowed
     
-    # Risk management
-    max_risk_per_trade: float = 0.02  # 2%
-    max_portfolio_risk: float = 0.1   # 10%
-    max_drawdown_threshold: float = 0.15  # 15%
+    # Risk management - AGGRESSIVE
+    max_risk_per_trade: float = 0.08  # 8% per trade (aggressive)
+    max_portfolio_risk: float = 0.25   # 25% total portfolio risk
+    max_drawdown_threshold: float = 0.20  # 20% max drawdown
     
-    # Performance thresholds
-    min_performance_threshold: float = -0.05  # -5%
-    performance_evaluation_hours: int = 24
+    # Performance thresholds - AGGRESSIVE
+    min_performance_threshold: float = -0.05  # Adapt after 5% drop
+    performance_evaluation_hours: int = 12  # Faster evaluation cycles
     
     # Data and monitoring
     data_retention_days: int = 90
@@ -195,22 +195,35 @@ class AdaptiveBotMain:
             self.logger.info("🚀 Initializing adaptive bot components...")
             
             # Load adaptive configuration
-            adaptive_config = AdaptiveConfig()
+            self.adaptive_config = AdaptiveConfig()
             
             # Initialize data manager
             self.logger.info("📊 Initializing enhanced data manager...")
-            self.data_manager = EnhancedDataManager()
-            await self.data_manager.initialize()
+            self.data_manager = EnhancedDataManager(self.adaptive_config.trading_pairs)
             self.health.component_status["data_manager"] = "healthy"
+            
+            # Initialize Kraken client first (needed by other components)
+            temp_kraken_client = None
+            if not self.adaptive_config.paper_trading:
+                self.logger.info("🔗 Initializing Kraken client...")
+                from ..kraken_client import KrakenClient
+                temp_kraken_client = KrakenClient()
+            
+            # Initialize position manager (required for risk manager)
+            self.logger.info("💰 Initializing position manager...")
+            from ..crypto_position_manager import CryptoPositionManager
+            self.position_manager = CryptoPositionManager(temp_kraken_client)
             
             # Initialize risk manager
             self.logger.info("🛡️ Initializing enhanced risk manager...")
-            risk_config = {
-                'max_risk_per_trade': self.config.max_risk_per_trade,
-                'max_portfolio_risk': self.config.max_portfolio_risk,
-                'max_drawdown_threshold': self.config.max_drawdown_threshold
-            }
-            self.risk_manager = EnhancedRiskManager(risk_config)
+            from ..enhanced_risk_manager import EnhancedRiskManager
+            
+            self.risk_manager = EnhancedRiskManager(
+                position_manager=self.position_manager,
+                data_manager=self.data_manager,
+                kraken_client=temp_kraken_client,
+                trading_pairs=self.adaptive_config.trading_pairs
+            )
             self.health.component_status["risk_manager"] = "healthy"
             
             # Initialize Kraken client if not paper trading
@@ -224,65 +237,81 @@ class AdaptiveBotMain:
             # Initialize paper trading engine if needed
             if self.config.paper_trading:
                 self.logger.info("📝 Initializing paper trading engine...")
+                from .paper_trading import PaperTradingConfig
+                paper_config = PaperTradingConfig(initial_capital=self.adaptive_config.initial_capital)
                 self.paper_trading_engine = PaperTradingEngine(
-                    initial_capital=self.config.initial_capital
+                    config=paper_config,
+                    data_manager=self.data_manager
                 )
                 self.health.component_status["paper_trading"] = "healthy"
             
             # Initialize market regime detector
             self.logger.info("🔍 Initializing market regime detector...")
-            regime_config = adaptive_config.get_regime_detector_config()
+            regime_config = self.adaptive_config.get_regime_detector_config()
             self.regime_detector = MarketRegimeDetector(regime_config)
             self.health.component_status["regime_detector"] = "healthy"
             
             # Initialize ML engine
             self.logger.info("🧠 Initializing ML engine...")
-            ml_config = adaptive_config.get_ml_engine_config()
-            self.ml_engine = MLEngine(ml_config)
+            ml_config = self.adaptive_config.get_ml_engine_config()
+            model_path = ml_config.get('model_storage_path', 'models/adaptive')
+            self.ml_engine = MLEngine(model_path)
             self.health.component_status["ml_engine"] = "healthy"
             
             # Initialize parameter optimizer
             self.logger.info("⚙️ Initializing parameter optimizer...")
-            optimizer_config = adaptive_config.get_optimizer_config()
+            optimizer_config = self.adaptive_config.get_optimizer_config()
             self.parameter_optimizer = ParameterOptimizer(optimizer_config)
             self.health.component_status["parameter_optimizer"] = "healthy"
             
             # Initialize performance analyzer
             self.logger.info("📈 Initializing performance analyzer...")
-            perf_config = adaptive_config.get_performance_config()
+            perf_config = self.adaptive_config.get_performance_config()
             self.performance_analyzer = PerformanceAnalyzer(perf_config)
             self.health.component_status["performance_analyzer"] = "healthy"
             
             # Initialize adaptive strategy engine
             self.logger.info("🎯 Initializing adaptive strategy engine...")
-            strategy_config = adaptive_config.get_strategy_engine_config()
+            strategy_config = self.adaptive_config.get_strategy_engine_config()
             self.strategy_engine = AdaptiveStrategyEngine(strategy_config)
             self.health.component_status["strategy_engine"] = "healthy"
             
             # Initialize adaptation controller
             self.logger.info("🎛️ Initializing adaptation controller...")
-            adaptation_config = adaptive_config.get_adaptation_config()
-            self.adaptation_controller = AdaptationController(adaptation_config)
+            adaptation_config = self.adaptive_config.get_adaptation_config()
+            # Convert dictionary to AdaptationLimits object with proper field mapping
+            adaptation_limits = AdaptationLimits(
+                max_adaptations_per_hour=adaptation_config.get('max_adaptations_per_hour', 2),
+                max_adaptations_per_day=adaptation_config.get('max_adaptations_per_day', 10),
+                min_time_between_adaptations=timedelta(minutes=adaptation_config.get('min_time_between_adaptations_minutes', 30)),
+                min_performance_threshold=adaptation_config.get('min_performance_threshold', -0.05),
+                min_confidence_threshold=adaptation_config.get('adaptation_confidence_threshold', 0.6),
+                max_parameter_change_percent=adaptation_config.get('max_parameter_change_percent', 0.2),
+                max_strategy_weight_change=adaptation_config.get('max_strategy_weight_change', 0.1),
+                min_data_points_for_adaptation=adaptation_config.get('min_data_points_for_adaptation', 100),
+                min_evaluation_period=timedelta(hours=adaptation_config.get('min_evaluation_period_hours', 2)),
+                emergency_drawdown_threshold=adaptation_config.get('emergency_drawdown_threshold', -0.1),
+                emergency_performance_threshold=adaptation_config.get('emergency_performance_threshold', -0.15)
+            )
+            self.adaptation_controller = AdaptationController(adaptation_limits)
             self.health.component_status["adaptation_controller"] = "healthy"
             
             # Initialize monitoring dashboard
             if self.config.monitoring_enabled:
                 self.logger.info("📊 Initializing monitoring dashboard...")
-                monitor_config = adaptive_config.get_monitoring_config()
-                self.monitoring_dashboard = MonitoringDashboard(monitor_config)
+                self.monitoring_dashboard = MonitoringDashboard()
                 self.health.component_status["monitoring"] = "healthy"
             
             # Initialize alerting system
             if self.config.alerting_enabled:
                 self.logger.info("🚨 Initializing alerting system...")
-                alert_config = adaptive_config.get_alerting_config()
-                self.alerting_system = AlertingSystem(alert_config)
+                self.alerting_system = AlertingSystem()
                 self.health.component_status["alerting"] = "healthy"
             
             # Initialize portfolio optimizer
             self.logger.info("📊 Initializing portfolio optimizer...")
             portfolio_config = {
-                'max_pairs': len(self.config.trading_pairs),
+                'max_pairs': len(self.adaptive_config.trading_pairs),
                 'max_correlation': 0.7,
                 'max_single_pair_allocation': 0.4,
                 'rebalance_threshold': 0.1,
@@ -307,14 +336,14 @@ class AdaptiveBotMain:
         self.logger.info("🔍 Validating component integration...")
         
         # Test data flow
-        test_pair = self.config.trading_pairs[0]
+        test_pair = self.adaptive_config.trading_pairs[0]
         
         # Check if data manager has async method
         if hasattr(self.data_manager, 'get_market_data'):
             if asyncio.iscoroutinefunction(self.data_manager.get_market_data):
                 test_data = await self.data_manager.get_market_data(test_pair, limit=100)
             else:
-                test_data = self.data_manager.get_market_data(test_pair, limit=100)
+                test_data = self.data_manager.get_latest_data(test_pair, periods=100)
         else:
             # Create mock data for testing
             import pandas as pd
@@ -383,10 +412,10 @@ class AdaptiveBotMain:
             self.start_time = datetime.now()
             
             self.logger.info("✅ Adaptive bot started successfully")
-            self.logger.info(f"📊 Trading pairs: {', '.join(self.config.trading_pairs)}")
-            self.logger.info(f"💰 Initial capital: ${self.config.initial_capital:,.2f}")
-            self.logger.info(f"📝 Paper trading: {self.config.paper_trading}")
-            self.logger.info(f"🎛️ Adaptation enabled: {self.config.adaptation_enabled}")
+            self.logger.info(f"📊 Trading pairs: {', '.join(self.adaptive_config.trading_pairs)}")
+            self.logger.info(f"💰 Initial capital: ${self.adaptive_config.initial_capital:,.2f}")
+            self.logger.info(f"📝 Paper trading: {self.adaptive_config.paper_trading}")
+            self.logger.info(f"🎛️ Adaptation enabled: {self.adaptive_config.adaptation_enabled}")
             
             return True
             
@@ -440,7 +469,12 @@ class AdaptiveBotMain:
                 self.logger.info(f"🔄 Cycle #{self.cycle_count} - {datetime.now().strftime('%H:%M:%S')}")
                 
                 # Execute trading cycle for all pairs
-                await self._execute_trading_cycle()
+                try:
+                    await self._execute_trading_cycle()
+                except Exception as e:
+                    self.logger.error(f"❌ Error in trading cycle: {str(e)}")
+                    import traceback
+                    self.logger.error(f"Traceback: {traceback.format_exc()}")
                 
                 # Check for adaptations
                 if self.config.adaptation_enabled:
@@ -469,17 +503,22 @@ class AdaptiveBotMain:
     
     async def _execute_trading_cycle(self):
         """Execute trading cycle for all configured pairs with portfolio optimization."""
+        self.logger.debug(f"🔄 Executing trading cycle for pairs: {self.adaptive_config.trading_pairs}")
+        
         # Step 1: Collect opportunities from all pairs
         opportunities = {}
         market_data_cache = {}
         
-        for pair in self.config.trading_pairs:
+        for pair in self.adaptive_config.trading_pairs:
             try:
                 # Fetch market data
+                self.logger.debug(f"📊 Fetching market data for {pair}")
                 market_data = await self.data_manager.get_market_data(pair, limit=200)
                 if market_data is None or market_data.empty:
                     self.logger.warning(f"⚠️ No market data for {pair}")
                     continue
+                
+                self.logger.debug(f"✅ Got {len(market_data)} data points for {pair}")
                 
                 market_data_cache[pair] = market_data
                 
@@ -487,7 +526,7 @@ class AdaptiveBotMain:
                 regime = self.regime_detector.detect_regime(market_data, pair)
                 
                 # Generate adaptive signal
-                signal = await self.strategy_engine.execute_adaptive_signal(pair, market_data)
+                signal = self.strategy_engine.execute_adaptive_signal(pair, market_data)
                 
                 if signal is not None:
                     # Add opportunity to portfolio optimizer
@@ -531,7 +570,7 @@ class AdaptiveBotMain:
             regime = self.regime_detector.detect_regime(market_data, pair)
             
             # Generate adaptive signal
-            signal = await self.strategy_engine.execute_adaptive_signal(pair, market_data)
+            signal = self.strategy_engine.execute_adaptive_signal(pair, market_data)
             
             if signal is None:
                 self.logger.debug(f"📊 No signal generated for {pair}")
@@ -558,7 +597,7 @@ class AdaptiveBotMain:
     async def _execute_paper_trade(self, signal: AdaptiveSignal, market_data: pd.DataFrame):
         """Execute a paper trade."""
         if self.paper_trading_engine:
-            result = await self.paper_trading_engine.execute_trade(signal, market_data)
+            result = self.paper_trading_engine.execute_signal(signal)
             self.logger.info(f"📝 Paper trade executed: {result}")
     
     async def _execute_real_trade(self, signal: AdaptiveSignal, market_data: pd.DataFrame):
@@ -582,7 +621,7 @@ class AdaptiveBotMain:
         try:
             # Get current positions (this would come from the trading engine)
             positions = {}
-            total_capital = self.config.initial_capital
+            total_capital = self.adaptive_config.initial_capital
             available_capital = total_capital
             
             # In a real implementation, this would fetch actual positions
@@ -605,7 +644,7 @@ class AdaptiveBotMain:
                         )
                 
                 # Update capital from paper trading
-                total_capital = getattr(self.paper_trading_engine, 'total_capital', self.config.initial_capital)
+                total_capital = getattr(self.paper_trading_engine, 'total_capital', self.adaptive_config.initial_capital)
                 available_capital = getattr(self.paper_trading_engine, 'available_capital', total_capital)
             
             # Update portfolio optimizer
@@ -735,8 +774,8 @@ class AdaptiveBotMain:
             
             # Get current performance metrics
             performance_metrics = {}
-            for pair in self.config.trading_pairs:
-                metrics = await self.performance_analyzer.analyze_strategy_performance(
+            for pair in self.adaptive_config.trading_pairs:
+                metrics = self.performance_analyzer.analyze_strategy_performance(
                     "adaptive_ensemble", 
                     f"{self.config.performance_evaluation_hours}h"
                 )
@@ -777,7 +816,16 @@ class AdaptiveBotMain:
                 
                 # Send alert if alerting is enabled
                 if self.alerting_system:
-                    await self.alerting_system.send_adaptation_alert(event)
+                    # Create an alert for the adaptation event
+                    from .alerting_system import Alert, AlertLevel, AlertChannel
+                    alert = Alert(
+                        level=AlertLevel.INFO,
+                        title="Adaptation Executed",
+                        message=f"Adaptation executed for {pair}",
+                        timestamp=datetime.now(),
+                        source="adaptation_controller"
+                    )
+                    self.alerting_system.send_alert(alert, [AlertChannel.LOG])
             else:
                 self.logger.warning(f"⚠️ Adaptation failed for {pair}")
             
@@ -908,12 +956,6 @@ class AdaptiveBotMain:
             await self._save_state()
             
             # Shutdown components
-            if self.monitoring_dashboard:
-                await self.monitoring_dashboard.shutdown()
-            
-            if self.alerting_system:
-                await self.alerting_system.shutdown()
-            
             if self.data_manager:
                 await self.data_manager.shutdown()
             
@@ -943,7 +985,7 @@ class AdaptiveBotMain:
                 'warning_count': self.health.warning_count
             },
             'config': {
-                'trading_pairs': self.config.trading_pairs,
+                'trading_pairs': self.adaptive_config.trading_pairs,
                 'paper_trading': self.config.paper_trading,
                 'adaptation_enabled': self.config.adaptation_enabled
             },

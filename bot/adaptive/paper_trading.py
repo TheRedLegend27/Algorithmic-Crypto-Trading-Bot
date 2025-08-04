@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PaperTradingConfig:
     """Configuration for paper trading."""
-    initial_capital: float = 10000.0
+    initial_capital: float = 480.0
     max_position_size_pct: float = 0.1  # Max 10% of capital per position
     commission_rate: float = 0.001      # 0.1% commission
     slippage_rate: float = 0.0005       # 0.05% slippage
@@ -849,7 +849,7 @@ class PaperTradingEngine:
 def create_default_paper_trading_config() -> PaperTradingConfig:
     """Create default paper trading configuration."""
     return PaperTradingConfig(
-        initial_capital=10000.0,
+        initial_capital=480.0,
         max_position_size_pct=0.1,
         commission_rate=0.001,
         slippage_rate=0.0005,

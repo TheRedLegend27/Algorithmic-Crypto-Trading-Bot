@@ -117,13 +117,15 @@ def test_data_models():
     
     # Test OptimizationResult
     opt_result = OptimizationResult(
+        optimization_id="test_opt_001",
         strategy_name="momentum_strategy",
-        optimization_method=OptimizationMethod.BAYESIAN,
+        optimization_method="bayesian",
         old_parameters={"rsi_period": 14, "threshold": 70},
         new_parameters={"rsi_period": 16, "threshold": 75},
         performance_improvement=0.05,
         confidence_score=0.8,
-        validation_score=0.75
+        validation_period=timedelta(days=7),
+        applied_at=datetime.now()
     )
     changes = opt_result.get_parameter_changes()
     assert changes["rsi_period"] == 2
