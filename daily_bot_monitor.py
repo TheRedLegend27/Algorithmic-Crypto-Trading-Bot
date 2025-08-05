@@ -67,13 +67,24 @@ def daily_monitoring_report():
     print("-" * 30)
     
     try:
-        # Check adaptive bot log
-        if os.path.exists("adaptive_bot.log"):
-            with open("adaptive_bot.log", "r") as f:
+        # Check bot log files (try bot.log first, then adaptive_bot.log)
+        log_file = None
+        if os.path.exists("bot.log"):
+            log_file = "bot.log"
+        elif os.path.exists("adaptive_bot.log"):
+            log_file = "adaptive_bot.log"
+        
+        if log_file:
+            with open(log_file, "r") as f:
                 log_lines = f.readlines()
             
-            # Get recent log entries (last 100 lines)
-            recent_logs = log_lines[-100:] if len(log_lines) > 100 else log_lines
+            # Get today's log entries (filter by today's date)
+            today_str = datetime.now().strftime('%Y-%m-%d')
+            recent_logs = [line for line in log_lines if today_str in line]
+            
+            # If no today's logs, get last 500 lines for analysis
+            if not recent_logs:
+                recent_logs = log_lines[-500:] if len(log_lines) > 500 else log_lines
             
             # Count different types of events
             events = {
@@ -81,7 +92,8 @@ def daily_monitoring_report():
                 'adaptations': 0,
                 'errors': 0,
                 'warnings': 0,
-                'signals': 0
+                'signals': 0,
+                'cycles': 0
             }
             
             for line in recent_logs:
@@ -95,7 +107,10 @@ def daily_monitoring_report():
                     events['warnings'] += 1
                 elif 'signal' in line.lower() and 'generated' in line.lower():
                     events['signals'] += 1
+                elif 'Cycle #' in line:
+                    events['cycles'] += 1
             
+            print(f"   🔄 Total Cycles: {events['cycles']}")
             print(f"   📈 Recent Trades: {events['trades']}")
             print(f"   🎛️ Adaptations: {events['adaptations']}")
             print(f"   🎯 Signals Generated: {events['signals']}")
@@ -114,7 +129,7 @@ def daily_monitoring_report():
                     message = log.split(' - ')[-1].strip() if ' - ' in log else log.strip()
                     print(f"      {timestamp}: {message[:80]}...")
         else:
-            print("⚠️  No adaptive_bot.log file found")
+            print("⚠️  No bot log files found (checked bot.log and adaptive_bot.log)")
     
     except Exception as e:
         print(f"❌ Error in log analysis: {str(e)}")
@@ -198,8 +213,14 @@ def daily_monitoring_report():
             print("   ⚠️  Bot does not appear to be running")
         
         # Check log file age
-        if os.path.exists("adaptive_bot.log"):
-            log_age = datetime.now() - datetime.fromtimestamp(os.path.getmtime("adaptive_bot.log"))
+        log_file_to_check = None
+        if os.path.exists("bot.log"):
+            log_file_to_check = "bot.log"
+        elif os.path.exists("adaptive_bot.log"):
+            log_file_to_check = "adaptive_bot.log"
+            
+        if log_file_to_check:
+            log_age = datetime.now() - datetime.fromtimestamp(os.path.getmtime(log_file_to_check))
             if log_age.total_seconds() < 3600:  # Less than 1 hour
                 print(f"   ✅ Log file is recent (updated {log_age.total_seconds()/60:.0f} minutes ago)")
             else:

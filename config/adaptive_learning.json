@@ -1,0 +1,49 @@
+{
+  "ml_engine": {
+    "min_training_samples": 50,
+    "max_training_samples": 5000,
+    "retrain_frequency": 25,
+    "feature_selection": {
+      "enabled": true,
+      "max_features": 20,
+      "importance_threshold": 0.01
+    },
+    "online_learning": {
+      "enabled": true,
+      "learning_rate": 0.01,
+      "adaptation_rate": 0.1
+    }
+  },
+  "adaptive_strategies": {
+    "adaptation_frequency_minutes": 30,
+    "min_performance_threshold": 0.6,
+    "max_adaptations_per_day": 20,
+    "confidence_threshold": 0.7,
+    "strategy_weights": {
+      "enhanced_momentum": 0.4,
+      "price_action": 0.3,
+      "multi_timeframe": 0.3
+    }
+  },
+  "performance_tracking": {
+    "metrics": [
+      "accuracy",
+      "precision",
+      "recall",
+      "sharpe_ratio",
+      "max_drawdown",
+      "win_rate",
+      "profit_factor"
+    ],
+    "evaluation_window_hours": 24,
+    "min_trades_for_evaluation": 10
+  },
+  "risk_adaptation": {
+    "enabled": true,
+    "volatility_adjustment": true,
+    "drawdown_protection": true,
+    "position_sizing_adaptation": true,
+    "max_risk_per_trade": 0.02,
+    "max_portfolio_risk": 0.1
+  }
+}

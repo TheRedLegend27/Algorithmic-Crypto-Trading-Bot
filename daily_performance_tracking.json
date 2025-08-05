@@ -10,6 +10,16 @@
       "warnings": 5,
       "capital": 480.0,
       "notes": "Aggressive $480 configuration"
+    },
+    "2025-08-05": {
+      "date": "2025-08-05",
+      "trades": 0,
+      "adaptations": 0,
+      "signals": 0,
+      "errors": 0,
+      "warnings": 0,
+      "capital": 480.0,
+      "notes": "Aggressive $480 configuration"
     }
   }
 }
